@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>llccd&#39;s blog</title>
+  
+  
+  <link href="https://llccd.eu.org/atom.xml" rel="self"/>
+  
+  <link href="https://llccd.eu.org/"/>
+  <updated>2021-10-09T16:08:18.195Z</updated>
+  <id>https://llccd.eu.org/</id>
+  
+  <author>
+    <name>llccd</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Intel无线网卡obcaseinsensitive=0时罢工</title>
+    <link href="https://llccd.eu.org/2021/06/18/18-Intel_wireless_error10/"/>
+    <id>https://llccd.eu.org/2021/06/18/18-Intel_wireless_error10/</id>
+    <published>2021-06-18T08:00:00.000Z</published>
+    <updated>2021-10-09T16:08:18.195Z</updated>
+    
+    <content type="html"><![CDATA[<p>设置下面的注册表项关闭 “非Windows子系统不要求区分大小写” 后Intel无线网卡会罢工，显示<code>错误10</code>。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\obcaseinsensitive = dword:0</span><br></pre></td></tr></table></figure><img data-src="/images/AX201.png" width="50%" height="50%" title="Code 10" alt="Code 10"/><p>旧版Intel无线驱动没有该问题，目前&gt;=20.100的新版驱动均存在这一问题。</p><p>解决：用<code>bcdedit</code>把<code>systemroot</code>变量设置成正确的大小写</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bcdedit /set &#123;current&#125; systemroot \Windows</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;设置下面的注册表项关闭 “非Windows子系统不要求区分大小写” 后Intel无线网卡会罢工，显示&lt;code&gt;错误10&lt;/code&gt;。&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>得力3958考勤机破解管理员</title>
+    <link href="https://llccd.eu.org/2021/05/04/04-deli_3958/"/>
+    <id>https://llccd.eu.org/2021/05/04/04-deli_3958/</id>
+    <published>2021-05-04T07:00:00.000Z</published>
+    <updated>2021-10-09T16:11:21.399Z</updated>
+    
+    <content type="html"><![CDATA[<p>该型号机器不像其他得力考勤机一样有8181后门密码，因此破解相对困难。通过拆机发现，机器的固件和数据都存放在一块T25S32 4MB SPI flash中，只要对flash中的用户权限部分进行修改，就能实现管理员破解。</p><p>这个方法需要知道一个已有普通员工的指纹或密码。首先，获取并记录该员工的工号。然后，DUMP出flash的内容，用十六进制编辑器打开并搜索可能和用户权限设定有关的部分。</p><p>通过搜索发现，flash中0x1f2000开始的一段区域存储了用户的权限设定，每条记录以工号开始，以‘0D 0A 27’结束。记录的第八个字节表示权限，0x11为普通员工，0x15则为超级管理员。</p><img data-src="/images/userinfo.png" width="50%" height="50%" title="userinfo" alt="userinfo"/><p>把工号对应的0x11修改成0x15，将修改后的内容刷回flash，就能获得管理员权限。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;该型号机器不像其他得力考勤机一样有8181后门密码，因此破解相对困难。通过拆机发现，机器的固件和数据都存放在一块T25S32 4MB SPI flash中，只要对flash中的用户权限部分进行修改，就能实现管理员破解。&lt;/p&gt;
+&lt;p&gt;这个方法需要知道一个已有普通员工的指纹或</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Cloudflare CNAME接入启用ESNI</title>
+    <link href="https://llccd.eu.org/2019/11/28/28-cf_cname_esni/"/>
+    <id>https://llccd.eu.org/2019/11/28/28-cf_cname_esni/</id>
+    <published>2019-11-28T14:00:00.000Z</published>
+    <updated>2021-10-09T15:29:01.870Z</updated>
+    
+    <content type="html"><![CDATA[<p>由于ESNI需要配置DNS记录，因此默认情况下Cloudflare如果使用CNAME接入则没有ESNI保护。</p><p>目前Cloudflare的所有网站ESNI Public Key是同一个，可以通过随便<code>dig</code>一个Cloudflare域名的<code>_esni</code>TXT记录得到(如<code>dig -t TXT _esni.cloudflare.com</code>)。</p><p>假设要配置ESNI域名为<code>www.example.com</code>，直接添加CNAME记录，域名<code>_esni.www.example.com</code>，目标指向<code>_esni.cloudflare.com</code>，即可启用ESNI。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;由于ESNI需要配置DNS记录，因此默认情况下Cloudflare如果使用CNAME接入则没有ESNI保护。&lt;/p&gt;
+&lt;p&gt;目前Cloudflare的所有网站ESNI Public Key是同一个，可以通过随便&lt;code&gt;dig&lt;/code&gt;一个Cloudflare域名的&lt;</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>强制 Acrobat DC 使用旧版激活机制(Windows)</title>
+    <link href="https://llccd.eu.org/2019/11/12/12-IsAMTEnforced/"/>
+    <id>https://llccd.eu.org/2019/11/12/12-IsAMTEnforced/</id>
+    <published>2019-11-12T15:13:00.000Z</published>
+    <updated>2021-10-09T15:29:33.524Z</updated>
+    
+    <content type="html"><![CDATA[<p>新版Acrobat DC默认使用新版激活机制验证账号订阅，如果仅通过旧版激活机制（算号脱机激活）会造成软件打开正常但无法对PDF进行编辑，同时弹出“试用期已过”或“无法找到订阅”等提示。</p><p>目前可以通过修改注册表来强制 Acrobat DC 使用旧版激活机制</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Adobe\Adobe Acrobat\DC\Activation]</span><br><span class="line">&quot;IsAMTEnforced&quot;=dword:00000001</span><br></pre></td></tr></table></figure><p>注</p><ul><li>32位系统为<code>HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe Acrobat\DC\Activation</code></li><li>改<code>AMTlib.dll</code>不会有这个问题，但这种激活方式不完美，Adobe Acrobat Distiller无法使用</li><li><a target="_blank" rel="noopener" href="https://www.adobe.com/devnet-docs/acrobatetk/tools/PrefRef/Windows/Activation.html">官方文档</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;新版Acrobat DC默认使用新版激活机制验证账号订阅，如果仅通过旧版激活机制（算号脱机激活）会造成软件打开正常但无法对PDF进行编辑，同时弹出“试用期已过”或“无法找到订阅”等提示。&lt;/p&gt;
+&lt;p&gt;目前可以通过修改注册表来强制 Acrobat DC 使用旧版激活机制&lt;/</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>移动 ProgramData\Package Cache 文件夹</title>
+    <link href="https://llccd.eu.org/2019/08/12/12-mv_pagcache/"/>
+    <id>https://llccd.eu.org/2019/08/12/12-mv_pagcache/</id>
+    <published>2019-08-12T08:40:00.000Z</published>
+    <updated>2021-10-09T15:29:59.445Z</updated>
+    
+    <content type="html"><![CDATA[<p>文件夹原样拷贝到其他位置，进行如下操作：（以转移到<code>E:\ProgramData\Package Cache</code>为例）</p><ol><li>打开regedit，定位到<code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\WiX\Burn</code>（没有则新建项）</li><li>添加一REG_SZ类型名为PackageCache的条目，双击设置值为<code>E:\ProgramData\Package Cache</code></li><li>用<code>mklink /J &quot;C:\ProgramData\Package Cache&quot; &quot;E:\ProgramData\Package Cache&quot;</code>或其他方法建立链接</li><li>打开<code>C:\ProgramData</code>的高级权限设置，添加主体为”Everyone”的拒绝项，只应用到当前文件夹，只勾选“删除子文件夹和文件”</li><li>打开<code>C:\ProgramData\Package Cache</code>的高级权限设置，添加主体为”Everyone”的拒绝项，只应用到当前文件夹，只勾选“删除”<br>注</li></ol><ul><li>新版WiX安装程序支持通过注册表设置PackageCache位置，旧版位置固定为<code>%ALLUSERSPROFILE%\Package Cache</code></li><li>安装程序在进行修改/卸载操作最后会尝试删除<code>%ALLUSERSPROFILE%\Package Cache</code>目录，若其为非空文件夹，删除会失败，但在建立链接后，这项操作会导致建立的链接被删除，因此需要设置权限防止其被删除</li><li>在Windows下要阻止文件被删除但不阻止其他操作，需要对该文件和<strong>所属文件夹</strong>同时添加关于删除的拒绝项</li><li>Windows 10大版本更新时<code>C:\ProgramData</code>的权限设置会恢复默认</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;文件夹原样拷贝到其他位置，进行如下操作：（以转移到&lt;code&gt;E:\ProgramData\Package Cache&lt;/code&gt;为例）&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;打开regedit，定位到&lt;code&gt;HKEY_LOCAL_MACHINE\SOFTWARE\Policie</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>IIS10安装myrtille遇到1001错误</title>
+    <link href="https://llccd.eu.org/2019/08/12/12-iis_1001/"/>
+    <id>https://llccd.eu.org/2019/08/12/12-iis_1001/</id>
+    <published>2019-08-12T07:57:00.000Z</published>
+    <updated>2021-10-09T15:30:21.476Z</updated>
+    
+    <content type="html"><![CDATA[<p>已安装ASP.NET 4.x，但安装myrtille时仍报错：<br><code>error 1001 : some or all identity references could not be translated</code><br>解决方法</p><ul><li>打开“服务”，找到”IIS Admin Service”，启动该服务</li><li>如果没有”IIS Admin Service”，安装功能”IIS Metabase and IIS 6 configuration compatibility”</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;已安装ASP.NET 4.x，但安装myrtille时仍报错：&lt;br&gt;&lt;code&gt;error 1001 : some or all identity references could not be translated&lt;/code&gt;&lt;br&gt;解决方法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>用ext2fsd读取新版Linux系统的ext4分区</title>
+    <link href="https://llccd.eu.org/2019/06/29/29-ext2fsd_ext4/"/>
+    <id>https://llccd.eu.org/2019/06/29/29-ext2fsd_ext4/</id>
+    <published>2019-06-29T15:19:00.000Z</published>
+    <updated>2021-10-09T15:30:42.460Z</updated>
+    
+    <content type="html"><![CDATA[<p>新版Linux系统(Debian/Ubuntu)格式化的ext4分区默认开启了64bit和metadata_csum特性,而ext2fsd不支持这些特性。<br>要用ext2fsd读写数据必须关闭这些特性。<br>关闭方法：<br>用LiveCD启动，执行</p><ol><li>e2fsck -y /dev/[sdXX]</li><li>tune2fs -O ^metadata_csum /dev/[sdXX]</li><li>resize2fs -s /dev/[sdXX]</li></ol><p>若系统有initramfs也可以通过grub按<code>e</code>编辑启动项在cmdline最后添加break，进入initramfs进行操作（一般里面无tune2fs和resize2fs，需要先挂载Linux分区，从系统中复制tune2fs和resize2fs到<code>/usr/sbin</code>，再卸载）。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;新版Linux系统(Debian/Ubuntu)格式化的ext4分区默认开启了64bit和metadata_csum特性,而ext2fsd不支持这些特性。&lt;br&gt;要用ext2fsd读写数据必须关闭这些特性。&lt;br&gt;关闭方法：&lt;br&gt;用LiveCD启动，执行&lt;/p&gt;
+&lt;ol&gt;</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>dd-wrt设置全区(#a)</title>
+    <link href="https://llccd.eu.org/2019/06/26/26-ddwrt_allregion/"/>
+    <id>https://llccd.eu.org/2019/06/26/26-ddwrt_allregion/</id>
+    <published>2019-06-26T13:51:00.000Z</published>
+    <updated>2021-10-09T15:32:08.103Z</updated>
+    
+    <content type="html"><![CDATA[<p>dd-wrt的无线设置区域中没有全区，若用<code>nvram set</code>手动设置ccode和regrev，重启后设置会复原，使用<code>wl country</code>可以改变区域，但无法将区域改为#a或#r。<br>破解/lib/modules/{kernel_ver}/wl.ko可以实现用<code>wl country</code>变全区。<br>关键代码：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span></span></span><br><span class="line"><span class="function"><span class="title">wlc_cntry_external_to_internal</span><span class="params">(<span class="keyword">char</span> *buf, <span class="keyword">int</span> buflen)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">int</span> err = BCME_OK;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Translate ALL or RDR to internal 2 char country codes. */</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">strncmp</span>(buf, <span class="string">&quot;ALL&quot;</span>, <span class="keyword">sizeof</span>(<span class="string">&quot;ALL&quot;</span>) - <span class="number">1</span>)) &#123;</span><br><span class="line"><span class="built_in">strncpy</span>(buf, <span class="string">&quot;#a&quot;</span>, buflen);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (!<span class="built_in">strncmp</span>(buf, <span class="string">&quot;RDR&quot;</span>, <span class="keyword">sizeof</span>(<span class="string">&quot;RDR&quot;</span>) - <span class="number">1</span>)) &#123;</span><br><span class="line"><span class="built_in">strncpy</span>(buf, <span class="string">&quot;#r&quot;</span>, buflen);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> !defined(BCMDBG) &amp;&amp; !defined(WLTEST)</span></span><br><span class="line"><span class="comment">/* Don&#x27;t allow ALL or RDR in production. */</span></span><br><span class="line"><span class="keyword">if</span> ((!<span class="built_in">strncmp</span>(buf, <span class="string">&quot;#a&quot;</span>, <span class="keyword">sizeof</span>(<span class="string">&quot;#a&quot;</span>) - <span class="number">1</span>)) || (!<span class="built_in">strncmp</span>(buf, <span class="string">&quot;#r&quot;</span>, <span class="keyword">sizeof</span>(<span class="string">&quot;#r&quot;</span>) - <span class="number">1</span>))) &#123;</span><br><span class="line">err = BCME_BADARG;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* !defined(BCMDBG) &amp;&amp; !defined(WLTEST) */</span></span></span><br><span class="line"><span class="keyword">return</span> err;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>因此用ida打开wl.ko，搜索”#a”，找到最后相应匹配内容</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">; =============== S U B R O U T I N E =======================================</span><br><span class="line"></span><br><span class="line">; Attributes: bp-based frame</span><br><span class="line"></span><br><span class="line">_2394                                   ; CODE XREF: _2369+A4↑p</span><br><span class="line">                                        ; _2393+154↓p ...</span><br><span class="line">                MOV             R12, SP</span><br><span class="line">                STMFD           SP!, &#123;R4,R5,R11,R12,LR,PC&#125;</span><br><span class="line">                SUB             R11, R12, #4</span><br><span class="line">                MOV             R5, R1</span><br><span class="line">                MOV             R1, #:lower16:_994_14 ; &quot;ALL&quot;</span><br><span class="line">                MOV             R2, #3  ; size_t</span><br><span class="line">                MOVT            R1, #:upper16:_994_14 ; &quot;ALL&quot;</span><br><span class="line">                MOV             R4, R0</span><br><span class="line">                BL              strncmp</span><br><span class="line">                CMP             R0, #0</span><br><span class="line">                BNE             loc_1C5CE0</span><br><span class="line">                MOV             R1, #:lower16:_1048_10 ; &quot;#a&quot;</span><br><span class="line">                MOV             R2, R5  ; size_t</span><br><span class="line">                MOVT            R1, #:upper16:_1048_10 ; &quot;#a&quot;</span><br><span class="line">                MOV             R0, R4  ; char *</span><br><span class="line">                BL              strncpy</span><br><span class="line">                B               loc_1C5D10</span><br><span class="line">; ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">loc_1C5CE0                              ; CODE XREF: _2394+28↑j</span><br><span class="line">                MOV             R1, #:lower16:_1059_8 ; &quot;RDR&quot;</span><br><span class="line">                MOV             R2, #3  ; size_t</span><br><span class="line">                MOVT            R1, #:upper16:_1059_8 ; &quot;RDR&quot;</span><br><span class="line">                MOV             R0, R4  ; char *</span><br><span class="line">                BL              strncmp</span><br><span class="line">                CMP             R0, #0</span><br><span class="line">                BNE             loc_1C5D10</span><br><span class="line">                MOV             R1, #:lower16:_1070_8 ; &quot;#r&quot;</span><br><span class="line">                MOV             R2, R5  ; size_t</span><br><span class="line">                MOVT            R1, #:upper16:_1070_8 ; &quot;#r&quot;</span><br><span class="line">                MOV             R0, R4  ; char *</span><br><span class="line">                BL              strncpy</span><br><span class="line"></span><br><span class="line">loc_1C5D10                              ; CODE XREF: _2394+40↑j</span><br><span class="line">                                        ; _2394+5C↑j</span><br><span class="line">                MOV             R1, #:lower16:_1048_10 ; &quot;#a&quot;</span><br><span class="line">                MOV             R2, #2  ; size_t</span><br><span class="line">                MOVT            R1, #:upper16:_1048_10 ; &quot;#a&quot;</span><br><span class="line">                MOV             R0, R4  ; char *</span><br><span class="line">                BL              strncmp</span><br><span class="line">                CMP             R0, #0</span><br><span class="line">                BEQ             loc_1C5D48</span><br><span class="line">                MOV             R1, #:lower16:_1070_8 ; &quot;#r&quot;</span><br><span class="line">                MOV             R0, R4  ; char *</span><br><span class="line">                MOVT            R1, #:upper16:_1070_8 ; &quot;#r&quot;</span><br><span class="line">                MOV             R2, #2  ; size_t</span><br><span class="line">                BL              strncmp</span><br><span class="line">                CMP             R0, #0</span><br><span class="line">                BNE             loc_1C5D50</span><br><span class="line"></span><br><span class="line">loc_1C5D48                              ; CODE XREF: _2394+8C↑j</span><br><span class="line">                MOV             R0, #0xFFFFFFFE</span><br><span class="line">                LDMFD           SP, &#123;R4,R5,R11,SP,PC&#125;</span><br><span class="line">; ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">loc_1C5D50                              ; CODE XREF: _2394+A8↑j</span><br><span class="line">                MOV             R0, #0</span><br><span class="line">                LDMFD           SP, &#123;R4,R5,R11,SP,PC&#125;</span><br><span class="line">; End of function _2394</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>将<code>MOV R0, #0xFFFFFFFE</code>(<code>01 00 E0 E3</code>)改成<code>MOV R0, #0x0</code>(<code>00 00 A0 E3</code>)<br>最后使用[firmware-mod-kit][1]替换wl.ko，重新打包并刷入，使用<code>wl country ALL</code>即可设置成全区</p><p>更新：如果执行<code>wl country ALL</code>还是提示<code>wl: Bad Argument</code>，则说明固件层面有限制，这种情况可以尝试降级固件，或改到最大发射功率较大的地区（2.4G:<code>wl country AU/30</code>;5G:<code>wl country US/0</code>）。<br>  [1]: <a target="_blank" rel="noopener" href="https://github.com/rampageX/firmware-mod-kit">https://github.com/rampageX/firmware-mod-kit</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;dd-wrt的无线设置区域中没有全区，若用&lt;code&gt;nvram set&lt;/code&gt;手动设置ccode和regrev，重启后设置会复原，使用&lt;code&gt;wl country&lt;/code&gt;可以改变区域，但无法将区域改为#a或#r。&lt;br&gt;破解/lib/modules/{ke</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>转移Installer文件夹造成Win10更新出现0x80070032错误</title>
+    <link href="https://llccd.eu.org/2019/06/25/25-installer_80070032/"/>
+    <id>https://llccd.eu.org/2019/06/25/25-installer_80070032/</id>
+    <published>2019-06-25T12:49:00.000Z</published>
+    <updated>2021-10-09T15:32:22.942Z</updated>
+    
+    <content type="html"><![CDATA[<p>自从某次更新后，若利用Junction或Symbolic link转移了Installer文件夹，安装累计更新时均会出错，CBS.log 内容如下</p><blockquote><p>2019-06-25 20:35:18, Error                 CSI    00000008 (F) Error: ResolvePendingTransactions called after poqexec failure (call 1)<br>   Status = STATUS_NOT_SUPPORTED, Operation = SetFileInformation, DiagString = [l:34]’??\C:\WINDOWS\Installer, N/A, N/A’[gle=0x80004005]</p></blockquote><p>由上可知，软连接和符号链接由于不支持某个特殊文件属性的设置造成出错。目前只能先删除链接，建立一个空的Installer文件夹，等更新完成后再重新建立链接。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;自从某次更新后，若利用Junction或Symbolic link转移了Installer文件夹，安装累计更新时均会出错，CBS.log 内容如下&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2019-06-25 20:35:18, Error                 </summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Dell预装的SmartByte导致远程桌面加密错误</title>
+    <link href="https://llccd.eu.org/2019/04/01/01-dell_smartbyte/"/>
+    <id>https://llccd.eu.org/2019/04/01/01-dell_smartbyte/</id>
+    <published>2019-04-01T15:31:00.000Z</published>
+    <updated>2021-10-09T15:32:41.712Z</updated>
+    
+    <content type="html"><![CDATA[<p>一Dell电脑，远程桌面工作不正常，只能在本地子网连接，否则提示加密错误。卸载SmartByte后解决。<br>Ref:<a target="_blank" rel="noopener" href="https://www.v2ex.com/amp/t/490806">Dell 用户请注意你电脑上的 SmartByte 程序</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;一Dell电脑，远程桌面工作不正常，只能在本地子网连接，否则提示加密错误。卸载SmartByte后解决。&lt;br&gt;Ref:&lt;a target=&quot;_blank&quot; rel=&quot;noopener&quot; href=&quot;https://www.v2ex.com/amp/t/490806&quot;&gt;De</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Quartus Timing Analysis 卡在99%</title>
+    <link href="https://llccd.eu.org/2019/04/01/01-quartus_stuck/"/>
+    <id>https://llccd.eu.org/2019/04/01/01-quartus_stuck/</id>
+    <published>2019-04-01T15:21:00.000Z</published>
+    <updated>2021-10-09T15:32:31.678Z</updated>
+    
+    <content type="html"><![CDATA[<p>原因是相应器件库文件损坏，重装器件库后问题解决。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;原因是相应器件库文件损坏，重装器件库后问题解决。&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SQL Server更改计算机名后设置</title>
+    <link href="https://llccd.eu.org/2019/03/27/27-sqlserv_chg_name/"/>
+    <id>https://llccd.eu.org/2019/03/27/27-sqlserv_chg_name/</id>
+    <published>2019-03-27T15:28:00.000Z</published>
+    <updated>2021-10-09T15:33:01.809Z</updated>
+    
+    <content type="html"><![CDATA[<p>更改计算机名后，SQL Server仍能通过Windows身份验证登录，但在执行部分操作时会报用户不存在/计算机名不正确等问题，需要手动进行设置。</p><ol><li>若SQL Server设置为仅Windows身份验证登录，则先启用SQL Server身份验证登录，再启用sa账户并设置密码，重启SQL Server</li><li>使用sa登录,将smss“安全性/登录名”中各个账户用重命名修改为新的计算机名</li><li>在master数据库下执行以下SQL语句，重启SQL Server：</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sp_dropserver &#x27;旧计算机名&#x27;</span><br><span class="line">go</span><br><span class="line">sp_addserver &#x27;当前计算机名&#x27;,&#x27;LOCAL&#x27;</span><br></pre></td></tr></table></figure><p>旧计算机名可通过<code>select @@SERVERNAME</code>获得，当前计算机名可通过<code>select SERVERPROPERTY(&#39;servername&#39;)</code>获得。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;更改计算机名后，SQL Server仍能通过Windows身份验证登录，但在执行部分操作时会报用户不存在/计算机名不正确等问题，需要手动进行设置。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;若SQL Server设置为仅Windows身份验证登录，则先启用SQL Server身份验证登录，</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在64位Windows下“无缝”运行16位程序</title>
+    <link href="https://llccd.eu.org/2019/03/11/11-16bit_on_win64/"/>
+    <id>https://llccd.eu.org/2019/03/11/11-16bit_on_win64/</id>
+    <published>2019-03-11T13:51:00.000Z</published>
+    <updated>2021-10-09T15:33:15.290Z</updated>
+    
+    <content type="html"><![CDATA[<p><a target="_blank" rel="noopener" href="https://github.com/otya128/winevdm">otvdm</a>实现了运行win3.x程序| <a target="_blank" rel="noopener" href="https://ci.appveyor.com/project/otya128/winevdm/build/artifacts">Release</a><br><a target="_blank" rel="noopener" href="https://github.com/leecher1337/ntvdmx64">ntvdmx64</a>实现了运行DOS程序| <a target="_blank" rel="noopener" href="http://www.columbia.edu/~em36/ntvdmx64.html">Release</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener&quot; href=&quot;https://github.com/otya128/winevdm&quot;&gt;otvdm&lt;/a&gt;实现了运行win3.x程序| &lt;a target=&quot;_blank&quot; rel=&quot;noopener&quot; hre</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
