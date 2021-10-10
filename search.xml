@@ -57,7 +57,11 @@
   <entry>
     <title>IIS10安装myrtille遇到1001错误</title>
     <url>/2019/08/12/12-iis_1001/</url>
-    <content><![CDATA[<p>已安装ASP.NET 4.x，但安装myrtille时仍报错：<br><code>error 1001 : some or all identity references could not be translated</code><br>解决方法</p>
+    <content><![CDATA[<p>已安装ASP.NET 4.x，但安装myrtille时仍报错：</p>
+<blockquote>
+<p>error 1001 : some or all identity references could not be translated</p>
+</blockquote>
+<p>解决方法</p>
 <ul>
 <li>打开“服务”，找到”IIS Admin Service”，启动该服务</li>
 <li>如果没有”IIS Admin Service”，安装功能”IIS Metabase and IIS 6 configuration compatibility”</li>
@@ -67,19 +71,20 @@
   <entry>
     <title>移动 ProgramData\Package Cache 文件夹</title>
     <url>/2019/08/12/12-mv_pagcache/</url>
-    <content><![CDATA[<p>文件夹原样拷贝到其他位置，进行如下操作：（以转移到<code>E:\ProgramData\Package Cache</code>为例）</p>
+    <content><![CDATA[<p>文件夹原样拷贝到其他位置，进行如下操作：（以转移到“E:\ProgramData\Package Cache”为例）</p>
 <ol>
-<li>打开regedit，定位到<code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\WiX\Burn</code>（没有则新建项）</li>
-<li>添加一REG_SZ类型名为PackageCache的条目，双击设置值为<code>E:\ProgramData\Package Cache</code></li>
+<li>打开regedit，定位到“HKEY_LOCAL_MACHINE\SOFTWARE\Policies\WiX\Burn”（没有则新建项）</li>
+<li>添加一REG_SZ类型名为PackageCache的条目，双击设置值为“E:\ProgramData\Package Cache”</li>
 <li>用<code>mklink /J &quot;C:\ProgramData\Package Cache&quot; &quot;E:\ProgramData\Package Cache&quot;</code>或其他方法建立链接</li>
-<li>打开<code>C:\ProgramData</code>的高级权限设置，添加主体为”Everyone”的拒绝项，只应用到当前文件夹，只勾选“删除子文件夹和文件”</li>
-<li>打开<code>C:\ProgramData\Package Cache</code>的高级权限设置，添加主体为”Everyone”的拒绝项，只应用到当前文件夹，只勾选“删除”<br>注</li>
+<li>打开“C:\ProgramData”的高级权限设置，添加主体为“Everyone”的拒绝项，只应用到当前文件夹，只勾选“删除子文件夹和文件”</li>
+<li>打开“C:\ProgramData\Package Cache”的高级权限设置，添加主体为“Everyone”的拒绝项，只应用到当前文件夹，只勾选“删除”</li>
 </ol>
+<p>注</p>
 <ul>
-<li>新版WiX安装程序支持通过注册表设置PackageCache位置，旧版位置固定为<code>%ALLUSERSPROFILE%\Package Cache</code></li>
-<li>安装程序在进行修改/卸载操作最后会尝试删除<code>%ALLUSERSPROFILE%\Package Cache</code>目录，若其为非空文件夹，删除会失败，但在建立链接后，这项操作会导致建立的链接被删除，因此需要设置权限防止其被删除</li>
+<li>新版WiX安装程序支持通过注册表设置PackageCache位置，旧版位置固定为“%ALLUSERSPROFILE%\Package Cache”</li>
+<li>安装程序在进行修改/卸载操作最后会尝试删除“%ALLUSERSPROFILE%\Package Cache”目录，若其为非空文件夹，删除会失败，但在建立链接后，这项操作会导致建立的链接被删除，因此需要设置权限防止其被删除</li>
 <li>在Windows下要阻止文件被删除但不阻止其他操作，需要对该文件和<strong>所属文件夹</strong>同时添加关于删除的拒绝项</li>
-<li>Windows 10大版本更新时<code>C:\ProgramData</code>的权限设置会恢复默认</li>
+<li>Windows 10大版本更新时“C:\ProgramData”的权限设置会恢复默认</li>
 </ul>
 ]]></content>
   </entry>
@@ -88,8 +93,9 @@
     <url>/2019/11/12/12-IsAMTEnforced/</url>
     <content><![CDATA[<p>新版Acrobat DC默认使用新版激活机制验证账号订阅，如果仅通过旧版激活机制（算号脱机激活）会造成软件打开正常但无法对PDF进行编辑，同时弹出“试用期已过”或“无法找到订阅”等提示。</p>
 <p>目前可以通过修改注册表来强制 Acrobat DC 使用旧版激活机制</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Adobe\Adobe Acrobat\DC\Activation]</span><br><span class="line">&quot;IsAMTEnforced&quot;=dword:00000001</span><br></pre></td></tr></table></figure>
-
+<blockquote>
+<p>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Adobe\Adobe Acrobat\DC\Activation]<br> “IsAMTEnforced”=dword:00000001</p>
+</blockquote>
 <p>注</p>
 <ul>
 <li>32位系统为<code>HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe Acrobat\DC\Activation</code></li>
@@ -121,13 +127,14 @@
     <title>Intel无线网卡obcaseinsensitive=0时罢工</title>
     <url>/2021/06/18/18-Intel_wireless_error10/</url>
     <content><![CDATA[<p>设置下面的注册表项关闭 “非Windows子系统不要求区分大小写” 后Intel无线网卡会罢工，显示<code>错误10</code>。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\obcaseinsensitive = dword:0</span><br></pre></td></tr></table></figure>
-
+<blockquote>
+<p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\obcaseinsensitive = dword:0</p>
+</blockquote>
 <img data-src="/images/AX201.png" width="50%" height="50%" title="Code 10" alt="Code 10"/>
 
 <p>旧版Intel无线驱动没有该问题，目前&gt;=20.100的新版驱动均存在这一问题。</p>
 <p>解决：用<code>bcdedit</code>把<code>systemroot</code>变量设置成正确的大小写</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bcdedit /set &#123;current&#125; systemroot \Windows</span><br></pre></td></tr></table></figure>
+<figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">bcdedit /<span class="built_in">set</span> &#123;current&#125; systemroot \Windows</span><br></pre></td></tr></table></figure>
 ]]></content>
   </entry>
   <entry>
@@ -139,8 +146,8 @@
 <p>因此用ida打开wl.ko，搜索”#a”，找到最后相应匹配内容</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; =============== S U B R O U T I N E =======================================</span><br><span class="line"></span><br><span class="line">; Attributes: bp-based frame</span><br><span class="line"></span><br><span class="line">_2394                                   ; CODE XREF: _2369+A4↑p</span><br><span class="line">                                        ; _2393+154↓p ...</span><br><span class="line">                MOV             R12, SP</span><br><span class="line">                STMFD           SP!, &#123;R4,R5,R11,R12,LR,PC&#125;</span><br><span class="line">                SUB             R11, R12, #4</span><br><span class="line">                MOV             R5, R1</span><br><span class="line">                MOV             R1, #:lower16:_994_14 ; &quot;ALL&quot;</span><br><span class="line">                MOV             R2, #3  ; size_t</span><br><span class="line">                MOVT            R1, #:upper16:_994_14 ; &quot;ALL&quot;</span><br><span class="line">                MOV             R4, R0</span><br><span class="line">                BL              strncmp</span><br><span class="line">                CMP             R0, #0</span><br><span class="line">                BNE             loc_1C5CE0</span><br><span class="line">                MOV             R1, #:lower16:_1048_10 ; &quot;#a&quot;</span><br><span class="line">                MOV             R2, R5  ; size_t</span><br><span class="line">                MOVT            R1, #:upper16:_1048_10 ; &quot;#a&quot;</span><br><span class="line">                MOV             R0, R4  ; char *</span><br><span class="line">                BL              strncpy</span><br><span class="line">                B               loc_1C5D10</span><br><span class="line">; ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">loc_1C5CE0                              ; CODE XREF: _2394+28↑j</span><br><span class="line">                MOV             R1, #:lower16:_1059_8 ; &quot;RDR&quot;</span><br><span class="line">                MOV             R2, #3  ; size_t</span><br><span class="line">                MOVT            R1, #:upper16:_1059_8 ; &quot;RDR&quot;</span><br><span class="line">                MOV             R0, R4  ; char *</span><br><span class="line">                BL              strncmp</span><br><span class="line">                CMP             R0, #0</span><br><span class="line">                BNE             loc_1C5D10</span><br><span class="line">                MOV             R1, #:lower16:_1070_8 ; &quot;#r&quot;</span><br><span class="line">                MOV             R2, R5  ; size_t</span><br><span class="line">                MOVT            R1, #:upper16:_1070_8 ; &quot;#r&quot;</span><br><span class="line">                MOV             R0, R4  ; char *</span><br><span class="line">                BL              strncpy</span><br><span class="line"></span><br><span class="line">loc_1C5D10                              ; CODE XREF: _2394+40↑j</span><br><span class="line">                                        ; _2394+5C↑j</span><br><span class="line">                MOV             R1, #:lower16:_1048_10 ; &quot;#a&quot;</span><br><span class="line">                MOV             R2, #2  ; size_t</span><br><span class="line">                MOVT            R1, #:upper16:_1048_10 ; &quot;#a&quot;</span><br><span class="line">                MOV             R0, R4  ; char *</span><br><span class="line">                BL              strncmp</span><br><span class="line">                CMP             R0, #0</span><br><span class="line">                BEQ             loc_1C5D48</span><br><span class="line">                MOV             R1, #:lower16:_1070_8 ; &quot;#r&quot;</span><br><span class="line">                MOV             R0, R4  ; char *</span><br><span class="line">                MOVT            R1, #:upper16:_1070_8 ; &quot;#r&quot;</span><br><span class="line">                MOV             R2, #2  ; size_t</span><br><span class="line">                BL              strncmp</span><br><span class="line">                CMP             R0, #0</span><br><span class="line">                BNE             loc_1C5D50</span><br><span class="line"></span><br><span class="line">loc_1C5D48                              ; CODE XREF: _2394+8C↑j</span><br><span class="line">                MOV             R0, #0xFFFFFFFE</span><br><span class="line">                LDMFD           SP, &#123;R4,R5,R11,SP,PC&#125;</span><br><span class="line">; ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">loc_1C5D50                              ; CODE XREF: _2394+A8↑j</span><br><span class="line">                MOV             R0, #0</span><br><span class="line">                LDMFD           SP, &#123;R4,R5,R11,SP,PC&#125;</span><br><span class="line">; End of function _2394</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>将<code>MOV R0, #0xFFFFFFFE</code>(<code>01 00 E0 E3</code>)改成<code>MOV R0, #0x0</code>(<code>00 00 A0 E3</code>)<br>最后使用[firmware-mod-kit][1]替换wl.ko，重新打包并刷入，使用<code>wl country ALL</code>即可设置成全区</p>
-<p>更新：如果执行<code>wl country ALL</code>还是提示<code>wl: Bad Argument</code>，则说明固件层面有限制，这种情况可以尝试降级固件，或改到最大发射功率较大的地区（2.4G:<code>wl country AU/30</code>;5G:<code>wl country US/0</code>）。<br>  [1]: <a target="_blank" rel="noopener" href="https://github.com/rampageX/firmware-mod-kit">https://github.com/rampageX/firmware-mod-kit</a></p>
+<p>将<code>MOV R0, #0xFFFFFFFE</code>(<code>01 00 E0 E3</code>)改成<code>MOV R0, #0x0</code>(<code>00 00 A0 E3</code>)<br>最后使用<a target="_blank" rel="noopener" href="https://github.com/rampageX/firmware-mod-kit">firmware-mod-kit</a>替换wl.ko，重新打包并刷入，使用<code>wl country ALL</code>即可设置成全区</p>
+<p>更新：如果执行<code>wl country ALL</code>还是提示<code>wl: Bad Argument</code>，则说明固件层面有限制，这种情况可以尝试降级固件，或改到最大发射功率较大的地区（2.4G:<code>wl country AU/30</code>;5G:<code>wl country US/0</code>）。</p>
 ]]></content>
   </entry>
 </search>
