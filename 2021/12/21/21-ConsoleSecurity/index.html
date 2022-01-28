@@ -18,27 +18,27 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="程序看上去运行正常，没有任何报错。但是一编译就会卡在 Timing Analysis 99%，无法正常使用。 原因是相应器件库文件损坏，重装器件库后问题解决。">
+<meta name="description" content="现象：启动时登录界面出现 “your device is rebooting to perform some configuration tasks” ，重启后所有音频输入输出设备消失。设备管理器显示声卡驱动正常，甚至可以在里面看到消失的音频输入输出设备。如果使用远程桌面连接到这台计算机并且设置“在远程机器上播放音频”，声音可以正常使用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Quartus Timing Analysis 卡在 99&amp;percnt;">
-<meta property="og:url" content="https://llccd.eu.org/2019/04/01/01-quartus_stuck/index.html">
+<meta property="og:title" content="Win10 控制台登录无法找到音频设备">
+<meta property="og:url" content="https://llccd.eu.org/2021/12/21/21-ConsoleSecurity/index.html">
 <meta property="og:site_name" content="llccd&#39;s blog">
-<meta property="og:description" content="程序看上去运行正常，没有任何报错。但是一编译就会卡在 Timing Analysis 99%，无法正常使用。 原因是相应器件库文件损坏，重装器件库后问题解决。">
+<meta property="og:description" content="现象：启动时登录界面出现 “your device is rebooting to perform some configuration tasks” ，重启后所有音频输入输出设备消失。设备管理器显示声卡驱动正常，甚至可以在里面看到消失的音频输入输出设备。如果使用远程桌面连接到这台计算机并且设置“在远程机器上播放音频”，声音可以正常使用。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2019-04-01T15:21:00.000Z">
-<meta property="article:modified_time" content="2022-01-28T03:58:32.433Z">
+<meta property="article:published_time" content="2021-12-21T06:02:20.000Z">
+<meta property="article:modified_time" content="2022-01-28T02:44:42.479Z">
 <meta property="article:author" content="llccd">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://llccd.eu.org/2019/04/01/01-quartus_stuck/">
+<link rel="canonical" href="https://llccd.eu.org/2021/12/21/21-ConsoleSecurity/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://llccd.eu.org/2019/04/01/01-quartus_stuck/","path":"2019/04/01/01-quartus_stuck/","title":"Quartus Timing Analysis 卡在 99&percnt;"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://llccd.eu.org/2021/12/21/21-ConsoleSecurity/","path":"2021/12/21/21-ConsoleSecurity/","title":"Win10 控制台登录无法找到音频设备"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Quartus Timing Analysis 卡在 99&percnt; | llccd's blog</title>
+<title>Win10 控制台登录无法找到音频设备 | llccd's blog</title>
   
 
 
@@ -178,7 +178,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://llccd.eu.org/2019/04/01/01-quartus_stuck/">
+    <link itemprop="mainEntityOfPage" href="https://llccd.eu.org/2021/12/21/21-ConsoleSecurity/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -191,7 +191,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Quartus Timing Analysis 卡在 99&percnt;
+          Win10 控制台登录无法找到音频设备
         </h1>
 
         <div class="post-meta-container">
@@ -202,14 +202,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2019-04-01 23:21:00" itemprop="dateCreated datePublished" datetime="2019-04-01T23:21:00+08:00">2019-04-01</time>
+      <time title="Created: 2021-12-21 14:02:20" itemprop="dateCreated datePublished" datetime="2021-12-21T14:02:20+08:00">2021-12-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-28 11:58:32" itemprop="dateModified" datetime="2022-01-28T11:58:32+08:00">2022-01-28</time>
+      <time title="Modified: 2022-01-28 10:44:42" itemprop="dateModified" datetime="2022-01-28T10:44:42+08:00">2022-01-28</time>
     </span>
 
   
@@ -222,8 +222,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>程序看上去运行正常，没有任何报错。但是一编译就会卡在 Timing Analysis 99%，无法正常使用。</p>
-<p>原因是相应器件库文件损坏，重装器件库后问题解决。</p>
+        <p>现象：启动时登录界面出现 “your device is rebooting to perform some configuration tasks” ，重启后所有音频输入输出设备消失。设备管理器显示声卡驱动正常，甚至可以在里面看到消失的音频输入输出设备。如果使用远程桌面连接到这台计算机并且设置“在远程机器上播放音频”，声音可以正常使用。</p>
+<span id="more"></span>
+<p>原因是注册表中的 “ConsoleSecurity” 被系统设置成了空值，恢复默认值后问题消失。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Terminal Server\WinStations]</span><br><span class="line">&quot;ConsoleSecurity&quot;=hex:01,00,14,80,9c,00,00,00,a8,00,00,00,00,00,00,00,14,00,00,\</span><br><span class="line">  00,02,00,88,00,06,00,00,00,00,00,14,00,01,00,00,00,01,01,00,00,00,00,00,05,\</span><br><span class="line">  04,00,00,00,00,00,14,00,bf,03,0f,00,01,01,00,00,00,00,00,05,12,00,00,00,00,\</span><br><span class="line">  00,14,00,89,00,0f,00,01,01,00,00,00,00,00,05,13,00,00,00,00,00,14,00,81,00,\</span><br><span class="line">  00,00,01,01,00,00,00,00,00,05,14,00,00,00,00,00,18,00,bf,03,0f,00,01,02,00,\</span><br><span class="line">  00,00,00,00,05,20,00,00,00,20,02,00,00,00,00,18,00,21,01,00,00,01,02,00,00,\</span><br><span class="line">  00,00,00,05,20,00,00,00,2b,02,00,00,01,01,00,00,00,00,00,05,12,00,00,00,01,\</span><br><span class="line">  01,00,00,00,00,00,05,12,00,00,00</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -237,14 +239,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2019/03/27/27-sqlserv_chg_name/" rel="prev" title="SQL Server更改计算机名后设置">
-                  <i class="fa fa-chevron-left"></i> SQL Server更改计算机名后设置
+                <a href="/2021/10/24/24-Administrator_revert/" rel="prev" title="将 Windows 默认管理员账户恢复为本地用户">
+                  <i class="fa fa-chevron-left"></i> 将 Windows 默认管理员账户恢复为本地用户
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2019/04/01/01-dell_smartbyte/" rel="next" title="Dell 预装的 SmartByte 导致远程桌面加密错误">
-                  Dell 预装的 SmartByte 导致远程桌面加密错误 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

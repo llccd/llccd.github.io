@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -18,17 +17,17 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="该型号机器不像其他得力考勤机一样有8181后门密码，因此破解相对困难。通过拆机发现，机器的固件和数据都存放在一块T25S32 4MB SPI flash中，只要对flash中的用户权限部分进行修改，就能实现管理员破解。 这个方法需要知道一个已有普通员工的指纹或密码。首先，获取并记录该员工的工号。然后，DUMP出flash的内容，用十六进制编辑器打开并搜索可能和用户权限设定有关的部分。 通过搜索发现">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="该型号机器不像其他得力考勤机一样有 8181 后门密码，因此破解相对困难。通过拆机发现，机器的固件和数据都存放在一块 T25S32 4MB SPI flash 中，只要对 flash 中的用户权限部分进行修改，就能实现管理员破解。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="得力3958考勤机破解管理员">
 <meta property="og:url" content="https://llccd.eu.org/2021/05/04/04-deli_3958/index.html">
 <meta property="og:site_name" content="llccd&#39;s blog">
-<meta property="og:description" content="该型号机器不像其他得力考勤机一样有8181后门密码，因此破解相对困难。通过拆机发现，机器的固件和数据都存放在一块T25S32 4MB SPI flash中，只要对flash中的用户权限部分进行修改，就能实现管理员破解。 这个方法需要知道一个已有普通员工的指纹或密码。首先，获取并记录该员工的工号。然后，DUMP出flash的内容，用十六进制编辑器打开并搜索可能和用户权限设定有关的部分。 通过搜索发现">
+<meta property="og:description" content="该型号机器不像其他得力考勤机一样有 8181 后门密码，因此破解相对困难。通过拆机发现，机器的固件和数据都存放在一块 T25S32 4MB SPI flash 中，只要对 flash 中的用户权限部分进行修改，就能实现管理员破解。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://llccd.eu.org/images/userinfo.png">
 <meta property="article:published_time" content="2021-05-04T07:00:00.000Z">
-<meta property="article:modified_time" content="2021-10-10T03:06:31.762Z">
+<meta property="article:modified_time" content="2022-01-28T02:45:49.520Z">
 <meta property="article:author" content="llccd">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://llccd.eu.org/images/userinfo.png">
@@ -43,6 +42,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>得力3958考勤机破解管理员 | llccd's blog</title>
   
+
 
 
 
@@ -71,7 +71,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">llccd's blog</h1>
+      <p class="site-title">llccd's blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -129,7 +129,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -206,13 +206,13 @@
 
       <time title="Created: 2021-05-04 15:00:00" itemprop="dateCreated datePublished" datetime="2021-05-04T15:00:00+08:00">2021-05-04</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-10-10 11:06:31" itemprop="dateModified" datetime="2021-10-10T11:06:31+08:00">2021-10-10</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-01-28 10:45:49" itemprop="dateModified" datetime="2022-01-28T10:45:49+08:00">2022-01-28</time>
+    </span>
 
   
 </div>
@@ -224,12 +224,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>该型号机器不像其他得力考勤机一样有8181后门密码，因此破解相对困难。通过拆机发现，机器的固件和数据都存放在一块T25S32 4MB SPI flash中，只要对flash中的用户权限部分进行修改，就能实现管理员破解。</p>
-<p>这个方法需要知道一个已有普通员工的指纹或密码。首先，获取并记录该员工的工号。然后，DUMP出flash的内容，用十六进制编辑器打开并搜索可能和用户权限设定有关的部分。</p>
-<p>通过搜索发现，flash中0x1f2000开始的一段区域存储了用户的权限设定，每条记录以工号开始，以‘0D 0A 27’结束。记录的第八个字节表示权限，0x11为普通员工，0x15则为超级管理员。</p>
+        <p>该型号机器不像其他得力考勤机一样有 8181 后门密码，因此破解相对困难。通过拆机发现，机器的固件和数据都存放在一块 T25S32 4MB SPI flash 中，只要对 flash 中的用户权限部分进行修改，就能实现管理员破解。</p>
+<span id="more"></span>
+<p>这个方法需要知道一个已有普通员工的指纹或密码。首先，获取并记录该员工的工号。然后，DUMP 出 flash 的内容，用十六进制编辑器打开并搜索可能和用户权限设定有关的部分。</p>
+<p>通过搜索发现，flash 中 0x1f2000 开始的一段区域存储了用户的权限设定，每条记录以工号开始，以‘0D 0A 27’结束。记录的第八个字节表示权限，0x11 为普通员工，0x15 则为超级管理员。</p>
 <img data-src="/images/userinfo.png" width="50%" height="50%" title="userinfo" alt="userinfo"/>
 
-<p>把工号对应的0x11修改成0x15，将修改后的内容刷回flash，就能获得管理员权限。</p>
+<p>把工号对应的 0x11 修改成 0x15，将修改后的内容刷回 flash，就能获得管理员权限。</p>
+<p>注意直接使用编程器夹会无法正常写入，需要首先短路 CPU 的晶振使其停止工作。另外，如果已知通讯密码，可以直接用电脑端软件 “excelp2p” 对用户信息进行修改。</p>
 
     </div>
 
@@ -243,13 +245,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2019/11/28/28-cf_cname_esni/" rel="prev" title="Cloudflare CNAME接入启用ESNI">
-                  <i class="fa fa-chevron-left"></i> Cloudflare CNAME接入启用ESNI
+                <a href="/2019/11/28/28-cf_cname_esni/" rel="prev" title="Cloudflare CNAME 接入启用 ESNI">
+                  <i class="fa fa-chevron-left"></i> Cloudflare CNAME 接入启用 ESNI
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/06/18/18-Intel_wireless_error10/" rel="next" title="Intel无线网卡obcaseinsensitive=0时罢工">
-                  Intel无线网卡obcaseinsensitive=0时罢工 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/06/18/18-Intel_wireless_error10/" rel="next" title="Intel 无线网卡 obcaseinsensitive=0 时罢工">
+                  Intel 无线网卡 obcaseinsensitive=0 时罢工 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -268,15 +270,6 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">llccd</span>
-</div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 

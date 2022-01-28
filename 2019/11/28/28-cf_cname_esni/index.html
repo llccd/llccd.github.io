@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -18,16 +17,16 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="由于ESNI需要配置DNS记录，因此默认情况下Cloudflare如果使用CNAME接入则没有ESNI保护。 目前Cloudflare的所有网站ESNI Public Key是同一个，可以通过随便dig一个Cloudflare域名的_esniTXT记录得到(如dig -t TXT _esni.cloudflare.com)。 假设要配置ESNI域名为www.example.com，直接添加CNAM">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="由于 ESNI 需要配置 DNS 记录，因此默认情况下 Cloudflare 如果使用 CNAME 接入则没有 ESNI 保护。 目前 Cloudflare 所有网站使用的 ESNI Public Key 是同一个，可以通过任意dig一个 Cloudflare 域名的_esniTXT 记录得到 (如dig -t TXT _esni.cloudflare.com)。 假设要配置 ESNI 的域名为w">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cloudflare CNAME接入启用ESNI">
+<meta property="og:title" content="Cloudflare CNAME 接入启用 ESNI">
 <meta property="og:url" content="https://llccd.eu.org/2019/11/28/28-cf_cname_esni/index.html">
 <meta property="og:site_name" content="llccd&#39;s blog">
-<meta property="og:description" content="由于ESNI需要配置DNS记录，因此默认情况下Cloudflare如果使用CNAME接入则没有ESNI保护。 目前Cloudflare的所有网站ESNI Public Key是同一个，可以通过随便dig一个Cloudflare域名的_esniTXT记录得到(如dig -t TXT _esni.cloudflare.com)。 假设要配置ESNI域名为www.example.com，直接添加CNAM">
+<meta property="og:description" content="由于 ESNI 需要配置 DNS 记录，因此默认情况下 Cloudflare 如果使用 CNAME 接入则没有 ESNI 保护。 目前 Cloudflare 所有网站使用的 ESNI Public Key 是同一个，可以通过任意dig一个 Cloudflare 域名的_esniTXT 记录得到 (如dig -t TXT _esni.cloudflare.com)。 假设要配置 ESNI 的域名为w">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-11-28T14:00:00.000Z">
-<meta property="article:modified_time" content="2021-10-09T15:29:01.870Z">
+<meta property="article:modified_time" content="2022-01-28T02:47:43.592Z">
 <meta property="article:author" content="llccd">
 <meta name="twitter:card" content="summary">
 
@@ -36,11 +35,12 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://llccd.eu.org/2019/11/28/28-cf_cname_esni/","path":"2019/11/28/28-cf_cname_esni/","title":"Cloudflare CNAME接入启用ESNI"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://llccd.eu.org/2019/11/28/28-cf_cname_esni/","path":"2019/11/28/28-cf_cname_esni/","title":"Cloudflare CNAME 接入启用 ESNI"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Cloudflare CNAME接入启用ESNI | llccd's blog</title>
+<title>Cloudflare CNAME 接入启用 ESNI | llccd's blog</title>
   
+
 
 
 
@@ -69,7 +69,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">llccd's blog</h1>
+      <p class="site-title">llccd's blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -127,7 +127,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -191,7 +191,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Cloudflare CNAME接入启用ESNI
+          Cloudflare CNAME 接入启用 ESNI
         </h1>
 
         <div class="post-meta-container">
@@ -204,13 +204,13 @@
 
       <time title="Created: 2019-11-28 22:00:00" itemprop="dateCreated datePublished" datetime="2019-11-28T22:00:00+08:00">2019-11-28</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-10-09 23:29:01" itemprop="dateModified" datetime="2021-10-09T23:29:01+08:00">2021-10-09</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-01-28 10:47:43" itemprop="dateModified" datetime="2022-01-28T10:47:43+08:00">2022-01-28</time>
+    </span>
 
   
 </div>
@@ -222,9 +222,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>由于ESNI需要配置DNS记录，因此默认情况下Cloudflare如果使用CNAME接入则没有ESNI保护。</p>
-<p>目前Cloudflare的所有网站ESNI Public Key是同一个，可以通过随便<code>dig</code>一个Cloudflare域名的<code>_esni</code>TXT记录得到(如<code>dig -t TXT _esni.cloudflare.com</code>)。</p>
-<p>假设要配置ESNI域名为<code>www.example.com</code>，直接添加CNAME记录，域名<code>_esni.www.example.com</code>，目标指向<code>_esni.cloudflare.com</code>，即可启用ESNI。</p>
+        <p>由于 ESNI 需要配置 DNS 记录，因此默认情况下 Cloudflare 如果使用 CNAME 接入则没有 ESNI 保护。</p>
+<p>目前 Cloudflare 所有网站使用的 ESNI Public Key 是同一个，可以通过任意<code>dig</code>一个 Cloudflare 域名的<code>_esni</code>TXT 记录得到 (如<code>dig -t TXT _esni.cloudflare.com</code>)。</p>
+<p>假设要配置 ESNI 的域名为<code>www.example.com</code>，直接添加 CNAME 记录，域名<code>_esni.www.example.com</code>，目标指向<code>_esni.cloudflare.com</code>，即可启用 ESNI。</p>
 
     </div>
 
@@ -238,8 +238,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2019/11/12/12-IsAMTEnforced/" rel="prev" title="强制 Acrobat DC 使用旧版激活机制(Windows)">
-                  <i class="fa fa-chevron-left"></i> 强制 Acrobat DC 使用旧版激活机制(Windows)
+                <a href="/2019/11/12/12-IsAMTEnforced/" rel="prev" title="强制 Acrobat DC 使用旧版激活机制 (Windows)">
+                  <i class="fa fa-chevron-left"></i> 强制 Acrobat DC 使用旧版激活机制 (Windows)
                 </a>
             </div>
             <div class="post-nav-item">
@@ -263,15 +263,6 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">llccd</span>
-</div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 

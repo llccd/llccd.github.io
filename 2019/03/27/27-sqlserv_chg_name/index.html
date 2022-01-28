@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -18,16 +17,16 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="更改计算机名后，SQL Server仍能通过Windows身份验证登录，但在执行部分操作时会报用户不存在&#x2F;计算机名不正确等问题，需要手动进行设置。  若SQL Server设置为仅Windows身份验证登录，则先启用SQL Server身份验证登录，再启用sa账户并设置密码，重启SQL Server 使用sa登录,将smss“安全性&#x2F;登录名”中各个账户用重命名修改为新的计算机名 在master数据">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="更改计算机名后，SQL Server 仍能通过 Windows 身份验证登录，但在执行部分操作时会报用户不存在&#x2F;计算机名不正确等问题，需要手动进行设置。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL Server更改计算机名后设置">
 <meta property="og:url" content="https://llccd.eu.org/2019/03/27/27-sqlserv_chg_name/index.html">
 <meta property="og:site_name" content="llccd&#39;s blog">
-<meta property="og:description" content="更改计算机名后，SQL Server仍能通过Windows身份验证登录，但在执行部分操作时会报用户不存在&#x2F;计算机名不正确等问题，需要手动进行设置。  若SQL Server设置为仅Windows身份验证登录，则先启用SQL Server身份验证登录，再启用sa账户并设置密码，重启SQL Server 使用sa登录,将smss“安全性&#x2F;登录名”中各个账户用重命名修改为新的计算机名 在master数据">
+<meta property="og:description" content="更改计算机名后，SQL Server 仍能通过 Windows 身份验证登录，但在执行部分操作时会报用户不存在&#x2F;计算机名不正确等问题，需要手动进行设置。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-03-27T15:28:00.000Z">
-<meta property="article:modified_time" content="2021-10-09T15:33:01.809Z">
+<meta property="article:modified_time" content="2022-01-28T03:08:56.216Z">
 <meta property="article:author" content="llccd">
 <meta name="twitter:card" content="summary">
 
@@ -41,6 +40,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>SQL Server更改计算机名后设置 | llccd's blog</title>
   
+
 
 
 
@@ -69,7 +69,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">llccd's blog</h1>
+      <p class="site-title">llccd's blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -127,7 +127,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -204,13 +204,13 @@
 
       <time title="Created: 2019-03-27 23:28:00" itemprop="dateCreated datePublished" datetime="2019-03-27T23:28:00+08:00">2019-03-27</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-10-09 23:33:01" itemprop="dateModified" datetime="2021-10-09T23:33:01+08:00">2021-10-09</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-01-28 11:08:56" itemprop="dateModified" datetime="2022-01-28T11:08:56+08:00">2022-01-28</time>
+    </span>
 
   
 </div>
@@ -222,13 +222,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>更改计算机名后，SQL Server仍能通过Windows身份验证登录，但在执行部分操作时会报用户不存在/计算机名不正确等问题，需要手动进行设置。</p>
+        <p>更改计算机名后，SQL Server 仍能通过 Windows 身份验证登录，但在执行部分操作时会报用户不存在/计算机名不正确等问题，需要手动进行设置。</p>
+<span id="more"></span>
 <ol>
-<li>若SQL Server设置为仅Windows身份验证登录，则先启用SQL Server身份验证登录，再启用sa账户并设置密码，重启SQL Server</li>
-<li>使用sa登录,将smss“安全性/登录名”中各个账户用重命名修改为新的计算机名</li>
-<li>在master数据库下执行以下SQL语句，重启SQL Server：</li>
+<li>若 SQL Server 设置为“仅 Windows 身份验证”登录，则先启用“SQL Server 身份验证”登录，再启用 sa 账户并设置密码，重启 SQL Server</li>
+<li>在 SMSS 中使用 sa 登录，将“安全性/登录名”中的各个账户中的旧计算机名重命名为新的计算机名</li>
+<li>在 master 数据库下执行以下 SQL 语句，重启 SQL Server：</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sp_dropserver &#x27;旧计算机名&#x27;</span><br><span class="line">go</span><br><span class="line">sp_addserver &#x27;当前计算机名&#x27;,&#x27;LOCAL&#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sp_dropserver <span class="string">&#x27;旧计算机名&#x27;</span></span><br><span class="line">go</span><br><span class="line">sp_addserver <span class="string">&#x27;当前计算机名&#x27;</span>,<span class="string">&#x27;LOCAL&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>旧计算机名可通过<code>select @@SERVERNAME</code>获得，当前计算机名可通过<code>select SERVERPROPERTY(&#39;servername&#39;)</code>获得。</p>
 
@@ -244,13 +245,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2019/03/11/11-16bit_on_win64/" rel="prev" title="在64位Windows下“无缝”运行16位程序">
-                  <i class="fa fa-chevron-left"></i> 在64位Windows下“无缝”运行16位程序
+                <a href="/2019/03/11/11-16bit_on_win64/" rel="prev" title="在 64 位 Windows 下“无缝”运行 16 位程序">
+                  <i class="fa fa-chevron-left"></i> 在 64 位 Windows 下“无缝”运行 16 位程序
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2019/04/01/01-quartus_stuck/" rel="next" title="Quartus Timing Analysis 卡在99%">
-                  Quartus Timing Analysis 卡在99% <i class="fa fa-chevron-right"></i>
+                <a href="/2019/04/01/01-quartus_stuck/" rel="next" title="Quartus Timing Analysis 卡在 99&percnt;">
+                  Quartus Timing Analysis 卡在 99&percnt; <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -269,15 +270,6 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">llccd</span>
-</div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 

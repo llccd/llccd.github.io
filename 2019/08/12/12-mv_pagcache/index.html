@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -18,16 +17,16 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="文件夹原样拷贝到其他位置，进行如下操作：（以转移到“E:\ProgramData\Package Cache”为例）  打开regedit，定位到“HKEY_LOCAL_MACHINE\SOFTWARE\Policies\WiX\Burn”（没有则新建项） 添加一REG_SZ类型名为PackageCache的条目，双击设置值为“E:\ProgramData\Package Cache” 用mkli">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="安装完某些软件后，Package Cache 文件夹可能会变得异常巨大，占据宝贵的 SSD 空间。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="移动 ProgramData\Package Cache 文件夹">
 <meta property="og:url" content="https://llccd.eu.org/2019/08/12/12-mv_pagcache/index.html">
 <meta property="og:site_name" content="llccd&#39;s blog">
-<meta property="og:description" content="文件夹原样拷贝到其他位置，进行如下操作：（以转移到“E:\ProgramData\Package Cache”为例）  打开regedit，定位到“HKEY_LOCAL_MACHINE\SOFTWARE\Policies\WiX\Burn”（没有则新建项） 添加一REG_SZ类型名为PackageCache的条目，双击设置值为“E:\ProgramData\Package Cache” 用mkli">
+<meta property="og:description" content="安装完某些软件后，Package Cache 文件夹可能会变得异常巨大，占据宝贵的 SSD 空间。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-08-12T08:40:00.000Z">
-<meta property="article:modified_time" content="2021-10-10T03:20:36.549Z">
+<meta property="article:modified_time" content="2022-01-28T03:05:16.590Z">
 <meta property="article:author" content="llccd">
 <meta name="twitter:card" content="summary">
 
@@ -41,6 +40,7 @@
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>移动 ProgramData\Package Cache 文件夹 | llccd's blog</title>
   
+
 
 
 
@@ -69,7 +69,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">llccd's blog</h1>
+      <p class="site-title">llccd's blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -127,7 +127,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -204,13 +204,13 @@
 
       <time title="Created: 2019-08-12 16:40:00" itemprop="dateCreated datePublished" datetime="2019-08-12T16:40:00+08:00">2019-08-12</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-10-10 11:20:36" itemprop="dateModified" datetime="2021-10-10T11:20:36+08:00">2021-10-10</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-01-28 11:05:16" itemprop="dateModified" datetime="2022-01-28T11:05:16+08:00">2022-01-28</time>
+    </span>
 
   
 </div>
@@ -222,20 +222,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>文件夹原样拷贝到其他位置，进行如下操作：（以转移到“E:\ProgramData\Package Cache”为例）</p>
+        <p>安装完某些软件后，Package Cache 文件夹可能会变得异常巨大，占据宝贵的 SSD 空间。</p>
+<span id="more"></span>
+<p>文件夹原样拷贝到其他位置，进行如下操作：（以转移到 “E:\ProgramData\​Package Cache” 为例）</p>
 <ol>
-<li>打开regedit，定位到“HKEY_LOCAL_MACHINE\SOFTWARE\Policies\WiX\Burn”（没有则新建项）</li>
-<li>添加一REG_SZ类型名为PackageCache的条目，双击设置值为“E:\ProgramData\Package Cache”</li>
-<li>用<code>mklink /J &quot;C:\ProgramData\Package Cache&quot; &quot;E:\ProgramData\Package Cache&quot;</code>或其他方法建立链接</li>
-<li>打开“C:\ProgramData”的高级权限设置，添加主体为“Everyone”的拒绝项，只应用到当前文件夹，只勾选“删除子文件夹和文件”</li>
-<li>打开“C:\ProgramData\Package Cache”的高级权限设置，添加主体为“Everyone”的拒绝项，只应用到当前文件夹，只勾选“删除”</li>
+<li>打开 regedit，定位到 “HKLM\SOFTWARE\​Policies\WiX\Burn” （没有则新建项）</li>
+<li>添加一 REG_SZ 类型名为 PackageCache 的条目，值为 “E:\ProgramData\​Package Cache”</li>
+<li>用<code>mklink /J &quot;C:\ProgramData\​Package Cache&quot; &quot;E:\ProgramData\​Package Cache&quot;</code>或其他方法建立链接</li>
+<li>打开 “C:\ProgramData” 的高级权限设置，添加主体为 “Everyone” 的拒绝项，只应用到当前文件夹，权限只勾选 “删除子文件夹和文件”</li>
+<li>打开 “C:\ProgramData\​Package Cache” 的高级权限设置，添加主体为 “Everyone” 的拒绝项，只应用到当前文件夹，权限只勾选“删除”</li>
 </ol>
 <p>注</p>
 <ul>
-<li>新版WiX安装程序支持通过注册表设置PackageCache位置，旧版位置固定为“%ALLUSERSPROFILE%\Package Cache”</li>
-<li>安装程序在进行修改/卸载操作最后会尝试删除“%ALLUSERSPROFILE%\Package Cache”目录，若其为非空文件夹，删除会失败，但在建立链接后，这项操作会导致建立的链接被删除，因此需要设置权限防止其被删除</li>
-<li>在Windows下要阻止文件被删除但不阻止其他操作，需要对该文件和<strong>所属文件夹</strong>同时添加关于删除的拒绝项</li>
-<li>Windows 10大版本更新时“C:\ProgramData”的权限设置会恢复默认</li>
+<li>新版 WiX 安装程序支持通过注册表指定 PackageCache 位置，旧版位置固定为 “%ALLUSERSPROFILE%\​Package Cache”</li>
+<li>安装程序在进行修改/卸载操作最后会尝试删除 “%ALLUSERSPROFILE%\​​Package Cache” 目录，若其为非空文件夹，删除会失败，但在建立链接后，这项操作会导致建立的链接被删除，因此需要设置权限防止其被删除</li>
+<li>在 Windows 下要阻止文件被删除但不阻止其他操作，需要对该文件和<strong>所属文件夹</strong>同时添加关于删除的拒绝项</li>
+<li>Windows 10 大版本更新时 “C:\ProgramData” 的权限设置会恢复默认</li>
 </ul>
 
     </div>
@@ -250,13 +252,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2019/08/12/12-iis_1001/" rel="prev" title="IIS10安装myrtille遇到1001错误">
-                  <i class="fa fa-chevron-left"></i> IIS10安装myrtille遇到1001错误
+                <a href="/2019/08/12/12-iis_1001/" rel="prev" title="IIS 10 安装 myrtille 遇到 1001 错误">
+                  <i class="fa fa-chevron-left"></i> IIS 10 安装 myrtille 遇到 1001 错误
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2019/11/12/12-IsAMTEnforced/" rel="next" title="强制 Acrobat DC 使用旧版激活机制(Windows)">
-                  强制 Acrobat DC 使用旧版激活机制(Windows) <i class="fa fa-chevron-right"></i>
+                <a href="/2019/11/12/12-IsAMTEnforced/" rel="next" title="强制 Acrobat DC 使用旧版激活机制 (Windows)">
+                  强制 Acrobat DC 使用旧版激活机制 (Windows) <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -275,15 +277,6 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">llccd</span>
-</div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
