@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Windows 默认的 “Segoe UI Emoji” 字体中没有相应的字形，因此无法显示 emoji 旗帜。通过添加这些缺失的字形，就可以让 Windows 支持国旗显示。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows 添加 flag emoji 支持">
+<meta property="og:url" content="https://llccd.eu.org/2022/02/08/08-win_flags/index.html">
+<meta property="og:site_name" content="llccd&#39;s blog">
+<meta property="og:description" content="Windows 默认的 “Segoe UI Emoji” 字体中没有相应的字形，因此无法显示 emoji 旗帜。通过添加这些缺失的字形，就可以让 Windows 支持国旗显示。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-08T09:05:30.000Z">
+<meta property="article:modified_time" content="2022-02-08T09:49:18.097Z">
+<meta property="article:author" content="llccd">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://llccd.eu.org/2022/02/08/08-win_flags/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://llccd.eu.org/2022/02/08/08-win_flags/","path":"2022/02/08/08-win_flags/","title":"Windows 添加 flag emoji 支持"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Windows 添加 flag emoji 支持 | llccd's blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="llccd's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">llccd's blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#fontTools"><span class="nav-number">1.</span> <span class="nav-text">fontTools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ttx"><span class="nav-number">1.1.</span> <span class="nav-text">ttx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyftmerge"><span class="nav-number">1.2.</span> <span class="nav-text">pyftmerge</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenType"><span class="nav-number">2.</span> <span class="nav-text">OpenType</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cmap"><span class="nav-number">2.1.</span> <span class="nav-text">cmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hmtx"><span class="nav-number">2.2.</span> <span class="nav-text">hmtx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#glyf"><span class="nav-number">2.3.</span> <span class="nav-text">glyf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GSUB"><span class="nav-number">2.4.</span> <span class="nav-text">GSUB</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BD%A9%E8%89%B2%E5%AD%97%E5%BD%A2"><span class="nav-number">3.</span> <span class="nav-text">彩色字形</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CBDT-CBLC"><span class="nav-number">3.1.</span> <span class="nav-text">CBDT&#x2F;CBLC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sbix"><span class="nav-number">3.2.</span> <span class="nav-text">sbix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPAL-COLR"><span class="nav-number">3.3.</span> <span class="nav-text">CPAL&#x2F;COLR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG"><span class="nav-number">3.4.</span> <span class="nav-text">SVG</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%A6%81%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">修改要点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BF%AE%E6%94%B9%E5%90%8E%E7%9A%84%E5%AD%97%E4%BD%93"><span class="nav-number">5.</span> <span class="nav-text">安装修改后的字体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">5.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2%E7%B3%BB%E7%BB%9F%E5%AD%97%E4%BD%93"><span class="nav-number">5.2.</span> <span class="nav-text">替换系统字体</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">llccd</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/llccd" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;llccd" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:me@llccd.eu.org" title="E-Mail → mailto:me@llccd.eu.org"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/gNodeb" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;gNodeb" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://llccd.eu.org/2022/02/08/08-win_flags/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="llccd">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="llccd's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Windows 添加 flag emoji 支持
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-02-08 17:05:30 / Modified: 17:49:18" itemprop="dateCreated datePublished" datetime="2022-02-08T17:05:30+08:00">2022-02-08</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Windows 默认的 “Segoe UI Emoji” 字体中没有相应的字形，因此无法显示 emoji 旗帜。通过添加这些缺失的字形，就可以让 Windows 支持国旗显示。</p>
+<span id="more"></span>
+<h1 id="fontTools"><a href="#fontTools" class="headerlink" title="fontTools"></a>fontTools</h1><p>fontTools 是一个基于 Python 的字体编辑工具，可以通过 <code>pip install fonttools</code> 安装。安装完成后就可以在命令行里使用 pyfttools 提供的一些工具：</p>
+<h2 id="ttx"><a href="#ttx" class="headerlink" title="ttx"></a>ttx</h2><p>该命令可以将 TrueType / OpenType 字体“反编译”成可以直接用文本编辑器打开的 XML 文档，其后缀名为 ttx。也可以把修改后的 ttx 文件重新“编译”回 ttf。</p>
+<h2 id="pyftmerge"><a href="#pyftmerge" class="headerlink" title="pyftmerge"></a>pyftmerge</h2><p>该命令用于合并字体。但是这里我们无法使用这个命令把其他字体的字形合并到 “Segoe UI Emoji” 中，因为 pyftmerge 不支持对 CPAL/COLR 表进行合并。</p>
+<h1 id="OpenType"><a href="#OpenType" class="headerlink" title="OpenType"></a>OpenType</h1><p>关于 OpenType 规范的详细介绍，可以参考微软的文档 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/typography/opentype/spec/">https://docs.microsoft.com/en-us/typography/opentype/spec/</a></p>
+<p>OpenType 字体中有多种不同类型的表格，我们主要关注下面几张表：</p>
+<h2 id="cmap"><a href="#cmap" class="headerlink" title="cmap"></a>cmap</h2><p>指定某个码位对应的字形。不是所有的字形都会对应一个码位，但是每个在 cmap 表中声明的码位都需要对应一个字形（可以重复）。如果我们需要添加字形的 Unicode 码在原字体中不存在，就需要手动添加。某些字体可能会存在多张对应不同区域和语言的映射表，需要在所有映射表都加上相应的码位。一些防复制方案就是通过混淆 cmap 来实现的，可以实现选中复制后的文本和原始显示完全不同。</p>
+<h2 id="hmtx"><a href="#hmtx" class="headerlink" title="hmtx"></a>hmtx</h2><p>指定每个字形的垂直度量。如果修改之后的字体的宽度和间距过宽或过窄，就说明这个表中的数值存在问题。</p>
+<h2 id="glyf"><a href="#glyf" class="headerlink" title="glyf"></a>glyf</h2><p>包含字形数据，每个字形都由一系列 XY 座标点组成的轮廓构成。</p>
+<h2 id="GSUB"><a href="#GSUB" class="headerlink" title="GSUB"></a>GSUB</h2><p>定义了字形的替换规则。一类比较常见的字形替换是连字：当多个字形按照指定的顺序依次出现时，将其替换成另一个字形。国旗 emoji 没有单独的 Unicode 码位，就是通过连字实现。比如 “🇹” 和 “🇼” ，连在一起就会变成 “🇹🇼”。</p>
+<h1 id="彩色字形"><a href="#彩色字形" class="headerlink" title="彩色字形"></a>彩色字形</h1><p>Apple, Google, Microsoft 和 Mozilla 都提出了自己的彩色字形标准。通常情况下，相应平台对自己格式的支持是最好的，对于其他格式的支持则极为有限。有部分软件自己实现了字体渲染，导致它们可以支持一些原本平台不支持的格式，比如 Adobe 和 Mozilla 的软件就会支持 SVG 。</p>
+<h2 id="CBDT-CBLC"><a href="#CBDT-CBLC" class="headerlink" title="CBDT/CBLC"></a>CBDT/CBLC</h2><p>由 Google 提出，允许在字体中嵌入彩色位图。可以看作是 EBDT/EBLC 的升级版。</p>
+<h2 id="sbix"><a href="#sbix" class="headerlink" title="sbix"></a>sbix</h2><p>由 Apple 提出，也是一个基于位图的方案，原理和 Google 几乎没有区别。</p>
+<h2 id="CPAL-COLR"><a href="#CPAL-COLR" class="headerlink" title="CPAL/COLR"></a>CPAL/COLR</h2><p>由 Microsoft 提出，彩色字形中的单个颜色作为一个“图层”存储于 glyf 中。CPAL 包含了各个颜色索引值所对应的颜色。COLR 则指定了某个字形由那些“图层”构成，以及各“图层”的颜色索引值。</p>
+<h2 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h2><p>由 Adobe 和 Mozilla 提出，通过直接在文件中嵌入 svg 来显示彩色字形。相比其他方案，SVG 的功能最为齐全，甚至可以实现动画等特殊效果。</p>
+<h1 id="修改要点"><a href="#修改要点" class="headerlink" title="修改要点"></a>修改要点</h1><p>为了可以在 Windows 中使用，我们需要一个使用 CPAL/COLR，并且包含国旗 emoji 的字体。TwemojiMozilla 是一个使用 CPAL/COLR 的 Twitter emoji 字体，我们将其中的国旗 emoji 提取出来，添加到 “Segoe UI Emoji” 字体中。</p>
+<p>使用 DirectDraw 的程序可以显示彩色 emoji，如果程序不支持 DirectDraw，只能显示黑白的 emoji。因此为了支持这些应用，我们还需要一份黑白的 emoji 字形，可以从 <a target="_blank" rel="noopener" href="https://github.com/eosrei/twemoji-color-font">TwitterColorEmoji-SVGinOT</a> 中提取。TwitterColorEmoji-SVGinOT 是一个使用 svg 的 Twitter emoji 字体，除了彩色字形之外，还包含了使用程序转换生成的黑白字形。黑白字形的辨识度相对较低，但总比完全无法显示要好得多。</p>
+<p>TwemojiMozilla 的 units per em 是 512，而另外两个字体是 2048，因此在合并之前需要对 TwemojiMozilla 中的所有 XY 座标值乘 4。下面是一个简单的 Python 脚本，来实现 hmtx 和 glyf 中的座标值乘 4：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;hmtx_and_glyf.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">	<span class="built_in">print</span>(re.sub(<span class="string">&#x27; (x|y|width|lsb)=&quot;(|-)(\d+)&quot;&#x27;</span>,<span class="keyword">lambda</span> x: <span class="string">&#x27; &#x27;</span>+x.group(<span class="number">1</span>)+<span class="string">&#x27;=&quot;&#x27;</span>+x.group(<span class="number">2</span>)+<span class="built_in">str</span>(<span class="built_in">int</span>(x.group(<span class="number">3</span>))*<span class="number">4</span>)+<span class="string">&#x27;&quot;&#x27;</span> ,line), end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>每在 glyf 表里添加一个字形，都需要在 hmtx 、GlyphOrder 和 GDEF 里面添加对应的项，即这四个表的元素数目需要保持一致。</p>
+<p>在合并 COLR 之前，需要先合并 CPAL ，然后对 colorID 作相应的映射。原始微软字体中有一些 CPAL 项没有被使用，在合并时可以回收利用这些 colorID。下面是一个简单的 Python 脚本，来实现 CPAL 的合并和 COLR 的 colorID 映射：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;colr_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">colors = <span class="built_in">set</span>()</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">	m = re.search(<span class="string">&#x27;&lt;layer colorID=&quot;(\d+?)&quot; name=&#x27;</span>, line)</span><br><span class="line">	<span class="keyword">if</span> m:</span><br><span class="line">		colorID = <span class="built_in">int</span>(m.group(<span class="number">1</span>))</span><br><span class="line">		colors.add(colorID)</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;cpal_original.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">cpal = []</span><br><span class="line">available = []</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">	m = re.search(<span class="string">&#x27;&lt;color index=&quot;\d+?&quot; value=&quot;#([0-9A-F]&#123;6&#125;)[0-9A-F]&#123;2&#125;&quot;/&gt;&#x27;</span>, line)</span><br><span class="line">	<span class="keyword">if</span> m:</span><br><span class="line">		color = m.group(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">if</span> color == <span class="string">&#x27;000001&#x27;</span>:</span><br><span class="line">			available.append(<span class="built_in">len</span>(cpal))</span><br><span class="line">		cpal.append(color)</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;cpal_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">cpal2 = []</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">	m = re.search(<span class="string">&#x27;&lt;color index=&quot;\d+?&quot; value=&quot;#([0-9A-F]&#123;6&#125;)[0-9A-F]&#123;2&#125;&quot;/&gt;&#x27;</span>, line)</span><br><span class="line">	<span class="keyword">if</span> m:</span><br><span class="line">		color = m.group(<span class="number">1</span>)</span><br><span class="line">		cpal2.append(color)</span><br><span class="line"></span><br><span class="line">mapping = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> colors:</span><br><span class="line">	<span class="keyword">if</span> cpal2[i] <span class="keyword">in</span> cpal:</span><br><span class="line">		mapping[i] = cpal.index(cpal2[i])</span><br><span class="line">	<span class="keyword">elif</span> available:</span><br><span class="line">		idx = available.pop()</span><br><span class="line">		cpal[idx] = cpal2[i]</span><br><span class="line">		mapping[i] = idx</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		mapping[i] = <span class="built_in">len</span>(cpal)</span><br><span class="line">		cpal.append(cpal2[i])</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;colr_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">	<span class="built_in">print</span>(re.sub(<span class="string">&#x27;&lt;layer colorID=&quot;(\d+?)&quot; name=&#x27;</span>,<span class="keyword">lambda</span> x: <span class="string">&#x27;&lt;layer colorID=&quot;&#x27;</span>+<span class="built_in">str</span>(mapping[<span class="built_in">int</span>(x.group(<span class="number">1</span>))])+<span class="string">&#x27;&quot; name=&#x27;</span> ,line), end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i,color <span class="keyword">in</span> <span class="built_in">enumerate</span>(cpal):</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&#x27;      &lt;color index=&quot;&#x27;</span>+<span class="built_in">str</span>(i)+<span class="string">&#x27;&quot; value=&quot;#&#x27;</span>+color+<span class="string">&#x27;FF&quot;/&gt;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>原字体 CPAL 中有两张调色板，都需要作相应修改。fontTools 可以自动计算大多数的统计值，但是不支持自动计算 CPAL 里面的 numPaletteEntries，因此需要手动更新这一项。</p>
+<p>原字体有数字签名，修改后重新编译的字体数字签名会失效，因此可以删掉最后的 DSIG 表。</p>
+<h1 id="安装修改后的字体"><a href="#安装修改后的字体" class="headerlink" title="安装修改后的字体"></a>安装修改后的字体</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="/files/seguiemj_1_31_mod.ttf">seguiemj mod ver 1.31</a></p>
+<p><a href="/files/seguiemj_1_33_mod.ttf">seguiemj mod ver 1.33</a></p>
+<p>1.31 版适用于 Win10 和 Server 2019/2022，1.33 版适用于 Win11。这两个版本的不同之处在 <a target="_blank" rel="noopener" href="https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">emojipedia</a> (<a target="_blank" rel="noopener" href="https://web.archive.org/web/20220206140558/https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">Archive</a>) 上有比较详细的说明。</p>
+<h2 id="替换系统字体"><a href="#替换系统字体" class="headerlink" title="替换系统字体"></a>替换系统字体</h2><p>使用 copy 命令将字体复制到 %windir%\Fonts 中。为了更好的兼容性，新字体名称的 ASCII 排序应当在原字体 “seguiemj.ttf” 之前，同时使用 8.3 命名。</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">copy</span> seguiemj_mod.ttf <span class="variable">%windir%</span>\Fonts\segoeemj.ttf</span><br></pre></td></tr></table></figure>
+
+<p>修改注册表，重启系统即可生效。</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts&quot; /v &quot;Segoe UI Emoji (TrueType)&quot; /d segoeemj.ttf /f</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/21/21-ConsoleSecurity/" rel="prev" title="Win10 控制台登录无法找到音频设备">
+                  <i class="fa fa-chevron-left"></i> Win10 控制台登录无法找到音频设备
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

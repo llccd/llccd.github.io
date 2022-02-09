@@ -18,15 +18,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="自从某次更新后，若利用 Junction 或 Symbolic link 转移了 Installer 文件夹，安装累计更新时均会出现 0x80070032 错误。CBS.log 内容如下：  2019-06-25 20:35:18, Error                 CSI    00000008 (F) Error: ResolvePendingTransactions called">
+<meta name="description" content="若利用 Junction 或 Symbolic link 转移了 Installer 文件夹，安装部分累计更新时可能会出现 0x80070032 错误。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="转移 Installer 文件夹造成 Win10 更新出现错误">
 <meta property="og:url" content="https://llccd.eu.org/2019/06/25/25-installer_80070032/index.html">
 <meta property="og:site_name" content="llccd&#39;s blog">
-<meta property="og:description" content="自从某次更新后，若利用 Junction 或 Symbolic link 转移了 Installer 文件夹，安装累计更新时均会出现 0x80070032 错误。CBS.log 内容如下：  2019-06-25 20:35:18, Error                 CSI    00000008 (F) Error: ResolvePendingTransactions called">
+<meta property="og:description" content="若利用 Junction 或 Symbolic link 转移了 Installer 文件夹，安装部分累计更新时可能会出现 0x80070032 错误。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-06-25T12:49:00.000Z">
-<meta property="article:modified_time" content="2022-01-06T10:43:55.370Z">
+<meta property="article:modified_time" content="2022-01-28T04:06:21.354Z">
 <meta property="article:author" content="llccd">
 <meta name="twitter:card" content="summary">
 
@@ -127,7 +127,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -209,7 +209,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-06 18:43:55" itemprop="dateModified" datetime="2022-01-06T18:43:55+08:00">2022-01-06</time>
+      <time title="Modified: 2022-01-28 12:06:21" itemprop="dateModified" datetime="2022-01-28T12:06:21+08:00">2022-01-28</time>
     </span>
 
   
@@ -222,9 +222,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>自从某次更新后，若利用 Junction 或 Symbolic link 转移了 Installer 文件夹，安装累计更新时均会出现 0x80070032 错误。CBS.log 内容如下：</p>
+        <p>若利用 Junction 或 Symbolic link 转移了 Installer 文件夹，安装部分累计更新时可能会出现 0x80070032 错误。</p>
+<span id="more"></span>
+<p>CBS.log 内容如下：</p>
 <blockquote>
-<p>2019-06-25 20:35:18, Error                 CSI    00000008 (F) Error: ResolvePendingTransactions called after poqexec failure (call 1)<br>   Status = STATUS_NOT_SUPPORTED, Operation = SetFileInformation, DiagString = [l:34]’??\C:\WINDOWS\Installer, N/A, N/A’[gle=0x80004005]</p>
+<p>2019-06-25 20:35:18, Error                 CSI    00000008 (F) Error: ResolvePendingTransactions called after poqexec failure (call 1)<br>   Status = STATUS_NOT_SUPPORTED, Operation = SetFileInformation, DiagString = [l:34]’??\C:\​WINDOWS\​Installer, N/A, N/A’[gle=0x80004005]</p>
 </blockquote>
 <p>由上可知，软连接和符号链接由于不支持某个特殊文件属性的设置造成出错。目前只能先删除链接，建立一个空的 Installer 文件夹，等更新完成后再重新建立链接。</p>
 
