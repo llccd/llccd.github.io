@@ -1,8 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Quartus Timing Analysis 卡在 99&amp;percnt;</title>
+    <url>/2019/04/quartus_stuck/</url>
+    <content><![CDATA[<p>程序看上去运行正常，没有任何报错。但是一编译就会卡在 Timing Analysis 99%，无法正常使用。</p>
+<p>原因是相应器件库文件损坏，重装器件库后问题解决。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>SQL Server更改计算机名后设置</title>
+    <url>/2019/03/sqlserv_chg_name/</url>
+    <content><![CDATA[<p>更改计算机名后，SQL Server 仍能通过 Windows 身份验证登录，但在执行部分操作时会报用户不存在/计算机名不正确等问题，需要手动进行设置。</p>
+<span id="more"></span>
+<ol>
+<li>若 SQL Server 设置为“仅 Windows 身份验证”登录，则先启用“SQL Server 身份验证”登录，再启用 sa 账户并设置密码，重启 SQL Server</li>
+<li>在 SMSS 中使用 sa 登录，将“安全性/登录名”中的各个账户中的旧计算机名重命名为新的计算机名</li>
+<li>在 master 数据库下执行以下 SQL 语句，重启 SQL Server：</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sp_dropserver <span class="string">&#x27;旧计算机名&#x27;</span></span><br><span class="line">go</span><br><span class="line">sp_addserver <span class="string">&#x27;当前计算机名&#x27;</span>,<span class="string">&#x27;LOCAL&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>旧计算机名可通过<code>select @@SERVERNAME</code>获得，当前计算机名可通过<code>select SERVERPROPERTY(&#39;servername&#39;)</code>获得。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Dell 预装的 SmartByte 导致远程桌面加密错误</title>
+    <url>/2019/04/dell_smartbyte/</url>
+    <content><![CDATA[<p>一 Dell 电脑，远程桌面工作不正常，只能在本地子网连接，否则提示加密错误。卸载掉预装的 SmartByte 后解决。</p>
+<p>Ref: <a target="_blank" rel="noopener" href="https://www.v2ex.com/amp/t/490806">Dell 用户请注意你电脑上的 SmartByte 程序</a> | <a target="_blank" rel="noopener" href="https://web.archive.org/web/20211123175945/https://www.v2ex.com/amp/t/490806">Archive</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>在 64 位 Windows 下“无缝”运行 16 位程序</title>
+    <url>/2019/03/16bit_on_win64/</url>
+    <content><![CDATA[<p>使用 <a target="_blank" rel="noopener" href="https://github.com/otya128/winevdm">otvdm</a> 可以实现在资源管理器和命令行中直接启动 Windows 3.x 程序</p>
+<p>使用 <a target="_blank" rel="noopener" href="https://github.com/leecher1337/ntvdmx64">ntvdmx64</a> 可以实现在资源管理器和命令行中直接启动 DOS 程序<br>在 <a target="_blank" rel="noopener" href="http://www.columbia.edu/~em36/ntvdmx64.html">http://www.columbia.edu/~em36/ntvdmx64.html</a> 可以下载到编译好的二进制文件</p>
+<p>Windows Vista 及以后的操作系统不会使用 PC Speaker，如果需要使其发声，可以到<a target="_blank" rel="noopener" href="http://www.waldbauer.com/tmp/reference.php">这里</a>下载 BEEPx64</p>
+]]></content>
+  </entry>
+  <entry>
     <title>转移 Installer 文件夹造成 Win10 更新出现错误</title>
-    <url>/2019/06/25/25-installer_80070032/</url>
+    <url>/2019/06/installer_80070032/</url>
     <content><![CDATA[<p>若利用 Junction 或 Symbolic link 转移了 Installer 文件夹，安装部分累计更新时可能会出现 0x80070032 错误。</p>
 <span id="more"></span>
 <p>CBS.log 内容如下：</p>
@@ -13,23 +50,8 @@
 ]]></content>
   </entry>
   <entry>
-    <title>IIS 10 安装 myrtille 遇到 1001 错误</title>
-    <url>/2019/08/12/12-iis_1001/</url>
-    <content><![CDATA[<p>已安装完所有需要的依赖项，但安装 myrtille 时仍报错：</p>
-<blockquote>
-<p>error 1001 : some or all identity references could not be translated</p>
-</blockquote>
-<span id="more"></span>
-<p>解决方法</p>
-<ul>
-<li>打开“服务”，找到 “IIS Admin Service”，启动该服务</li>
-<li>如果没有 “IIS Admin Service”，安装 Windows 功能 “IIS Metabase and IIS 6 configuration compatibility”</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
     <title>用 ext2fsd 读取新版 Linux 系统的 ext4 分区</title>
-    <url>/2019/06/29/29-ext2fsd_ext4/</url>
+    <url>/2019/06/ext2fsd_ext4/</url>
     <content><![CDATA[<p>新版 Linux 系统 (Debian/Ubuntu) 格式化的 ext4 分区默认开启了 64bit 和 metadata_csum 特性，而 ext2fsd 不支持这些特性。要用 ext2fsd 读写数据必须关闭这些特性。</p>
 <span id="more"></span>
 <p>关闭方法：</p>
@@ -48,8 +70,23 @@
 ]]></content>
   </entry>
   <entry>
+    <title>IIS 10 安装 myrtille 遇到 1001 错误</title>
+    <url>/2019/08/iis_1001/</url>
+    <content><![CDATA[<p>已安装完所有需要的依赖项，但安装 myrtille 时仍报错：</p>
+<blockquote>
+<p>error 1001 : some or all identity references could not be translated</p>
+</blockquote>
+<span id="more"></span>
+<p>解决方法</p>
+<ul>
+<li>打开“服务”，找到 “IIS Admin Service”，启动该服务</li>
+<li>如果没有 “IIS Admin Service”，安装 Windows 功能 “IIS Metabase and IIS 6 configuration compatibility”</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>移动 ProgramData\Package Cache 文件夹</title>
-    <url>/2019/08/12/12-mv_pagcache/</url>
+    <url>/2019/08/mv_pagcache/</url>
     <content><![CDATA[<p>安装完某些软件后，Package Cache 文件夹可能会变得异常巨大，占据宝贵的 SSD 空间。</p>
 <span id="more"></span>
 <p>文件夹原样拷贝到其他位置，进行如下操作：（以转移到 “E:\ProgramData\​Package Cache” 为例）</p>
@@ -70,8 +107,16 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Cloudflare CNAME 接入启用 ESNI</title>
+    <url>/2019/11/cf_cname_esni/</url>
+    <content><![CDATA[<p>由于 ESNI 需要配置 DNS 记录，因此默认情况下 Cloudflare 如果使用 CNAME 接入则没有 ESNI 保护。</p>
+<p>目前 Cloudflare 所有网站使用的 ESNI Public Key 是同一个，可以通过任意<code>dig</code>一个 Cloudflare 域名的<code>_esni</code>TXT 记录得到 (如<code>dig -t TXT _esni.cloudflare.com</code>)。</p>
+<p>假设要配置 ESNI 的域名为<code>www.example.com</code>，直接添加 CNAME 记录，域名<code>_esni.www.example.com</code>，目标指向<code>_esni.cloudflare.com</code>，即可启用 ESNI。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>强制 Acrobat DC 使用旧版激活机制 (Windows)</title>
-    <url>/2019/11/12/12-IsAMTEnforced/</url>
+    <url>/2019/11/acrobat/</url>
     <content><![CDATA[<p>新版 Acrobat DC 默认使用新版激活机制验证账号订阅，如果仅通过旧版激活机制（算号脱机激活）会造成软件打开正常但无法对 PDF 进行编辑，同时弹出“试用期已过”或“无法找到订阅”等提示。</p>
 <span id="more"></span>
 <p>目前可以通过修改注册表来强制 Acrobat DC 使用旧版激活机制</p>
@@ -81,22 +126,15 @@
 <p>注</p>
 <ul>
 <li>32位系统为<code>HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe Acrobat\DC\Activation</code></li>
+<li>如果 “Activation” 下还存在 “IsNGLEnforced”，需要将其值设置为 0</li>
 <li>改<code>AMTlib.dll</code>不会有这个问题，但这种激活方式不完美，Adobe Acrobat Distiller 无法使用</li>
 <li><a target="_blank" rel="noopener" href="https://www.adobe.com/devnet-docs/acrobatetk/tools/PrefRef/Windows/Activation.html">官方文档</a></li>
 </ul>
 ]]></content>
   </entry>
   <entry>
-    <title>Cloudflare CNAME 接入启用 ESNI</title>
-    <url>/2019/11/28/28-cf_cname_esni/</url>
-    <content><![CDATA[<p>由于 ESNI 需要配置 DNS 记录，因此默认情况下 Cloudflare 如果使用 CNAME 接入则没有 ESNI 保护。</p>
-<p>目前 Cloudflare 所有网站使用的 ESNI Public Key 是同一个，可以通过任意<code>dig</code>一个 Cloudflare 域名的<code>_esni</code>TXT 记录得到 (如<code>dig -t TXT _esni.cloudflare.com</code>)。</p>
-<p>假设要配置 ESNI 的域名为<code>www.example.com</code>，直接添加 CNAME 记录，域名<code>_esni.www.example.com</code>，目标指向<code>_esni.cloudflare.com</code>，即可启用 ESNI。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>得力3958考勤机破解管理员</title>
-    <url>/2021/05/04/04-deli_3958/</url>
+    <url>/2021/05/deli_3958/</url>
     <content><![CDATA[<p>该型号机器不像其他得力考勤机一样有 8181 后门密码，因此破解相对困难。通过拆机发现，机器的固件和数据都存放在一块 T25S32 4MB SPI flash 中，只要对 flash 中的用户权限部分进行修改，就能实现管理员破解。</p>
 <span id="more"></span>
 <p>这个方法需要知道一个已有普通员工的指纹或密码。首先，获取并记录该员工的工号。然后，DUMP 出 flash 的内容，用十六进制编辑器打开并搜索可能和用户权限设定有关的部分。</p>
@@ -109,7 +147,7 @@
   </entry>
   <entry>
     <title>Intel 无线网卡 obcaseinsensitive=0 时罢工</title>
-    <url>/2021/06/18/18-Intel_wireless_error10/</url>
+    <url>/2021/06/Intel_wireless_error10/</url>
     <content><![CDATA[<p>设置下面的注册表项关闭 “非 Windows 子系统不要求区分大小写” 后 Intel 无线网卡会罢工，显示<code>错误 10</code>。</p>
 <blockquote>
 <p>HKLM\​SYSTEM\​CurrentControlSet\​Control\​Session Manager\​obcaseinsensitive = dword:0</p>
@@ -124,7 +162,7 @@
   </entry>
   <entry>
     <title>将 Windows 默认管理员账户恢复为本地用户</title>
-    <url>/2021/10/24/24-Administrator_revert/</url>
+    <url>/2021/10/administrator_revert/</url>
     <content><![CDATA[<p>使用默认管理员账户登录微软帐号时，一个不小心就会变成 Microsoft 账户。这种情况下部分内置功能会工作不正常，出现闪退等问题，同时设置菜单中没有修改回本地用户的选项。</p>
 <span id="more"></span>
 <p>方法：删除以下三个注册表键，重启即可</p>
@@ -135,7 +173,7 @@
   </entry>
   <entry>
     <title>Win10 控制台登录无法找到音频设备</title>
-    <url>/2021/12/21/21-ConsoleSecurity/</url>
+    <url>/2021/12/console_security/</url>
     <content><![CDATA[<p>现象：启动时登录界面出现 “your device is rebooting to perform some configuration tasks” ，重启后所有音频输入输出设备消失。设备管理器显示声卡驱动正常，甚至可以在里面看到消失的音频输入输出设备。如果使用远程桌面连接到这台计算机并且设置“在远程机器上播放音频”，声音可以正常使用。</p>
 <span id="more"></span>
 <p>原因是注册表中的 “ConsoleSecurity” 被系统设置成了空值，恢复默认值后问题消失。</p>
@@ -144,7 +182,7 @@
   </entry>
   <entry>
     <title>DD-WRT 设置全区(#a)</title>
-    <url>/2019/06/26/26-ddwrt_allregion/</url>
+    <url>/2019/06/ddwrt_allregion/</url>
     <content><![CDATA[<p>博通芯片的无线路由器刷 DD-WRT 之后，无线设置的区域中没有全区。若用<code>nvram set</code>手动设置 ccode 和 regrev，重启后设置会被 DD-WRT 复原，使用<code>wl country</code>可以改变区域，但无法将区域改为 #a 或 #r。</p>
 <span id="more"></span>
 <p>通过查看源码发现，这个限制位于内核模块 wl.ko 中：</p>
@@ -158,45 +196,8 @@
 ]]></content>
   </entry>
   <entry>
-    <title>在 64 位 Windows 下“无缝”运行 16 位程序</title>
-    <url>/2019/03/11/11-16bit_on_win64/</url>
-    <content><![CDATA[<p>使用 <a target="_blank" rel="noopener" href="https://github.com/otya128/winevdm">otvdm</a> 可以实现在资源管理器和命令行中直接启动 Windows 3.x 程序</p>
-<p>使用 <a target="_blank" rel="noopener" href="https://github.com/leecher1337/ntvdmx64">ntvdmx64</a> 可以实现在资源管理器和命令行中直接启动 DOS 程序<br>在 <a target="_blank" rel="noopener" href="http://www.columbia.edu/~em36/ntvdmx64.html">http://www.columbia.edu/~em36/ntvdmx64.html</a> 可以下载到编译好的二进制文件</p>
-<p>Windows Vista 及以后的操作系统不会使用 PC Speaker，如果需要使其发声，可以到<a target="_blank" rel="noopener" href="http://www.waldbauer.com/tmp/reference.php">这里</a>下载 BEEPx64</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>SQL Server更改计算机名后设置</title>
-    <url>/2019/03/27/27-sqlserv_chg_name/</url>
-    <content><![CDATA[<p>更改计算机名后，SQL Server 仍能通过 Windows 身份验证登录，但在执行部分操作时会报用户不存在/计算机名不正确等问题，需要手动进行设置。</p>
-<span id="more"></span>
-<ol>
-<li>若 SQL Server 设置为“仅 Windows 身份验证”登录，则先启用“SQL Server 身份验证”登录，再启用 sa 账户并设置密码，重启 SQL Server</li>
-<li>在 SMSS 中使用 sa 登录，将“安全性/登录名”中的各个账户中的旧计算机名重命名为新的计算机名</li>
-<li>在 master 数据库下执行以下 SQL 语句，重启 SQL Server：</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sp_dropserver <span class="string">&#x27;旧计算机名&#x27;</span></span><br><span class="line">go</span><br><span class="line">sp_addserver <span class="string">&#x27;当前计算机名&#x27;</span>,<span class="string">&#x27;LOCAL&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>旧计算机名可通过<code>select @@SERVERNAME</code>获得，当前计算机名可通过<code>select SERVERPROPERTY(&#39;servername&#39;)</code>获得。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Quartus Timing Analysis 卡在 99&amp;percnt;</title>
-    <url>/2019/04/01/01-quartus_stuck/</url>
-    <content><![CDATA[<p>程序看上去运行正常，没有任何报错。但是一编译就会卡在 Timing Analysis 99%，无法正常使用。</p>
-<p>原因是相应器件库文件损坏，重装器件库后问题解决。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Dell 预装的 SmartByte 导致远程桌面加密错误</title>
-    <url>/2019/04/01/01-dell_smartbyte/</url>
-    <content><![CDATA[<p>一 Dell 电脑，远程桌面工作不正常，只能在本地子网连接，否则提示加密错误。卸载掉预装的 SmartByte 后解决。</p>
-<p>Ref: <a target="_blank" rel="noopener" href="https://www.v2ex.com/amp/t/490806">Dell 用户请注意你电脑上的 SmartByte 程序</a> | <a target="_blank" rel="noopener" href="https://web.archive.org/web/20211123175945/https://www.v2ex.com/amp/t/490806">Archive</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>Windows 添加 flag emoji 支持</title>
-    <url>/2022/02/08/08-win_flags/</url>
+    <url>/2022/02/win_flags/</url>
     <content><![CDATA[<p>Windows 默认的 “Segoe UI Emoji” 字体中没有相应的字形，因此无法显示 emoji 旗帜。通过添加这些缺失的字形，就可以让 Windows 支持国旗显示。</p>
 <span id="more"></span>
 <h1 id="fontTools"><a href="#fontTools" class="headerlink" title="fontTools"></a>fontTools</h1><p>fontTools 是一个基于 Python 的字体编辑工具，可以通过 <code>pip install fonttools</code> 安装。安装完成后就可以在命令行里使用 pyfttools 提供的一些工具：</p>
@@ -227,10 +228,10 @@
 <h1 id="安装修改后的字体"><a href="#安装修改后的字体" class="headerlink" title="安装修改后的字体"></a>安装修改后的字体</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="/files/seguiemj_1_31_mod.ttf">seguiemj mod ver 1.31</a></p>
 <p><a href="/files/seguiemj_1_33_mod.ttf">seguiemj mod ver 1.33</a></p>
 <p>1.31 版适用于 Win10 和 Server 2019/2022，1.33 版适用于 Win11。这两个版本的不同之处在 <a target="_blank" rel="noopener" href="https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">emojipedia</a> (<a target="_blank" rel="noopener" href="https://web.archive.org/web/20220206140558/https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">Archive</a>) 上有比较详细的说明。</p>
-<h2 id="替换系统字体"><a href="#替换系统字体" class="headerlink" title="替换系统字体"></a>替换系统字体</h2><p>使用 copy 命令将字体复制到 %windir%\Fonts 中。为了更好的兼容性，新字体名称的 ASCII 排序应当在原字体 “seguiemj.ttf” 之前，同时使用 8.3 命名。</p>
+<h2 id="替换系统字体"><a href="#替换系统字体" class="headerlink" title="替换系统字体"></a>替换系统字体</h2><p>使用 copy 命令将字体复制到 %windir%\Fonts 中。为了更好的兼容性，新字体文件名的 ASCII 排序应当在原字体 “seguiemj.ttf” 之前，同时使用 8.3 格式。</p>
 <figure class="highlight bat"><table><tr><td class="code"><pre><span class="line"><span class="built_in">copy</span> seguiemj_mod.ttf <span class="variable">%windir%</span>\Fonts\segoeemj.ttf</span><br></pre></td></tr></table></figure>
 
-<p>修改注册表，重启系统即可生效。</p>
+<p>修改下列注册表项，重启系统即可生效。</p>
 <figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">reg add &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts&quot; /v &quot;Segoe UI Emoji (TrueType)&quot; /d segoeemj.ttf /f</span><br></pre></td></tr></table></figure>
 ]]></content>
   </entry>

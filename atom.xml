@@ -6,7 +6,7 @@
   <link href="https://llccd.eu.org/atom.xml" rel="self"/>
   
   <link href="https://llccd.eu.org/"/>
-  <updated>2022-02-08T09:49:18.097Z</updated>
+  <updated>2022-02-09T10:51:15.876Z</updated>
   <id>https://llccd.eu.org/</id>
   
   <author>
@@ -18,12 +18,12 @@
   
   <entry>
     <title>Windows 添加 flag emoji 支持</title>
-    <link href="https://llccd.eu.org/2022/02/08/08-win_flags/"/>
-    <id>https://llccd.eu.org/2022/02/08/08-win_flags/</id>
+    <link href="https://llccd.eu.org/2022/02/win_flags/"/>
+    <id>https://llccd.eu.org/2022/02/win_flags/</id>
     <published>2022-02-08T09:05:30.000Z</published>
-    <updated>2022-02-08T09:49:18.097Z</updated>
+    <updated>2022-02-09T10:51:15.876Z</updated>
     
-    <content type="html"><![CDATA[<p>Windows 默认的 “Segoe UI Emoji” 字体中没有相应的字形，因此无法显示 emoji 旗帜。通过添加这些缺失的字形，就可以让 Windows 支持国旗显示。</p><span id="more"></span><h1 id="fontTools"><a href="#fontTools" class="headerlink" title="fontTools"></a>fontTools</h1><p>fontTools 是一个基于 Python 的字体编辑工具，可以通过 <code>pip install fonttools</code> 安装。安装完成后就可以在命令行里使用 pyfttools 提供的一些工具：</p><h2 id="ttx"><a href="#ttx" class="headerlink" title="ttx"></a>ttx</h2><p>该命令可以将 TrueType / OpenType 字体“反编译”成可以直接用文本编辑器打开的 XML 文档，其后缀名为 ttx。也可以把修改后的 ttx 文件重新“编译”回 ttf。</p><h2 id="pyftmerge"><a href="#pyftmerge" class="headerlink" title="pyftmerge"></a>pyftmerge</h2><p>该命令用于合并字体。但是这里我们无法使用这个命令把其他字体的字形合并到 “Segoe UI Emoji” 中，因为 pyftmerge 不支持对 CPAL/COLR 表进行合并。</p><h1 id="OpenType"><a href="#OpenType" class="headerlink" title="OpenType"></a>OpenType</h1><p>关于 OpenType 规范的详细介绍，可以参考微软的文档 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/typography/opentype/spec/">https://docs.microsoft.com/en-us/typography/opentype/spec/</a></p><p>OpenType 字体中有多种不同类型的表格，我们主要关注下面几张表：</p><h2 id="cmap"><a href="#cmap" class="headerlink" title="cmap"></a>cmap</h2><p>指定某个码位对应的字形。不是所有的字形都会对应一个码位，但是每个在 cmap 表中声明的码位都需要对应一个字形（可以重复）。如果我们需要添加字形的 Unicode 码在原字体中不存在，就需要手动添加。某些字体可能会存在多张对应不同区域和语言的映射表，需要在所有映射表都加上相应的码位。一些防复制方案就是通过混淆 cmap 来实现的，可以实现选中复制后的文本和原始显示完全不同。</p><h2 id="hmtx"><a href="#hmtx" class="headerlink" title="hmtx"></a>hmtx</h2><p>指定每个字形的垂直度量。如果修改之后的字体的宽度和间距过宽或过窄，就说明这个表中的数值存在问题。</p><h2 id="glyf"><a href="#glyf" class="headerlink" title="glyf"></a>glyf</h2><p>包含字形数据，每个字形都由一系列 XY 座标点组成的轮廓构成。</p><h2 id="GSUB"><a href="#GSUB" class="headerlink" title="GSUB"></a>GSUB</h2><p>定义了字形的替换规则。一类比较常见的字形替换是连字：当多个字形按照指定的顺序依次出现时，将其替换成另一个字形。国旗 emoji 没有单独的 Unicode 码位，就是通过连字实现。比如 “🇹” 和 “🇼” ，连在一起就会变成 “🇹🇼”。</p><h1 id="彩色字形"><a href="#彩色字形" class="headerlink" title="彩色字形"></a>彩色字形</h1><p>Apple, Google, Microsoft 和 Mozilla 都提出了自己的彩色字形标准。通常情况下，相应平台对自己格式的支持是最好的，对于其他格式的支持则极为有限。有部分软件自己实现了字体渲染，导致它们可以支持一些原本平台不支持的格式，比如 Adobe 和 Mozilla 的软件就会支持 SVG 。</p><h2 id="CBDT-CBLC"><a href="#CBDT-CBLC" class="headerlink" title="CBDT/CBLC"></a>CBDT/CBLC</h2><p>由 Google 提出，允许在字体中嵌入彩色位图。可以看作是 EBDT/EBLC 的升级版。</p><h2 id="sbix"><a href="#sbix" class="headerlink" title="sbix"></a>sbix</h2><p>由 Apple 提出，也是一个基于位图的方案，原理和 Google 几乎没有区别。</p><h2 id="CPAL-COLR"><a href="#CPAL-COLR" class="headerlink" title="CPAL/COLR"></a>CPAL/COLR</h2><p>由 Microsoft 提出，彩色字形中的单个颜色作为一个“图层”存储于 glyf 中。CPAL 包含了各个颜色索引值所对应的颜色。COLR 则指定了某个字形由那些“图层”构成，以及各“图层”的颜色索引值。</p><h2 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h2><p>由 Adobe 和 Mozilla 提出，通过直接在文件中嵌入 svg 来显示彩色字形。相比其他方案，SVG 的功能最为齐全，甚至可以实现动画等特殊效果。</p><h1 id="修改要点"><a href="#修改要点" class="headerlink" title="修改要点"></a>修改要点</h1><p>为了可以在 Windows 中使用，我们需要一个使用 CPAL/COLR，并且包含国旗 emoji 的字体。TwemojiMozilla 是一个使用 CPAL/COLR 的 Twitter emoji 字体，我们将其中的国旗 emoji 提取出来，添加到 “Segoe UI Emoji” 字体中。</p><p>使用 DirectDraw 的程序可以显示彩色 emoji，如果程序不支持 DirectDraw，只能显示黑白的 emoji。因此为了支持这些应用，我们还需要一份黑白的 emoji 字形，可以从 <a target="_blank" rel="noopener" href="https://github.com/eosrei/twemoji-color-font">TwitterColorEmoji-SVGinOT</a> 中提取。TwitterColorEmoji-SVGinOT 是一个使用 svg 的 Twitter emoji 字体，除了彩色字形之外，还包含了使用程序转换生成的黑白字形。黑白字形的辨识度相对较低，但总比完全无法显示要好得多。</p><p>TwemojiMozilla 的 units per em 是 512，而另外两个字体是 2048，因此在合并之前需要对 TwemojiMozilla 中的所有 XY 座标值乘 4。下面是一个简单的 Python 脚本，来实现 hmtx 和 glyf 中的座标值乘 4：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;hmtx_and_glyf.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line"><span class="built_in">print</span>(re.sub(<span class="string">&#x27; (x|y|width|lsb)=&quot;(|-)(\d+)&quot;&#x27;</span>,<span class="keyword">lambda</span> x: <span class="string">&#x27; &#x27;</span>+x.group(<span class="number">1</span>)+<span class="string">&#x27;=&quot;&#x27;</span>+x.group(<span class="number">2</span>)+<span class="built_in">str</span>(<span class="built_in">int</span>(x.group(<span class="number">3</span>))*<span class="number">4</span>)+<span class="string">&#x27;&quot;&#x27;</span> ,line), end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure><p>每在 glyf 表里添加一个字形，都需要在 hmtx 、GlyphOrder 和 GDEF 里面添加对应的项，即这四个表的元素数目需要保持一致。</p><p>在合并 COLR 之前，需要先合并 CPAL ，然后对 colorID 作相应的映射。原始微软字体中有一些 CPAL 项没有被使用，在合并时可以回收利用这些 colorID。下面是一个简单的 Python 脚本，来实现 CPAL 的合并和 COLR 的 colorID 映射：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;colr_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">colors = <span class="built_in">set</span>()</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">m = re.search(<span class="string">&#x27;&lt;layer colorID=&quot;(\d+?)&quot; name=&#x27;</span>, line)</span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">colorID = <span class="built_in">int</span>(m.group(<span class="number">1</span>))</span><br><span class="line">colors.add(colorID)</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;cpal_original.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">cpal = []</span><br><span class="line">available = []</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">m = re.search(<span class="string">&#x27;&lt;color index=&quot;\d+?&quot; value=&quot;#([0-9A-F]&#123;6&#125;)[0-9A-F]&#123;2&#125;&quot;/&gt;&#x27;</span>, line)</span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">color = m.group(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">if</span> color == <span class="string">&#x27;000001&#x27;</span>:</span><br><span class="line">available.append(<span class="built_in">len</span>(cpal))</span><br><span class="line">cpal.append(color)</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;cpal_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">cpal2 = []</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">m = re.search(<span class="string">&#x27;&lt;color index=&quot;\d+?&quot; value=&quot;#([0-9A-F]&#123;6&#125;)[0-9A-F]&#123;2&#125;&quot;/&gt;&#x27;</span>, line)</span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">color = m.group(<span class="number">1</span>)</span><br><span class="line">cpal2.append(color)</span><br><span class="line"></span><br><span class="line">mapping = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> colors:</span><br><span class="line"><span class="keyword">if</span> cpal2[i] <span class="keyword">in</span> cpal:</span><br><span class="line">mapping[i] = cpal.index(cpal2[i])</span><br><span class="line"><span class="keyword">elif</span> available:</span><br><span class="line">idx = available.pop()</span><br><span class="line">cpal[idx] = cpal2[i]</span><br><span class="line">mapping[i] = idx</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">mapping[i] = <span class="built_in">len</span>(cpal)</span><br><span class="line">cpal.append(cpal2[i])</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;colr_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line"><span class="built_in">print</span>(re.sub(<span class="string">&#x27;&lt;layer colorID=&quot;(\d+?)&quot; name=&#x27;</span>,<span class="keyword">lambda</span> x: <span class="string">&#x27;&lt;layer colorID=&quot;&#x27;</span>+<span class="built_in">str</span>(mapping[<span class="built_in">int</span>(x.group(<span class="number">1</span>))])+<span class="string">&#x27;&quot; name=&#x27;</span> ,line), end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i,color <span class="keyword">in</span> <span class="built_in">enumerate</span>(cpal):</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;      &lt;color index=&quot;&#x27;</span>+<span class="built_in">str</span>(i)+<span class="string">&#x27;&quot; value=&quot;#&#x27;</span>+color+<span class="string">&#x27;FF&quot;/&gt;&#x27;</span>)</span><br></pre></td></tr></table></figure><p>原字体 CPAL 中有两张调色板，都需要作相应修改。fontTools 可以自动计算大多数的统计值，但是不支持自动计算 CPAL 里面的 numPaletteEntries，因此需要手动更新这一项。</p><p>原字体有数字签名，修改后重新编译的字体数字签名会失效，因此可以删掉最后的 DSIG 表。</p><h1 id="安装修改后的字体"><a href="#安装修改后的字体" class="headerlink" title="安装修改后的字体"></a>安装修改后的字体</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="/files/seguiemj_1_31_mod.ttf">seguiemj mod ver 1.31</a></p><p><a href="/files/seguiemj_1_33_mod.ttf">seguiemj mod ver 1.33</a></p><p>1.31 版适用于 Win10 和 Server 2019/2022，1.33 版适用于 Win11。这两个版本的不同之处在 <a target="_blank" rel="noopener" href="https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">emojipedia</a> (<a target="_blank" rel="noopener" href="https://web.archive.org/web/20220206140558/https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">Archive</a>) 上有比较详细的说明。</p><h2 id="替换系统字体"><a href="#替换系统字体" class="headerlink" title="替换系统字体"></a>替换系统字体</h2><p>使用 copy 命令将字体复制到 %windir%\Fonts 中。为了更好的兼容性，新字体名称的 ASCII 排序应当在原字体 “seguiemj.ttf” 之前，同时使用 8.3 命名。</p><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">copy</span> seguiemj_mod.ttf <span class="variable">%windir%</span>\Fonts\segoeemj.ttf</span><br></pre></td></tr></table></figure><p>修改注册表，重启系统即可生效。</p><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts&quot; /v &quot;Segoe UI Emoji (TrueType)&quot; /d segoeemj.ttf /f</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>Windows 默认的 “Segoe UI Emoji” 字体中没有相应的字形，因此无法显示 emoji 旗帜。通过添加这些缺失的字形，就可以让 Windows 支持国旗显示。</p><span id="more"></span><h1 id="fontTools"><a href="#fontTools" class="headerlink" title="fontTools"></a>fontTools</h1><p>fontTools 是一个基于 Python 的字体编辑工具，可以通过 <code>pip install fonttools</code> 安装。安装完成后就可以在命令行里使用 pyfttools 提供的一些工具：</p><h2 id="ttx"><a href="#ttx" class="headerlink" title="ttx"></a>ttx</h2><p>该命令可以将 TrueType / OpenType 字体“反编译”成可以直接用文本编辑器打开的 XML 文档，其后缀名为 ttx。也可以把修改后的 ttx 文件重新“编译”回 ttf。</p><h2 id="pyftmerge"><a href="#pyftmerge" class="headerlink" title="pyftmerge"></a>pyftmerge</h2><p>该命令用于合并字体。但是这里我们无法使用这个命令把其他字体的字形合并到 “Segoe UI Emoji” 中，因为 pyftmerge 不支持对 CPAL/COLR 表进行合并。</p><h1 id="OpenType"><a href="#OpenType" class="headerlink" title="OpenType"></a>OpenType</h1><p>关于 OpenType 规范的详细介绍，可以参考微软的文档 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/typography/opentype/spec/">https://docs.microsoft.com/en-us/typography/opentype/spec/</a></p><p>OpenType 字体中有多种不同类型的表格，我们主要关注下面几张表：</p><h2 id="cmap"><a href="#cmap" class="headerlink" title="cmap"></a>cmap</h2><p>指定某个码位对应的字形。不是所有的字形都会对应一个码位，但是每个在 cmap 表中声明的码位都需要对应一个字形（可以重复）。如果我们需要添加字形的 Unicode 码在原字体中不存在，就需要手动添加。某些字体可能会存在多张对应不同区域和语言的映射表，需要在所有映射表都加上相应的码位。一些防复制方案就是通过混淆 cmap 来实现的，可以实现选中复制后的文本和原始显示完全不同。</p><h2 id="hmtx"><a href="#hmtx" class="headerlink" title="hmtx"></a>hmtx</h2><p>指定每个字形的垂直度量。如果修改之后的字体的宽度和间距过宽或过窄，就说明这个表中的数值存在问题。</p><h2 id="glyf"><a href="#glyf" class="headerlink" title="glyf"></a>glyf</h2><p>包含字形数据，每个字形都由一系列 XY 座标点组成的轮廓构成。</p><h2 id="GSUB"><a href="#GSUB" class="headerlink" title="GSUB"></a>GSUB</h2><p>定义了字形的替换规则。一类比较常见的字形替换是连字：当多个字形按照指定的顺序依次出现时，将其替换成另一个字形。国旗 emoji 没有单独的 Unicode 码位，就是通过连字实现。比如 “🇹” 和 “🇼” ，连在一起就会变成 “🇹🇼”。</p><h1 id="彩色字形"><a href="#彩色字形" class="headerlink" title="彩色字形"></a>彩色字形</h1><p>Apple, Google, Microsoft 和 Mozilla 都提出了自己的彩色字形标准。通常情况下，相应平台对自己格式的支持是最好的，对于其他格式的支持则极为有限。有部分软件自己实现了字体渲染，导致它们可以支持一些原本平台不支持的格式，比如 Adobe 和 Mozilla 的软件就会支持 SVG 。</p><h2 id="CBDT-CBLC"><a href="#CBDT-CBLC" class="headerlink" title="CBDT/CBLC"></a>CBDT/CBLC</h2><p>由 Google 提出，允许在字体中嵌入彩色位图。可以看作是 EBDT/EBLC 的升级版。</p><h2 id="sbix"><a href="#sbix" class="headerlink" title="sbix"></a>sbix</h2><p>由 Apple 提出，也是一个基于位图的方案，原理和 Google 几乎没有区别。</p><h2 id="CPAL-COLR"><a href="#CPAL-COLR" class="headerlink" title="CPAL/COLR"></a>CPAL/COLR</h2><p>由 Microsoft 提出，彩色字形中的单个颜色作为一个“图层”存储于 glyf 中。CPAL 包含了各个颜色索引值所对应的颜色。COLR 则指定了某个字形由那些“图层”构成，以及各“图层”的颜色索引值。</p><h2 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h2><p>由 Adobe 和 Mozilla 提出，通过直接在文件中嵌入 svg 来显示彩色字形。相比其他方案，SVG 的功能最为齐全，甚至可以实现动画等特殊效果。</p><h1 id="修改要点"><a href="#修改要点" class="headerlink" title="修改要点"></a>修改要点</h1><p>为了可以在 Windows 中使用，我们需要一个使用 CPAL/COLR，并且包含国旗 emoji 的字体。TwemojiMozilla 是一个使用 CPAL/COLR 的 Twitter emoji 字体，我们将其中的国旗 emoji 提取出来，添加到 “Segoe UI Emoji” 字体中。</p><p>使用 DirectDraw 的程序可以显示彩色 emoji，如果程序不支持 DirectDraw，只能显示黑白的 emoji。因此为了支持这些应用，我们还需要一份黑白的 emoji 字形，可以从 <a target="_blank" rel="noopener" href="https://github.com/eosrei/twemoji-color-font">TwitterColorEmoji-SVGinOT</a> 中提取。TwitterColorEmoji-SVGinOT 是一个使用 svg 的 Twitter emoji 字体，除了彩色字形之外，还包含了使用程序转换生成的黑白字形。黑白字形的辨识度相对较低，但总比完全无法显示要好得多。</p><p>TwemojiMozilla 的 units per em 是 512，而另外两个字体是 2048，因此在合并之前需要对 TwemojiMozilla 中的所有 XY 座标值乘 4。下面是一个简单的 Python 脚本，来实现 hmtx 和 glyf 中的座标值乘 4：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;hmtx_and_glyf.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line"><span class="built_in">print</span>(re.sub(<span class="string">&#x27; (x|y|width|lsb)=&quot;(|-)(\d+)&quot;&#x27;</span>,<span class="keyword">lambda</span> x: <span class="string">&#x27; &#x27;</span>+x.group(<span class="number">1</span>)+<span class="string">&#x27;=&quot;&#x27;</span>+x.group(<span class="number">2</span>)+<span class="built_in">str</span>(<span class="built_in">int</span>(x.group(<span class="number">3</span>))*<span class="number">4</span>)+<span class="string">&#x27;&quot;&#x27;</span> ,line), end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure><p>每在 glyf 表里添加一个字形，都需要在 hmtx 、GlyphOrder 和 GDEF 里面添加对应的项，即这四个表的元素数目需要保持一致。</p><p>在合并 COLR 之前，需要先合并 CPAL ，然后对 colorID 作相应的映射。原始微软字体中有一些 CPAL 项没有被使用，在合并时可以回收利用这些 colorID。下面是一个简单的 Python 脚本，来实现 CPAL 的合并和 COLR 的 colorID 映射：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;colr_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">colors = <span class="built_in">set</span>()</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">m = re.search(<span class="string">&#x27;&lt;layer colorID=&quot;(\d+?)&quot; name=&#x27;</span>, line)</span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">colorID = <span class="built_in">int</span>(m.group(<span class="number">1</span>))</span><br><span class="line">colors.add(colorID)</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;cpal_original.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">cpal = []</span><br><span class="line">available = []</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">m = re.search(<span class="string">&#x27;&lt;color index=&quot;\d+?&quot; value=&quot;#([0-9A-F]&#123;6&#125;)[0-9A-F]&#123;2&#125;&quot;/&gt;&#x27;</span>, line)</span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">color = m.group(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">if</span> color == <span class="string">&#x27;000001&#x27;</span>:</span><br><span class="line">available.append(<span class="built_in">len</span>(cpal))</span><br><span class="line">cpal.append(color)</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;cpal_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">cpal2 = []</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">m = re.search(<span class="string">&#x27;&lt;color index=&quot;\d+?&quot; value=&quot;#([0-9A-F]&#123;6&#125;)[0-9A-F]&#123;2&#125;&quot;/&gt;&#x27;</span>, line)</span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">color = m.group(<span class="number">1</span>)</span><br><span class="line">cpal2.append(color)</span><br><span class="line"></span><br><span class="line">mapping = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> colors:</span><br><span class="line"><span class="keyword">if</span> cpal2[i] <span class="keyword">in</span> cpal:</span><br><span class="line">mapping[i] = cpal.index(cpal2[i])</span><br><span class="line"><span class="keyword">elif</span> available:</span><br><span class="line">idx = available.pop()</span><br><span class="line">cpal[idx] = cpal2[i]</span><br><span class="line">mapping[i] = idx</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">mapping[i] = <span class="built_in">len</span>(cpal)</span><br><span class="line">cpal.append(cpal2[i])</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;colr_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line"><span class="built_in">print</span>(re.sub(<span class="string">&#x27;&lt;layer colorID=&quot;(\d+?)&quot; name=&#x27;</span>,<span class="keyword">lambda</span> x: <span class="string">&#x27;&lt;layer colorID=&quot;&#x27;</span>+<span class="built_in">str</span>(mapping[<span class="built_in">int</span>(x.group(<span class="number">1</span>))])+<span class="string">&#x27;&quot; name=&#x27;</span> ,line), end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i,color <span class="keyword">in</span> <span class="built_in">enumerate</span>(cpal):</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;      &lt;color index=&quot;&#x27;</span>+<span class="built_in">str</span>(i)+<span class="string">&#x27;&quot; value=&quot;#&#x27;</span>+color+<span class="string">&#x27;FF&quot;/&gt;&#x27;</span>)</span><br></pre></td></tr></table></figure><p>原字体 CPAL 中有两张调色板，都需要作相应修改。fontTools 可以自动计算大多数的统计值，但是不支持自动计算 CPAL 里面的 numPaletteEntries，因此需要手动更新这一项。</p><p>原字体有数字签名，修改后重新编译的字体数字签名会失效，因此可以删掉最后的 DSIG 表。</p><h1 id="安装修改后的字体"><a href="#安装修改后的字体" class="headerlink" title="安装修改后的字体"></a>安装修改后的字体</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="/files/seguiemj_1_31_mod.ttf">seguiemj mod ver 1.31</a></p><p><a href="/files/seguiemj_1_33_mod.ttf">seguiemj mod ver 1.33</a></p><p>1.31 版适用于 Win10 和 Server 2019/2022，1.33 版适用于 Win11。这两个版本的不同之处在 <a target="_blank" rel="noopener" href="https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">emojipedia</a> (<a target="_blank" rel="noopener" href="https://web.archive.org/web/20220206140558/https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">Archive</a>) 上有比较详细的说明。</p><h2 id="替换系统字体"><a href="#替换系统字体" class="headerlink" title="替换系统字体"></a>替换系统字体</h2><p>使用 copy 命令将字体复制到 %windir%\Fonts 中。为了更好的兼容性，新字体文件名的 ASCII 排序应当在原字体 “seguiemj.ttf” 之前，同时使用 8.3 格式。</p><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">copy</span> seguiemj_mod.ttf <span class="variable">%windir%</span>\Fonts\segoeemj.ttf</span><br></pre></td></tr></table></figure><p>修改下列注册表项，重启系统即可生效。</p><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts&quot; /v &quot;Segoe UI Emoji (TrueType)&quot; /d segoeemj.ttf /f</span><br></pre></td></tr></table></figure>]]></content>
     
     
     <summary type="html">&lt;p&gt;Windows 默认的 “Segoe UI Emoji” 字体中没有相应的字形，因此无法显示 emoji 旗帜。通过添加这些缺失的字形，就可以让 Windows 支持国旗显示。&lt;/p&gt;</summary>
@@ -35,8 +35,8 @@
   
   <entry>
     <title>Win10 控制台登录无法找到音频设备</title>
-    <link href="https://llccd.eu.org/2021/12/21/21-ConsoleSecurity/"/>
-    <id>https://llccd.eu.org/2021/12/21/21-ConsoleSecurity/</id>
+    <link href="https://llccd.eu.org/2021/12/console_security/"/>
+    <id>https://llccd.eu.org/2021/12/console_security/</id>
     <published>2021-12-21T06:02:20.000Z</published>
     <updated>2022-01-28T02:44:42.479Z</updated>
     
@@ -52,8 +52,8 @@
   
   <entry>
     <title>将 Windows 默认管理员账户恢复为本地用户</title>
-    <link href="https://llccd.eu.org/2021/10/24/24-Administrator_revert/"/>
-    <id>https://llccd.eu.org/2021/10/24/24-Administrator_revert/</id>
+    <link href="https://llccd.eu.org/2021/10/administrator_revert/"/>
+    <id>https://llccd.eu.org/2021/10/administrator_revert/</id>
     <published>2021-10-24T05:00:00.000Z</published>
     <updated>2022-02-07T02:51:48.690Z</updated>
     
@@ -69,8 +69,8 @@
   
   <entry>
     <title>Intel 无线网卡 obcaseinsensitive=0 时罢工</title>
-    <link href="https://llccd.eu.org/2021/06/18/18-Intel_wireless_error10/"/>
-    <id>https://llccd.eu.org/2021/06/18/18-Intel_wireless_error10/</id>
+    <link href="https://llccd.eu.org/2021/06/Intel_wireless_error10/"/>
+    <id>https://llccd.eu.org/2021/06/Intel_wireless_error10/</id>
     <published>2021-06-18T08:00:00.000Z</published>
     <updated>2022-01-28T02:54:43.195Z</updated>
     
@@ -89,8 +89,8 @@
   
   <entry>
     <title>得力3958考勤机破解管理员</title>
-    <link href="https://llccd.eu.org/2021/05/04/04-deli_3958/"/>
-    <id>https://llccd.eu.org/2021/05/04/04-deli_3958/</id>
+    <link href="https://llccd.eu.org/2021/05/deli_3958/"/>
+    <id>https://llccd.eu.org/2021/05/deli_3958/</id>
     <published>2021-05-04T07:00:00.000Z</published>
     <updated>2022-01-28T02:45:49.520Z</updated>
     
@@ -106,8 +106,8 @@
   
   <entry>
     <title>Cloudflare CNAME 接入启用 ESNI</title>
-    <link href="https://llccd.eu.org/2019/11/28/28-cf_cname_esni/"/>
-    <id>https://llccd.eu.org/2019/11/28/28-cf_cname_esni/</id>
+    <link href="https://llccd.eu.org/2019/11/cf_cname_esni/"/>
+    <id>https://llccd.eu.org/2019/11/cf_cname_esni/</id>
     <published>2019-11-28T14:00:00.000Z</published>
     <updated>2022-01-28T02:47:43.592Z</updated>
     
@@ -127,12 +127,12 @@
   
   <entry>
     <title>强制 Acrobat DC 使用旧版激活机制 (Windows)</title>
-    <link href="https://llccd.eu.org/2019/11/12/12-IsAMTEnforced/"/>
-    <id>https://llccd.eu.org/2019/11/12/12-IsAMTEnforced/</id>
+    <link href="https://llccd.eu.org/2019/11/acrobat/"/>
+    <id>https://llccd.eu.org/2019/11/acrobat/</id>
     <published>2019-11-12T15:13:00.000Z</published>
-    <updated>2022-01-28T02:46:14.737Z</updated>
+    <updated>2022-02-09T07:31:15.428Z</updated>
     
-    <content type="html"><![CDATA[<p>新版 Acrobat DC 默认使用新版激活机制验证账号订阅，如果仅通过旧版激活机制（算号脱机激活）会造成软件打开正常但无法对 PDF 进行编辑，同时弹出“试用期已过”或“无法找到订阅”等提示。</p><span id="more"></span><p>目前可以通过修改注册表来强制 Acrobat DC 使用旧版激活机制</p><blockquote><p>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Adobe\Adobe Acrobat\DC\Activation]<br> “IsAMTEnforced”=dword:00000001</p></blockquote><p>注</p><ul><li>32位系统为<code>HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe Acrobat\DC\Activation</code></li><li>改<code>AMTlib.dll</code>不会有这个问题，但这种激活方式不完美，Adobe Acrobat Distiller 无法使用</li><li><a target="_blank" rel="noopener" href="https://www.adobe.com/devnet-docs/acrobatetk/tools/PrefRef/Windows/Activation.html">官方文档</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>新版 Acrobat DC 默认使用新版激活机制验证账号订阅，如果仅通过旧版激活机制（算号脱机激活）会造成软件打开正常但无法对 PDF 进行编辑，同时弹出“试用期已过”或“无法找到订阅”等提示。</p><span id="more"></span><p>目前可以通过修改注册表来强制 Acrobat DC 使用旧版激活机制</p><blockquote><p>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Adobe\Adobe Acrobat\DC\Activation]<br> “IsAMTEnforced”=dword:00000001</p></blockquote><p>注</p><ul><li>32位系统为<code>HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe Acrobat\DC\Activation</code></li><li>如果 “Activation” 下还存在 “IsNGLEnforced”，需要将其值设置为 0</li><li>改<code>AMTlib.dll</code>不会有这个问题，但这种激活方式不完美，Adobe Acrobat Distiller 无法使用</li><li><a target="_blank" rel="noopener" href="https://www.adobe.com/devnet-docs/acrobatetk/tools/PrefRef/Windows/Activation.html">官方文档</a></li></ul>]]></content>
     
     
     <summary type="html">&lt;p&gt;新版 Acrobat DC 默认使用新版激活机制验证账号订阅，如果仅通过旧版激活机制（算号脱机激活）会造成软件打开正常但无法对 PDF 进行编辑，同时弹出“试用期已过”或“无法找到订阅”等提示。&lt;/p&gt;</summary>
@@ -144,8 +144,8 @@
   
   <entry>
     <title>移动 ProgramData\Package Cache 文件夹</title>
-    <link href="https://llccd.eu.org/2019/08/12/12-mv_pagcache/"/>
-    <id>https://llccd.eu.org/2019/08/12/12-mv_pagcache/</id>
+    <link href="https://llccd.eu.org/2019/08/mv_pagcache/"/>
+    <id>https://llccd.eu.org/2019/08/mv_pagcache/</id>
     <published>2019-08-12T08:40:00.000Z</published>
     <updated>2022-01-28T03:05:16.590Z</updated>
     
@@ -161,8 +161,8 @@
   
   <entry>
     <title>IIS 10 安装 myrtille 遇到 1001 错误</title>
-    <link href="https://llccd.eu.org/2019/08/12/12-iis_1001/"/>
-    <id>https://llccd.eu.org/2019/08/12/12-iis_1001/</id>
+    <link href="https://llccd.eu.org/2019/08/iis_1001/"/>
+    <id>https://llccd.eu.org/2019/08/iis_1001/</id>
     <published>2019-08-12T07:57:00.000Z</published>
     <updated>2022-01-28T02:59:29.943Z</updated>
     
@@ -181,8 +181,8 @@
   
   <entry>
     <title>用 ext2fsd 读取新版 Linux 系统的 ext4 分区</title>
-    <link href="https://llccd.eu.org/2019/06/29/29-ext2fsd_ext4/"/>
-    <id>https://llccd.eu.org/2019/06/29/29-ext2fsd_ext4/</id>
+    <link href="https://llccd.eu.org/2019/06/ext2fsd_ext4/"/>
+    <id>https://llccd.eu.org/2019/06/ext2fsd_ext4/</id>
     <published>2019-06-29T15:19:00.000Z</published>
     <updated>2022-01-28T03:01:55.843Z</updated>
     
@@ -198,8 +198,8 @@
   
   <entry>
     <title>DD-WRT 设置全区(#a)</title>
-    <link href="https://llccd.eu.org/2019/06/26/26-ddwrt_allregion/"/>
-    <id>https://llccd.eu.org/2019/06/26/26-ddwrt_allregion/</id>
+    <link href="https://llccd.eu.org/2019/06/ddwrt_allregion/"/>
+    <id>https://llccd.eu.org/2019/06/ddwrt_allregion/</id>
     <published>2019-06-26T13:51:00.000Z</published>
     <updated>2022-01-28T03:02:27.159Z</updated>
     
@@ -215,8 +215,8 @@
   
   <entry>
     <title>转移 Installer 文件夹造成 Win10 更新出现错误</title>
-    <link href="https://llccd.eu.org/2019/06/25/25-installer_80070032/"/>
-    <id>https://llccd.eu.org/2019/06/25/25-installer_80070032/</id>
+    <link href="https://llccd.eu.org/2019/06/installer_80070032/"/>
+    <id>https://llccd.eu.org/2019/06/installer_80070032/</id>
     <published>2019-06-25T12:49:00.000Z</published>
     <updated>2022-01-28T04:06:21.354Z</updated>
     
@@ -232,8 +232,8 @@
   
   <entry>
     <title>Dell 预装的 SmartByte 导致远程桌面加密错误</title>
-    <link href="https://llccd.eu.org/2019/04/01/01-dell_smartbyte/"/>
-    <id>https://llccd.eu.org/2019/04/01/01-dell_smartbyte/</id>
+    <link href="https://llccd.eu.org/2019/04/dell_smartbyte/"/>
+    <id>https://llccd.eu.org/2019/04/dell_smartbyte/</id>
     <published>2019-04-01T15:31:00.000Z</published>
     <updated>2022-01-28T03:21:55.307Z</updated>
     
@@ -253,8 +253,8 @@
   
   <entry>
     <title>Quartus Timing Analysis 卡在 99&amp;percnt;</title>
-    <link href="https://llccd.eu.org/2019/04/01/01-quartus_stuck/"/>
-    <id>https://llccd.eu.org/2019/04/01/01-quartus_stuck/</id>
+    <link href="https://llccd.eu.org/2019/04/quartus_stuck/"/>
+    <id>https://llccd.eu.org/2019/04/quartus_stuck/</id>
     <published>2019-04-01T15:21:00.000Z</published>
     <updated>2022-01-28T03:58:32.433Z</updated>
     
@@ -275,8 +275,8 @@
   
   <entry>
     <title>SQL Server更改计算机名后设置</title>
-    <link href="https://llccd.eu.org/2019/03/27/27-sqlserv_chg_name/"/>
-    <id>https://llccd.eu.org/2019/03/27/27-sqlserv_chg_name/</id>
+    <link href="https://llccd.eu.org/2019/03/sqlserv_chg_name/"/>
+    <id>https://llccd.eu.org/2019/03/sqlserv_chg_name/</id>
     <published>2019-03-27T15:28:00.000Z</published>
     <updated>2022-01-28T03:08:56.216Z</updated>
     
@@ -292,8 +292,8 @@
   
   <entry>
     <title>在 64 位 Windows 下“无缝”运行 16 位程序</title>
-    <link href="https://llccd.eu.org/2019/03/11/11-16bit_on_win64/"/>
-    <id>https://llccd.eu.org/2019/03/11/11-16bit_on_win64/</id>
+    <link href="https://llccd.eu.org/2019/03/16bit_on_win64/"/>
+    <id>https://llccd.eu.org/2019/03/16bit_on_win64/</id>
     <published>2019-03-11T13:51:00.000Z</published>
     <updated>2022-01-28T04:09:53.702Z</updated>
     

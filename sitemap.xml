@@ -2,16 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://llccd.eu.org/2022/02/08/08-win_flags/</loc>
+    <loc>https://llccd.eu.org/2022/02/win_flags/</loc>
     
-    <lastmod>2022-02-08</lastmod>
+    <lastmod>2022-02-09</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2021/10/24/24-Administrator_revert/</loc>
+    <loc>https://llccd.eu.org/2019/11/acrobat/</loc>
+    
+    <lastmod>2022-02-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/2021/10/administrator_revert/</loc>
     
     <lastmod>2022-02-07</lastmod>
     
@@ -20,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/03/11/11-16bit_on_win64/</loc>
+    <loc>https://llccd.eu.org/2019/03/16bit_on_win64/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -29,7 +38,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/06/25/25-installer_80070032/</loc>
+    <loc>https://llccd.eu.org/2019/06/installer_80070032/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -38,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/04/01/01-quartus_stuck/</loc>
+    <loc>https://llccd.eu.org/2019/04/quartus_stuck/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -47,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/04/01/01-dell_smartbyte/</loc>
+    <loc>https://llccd.eu.org/2019/04/dell_smartbyte/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -56,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/03/27/27-sqlserv_chg_name/</loc>
+    <loc>https://llccd.eu.org/2019/03/sqlserv_chg_name/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -65,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/08/12/12-mv_pagcache/</loc>
+    <loc>https://llccd.eu.org/2019/08/mv_pagcache/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -74,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/06/26/26-ddwrt_allregion/</loc>
+    <loc>https://llccd.eu.org/2019/06/ddwrt_allregion/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -83,7 +92,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/06/29/29-ext2fsd_ext4/</loc>
+    <loc>https://llccd.eu.org/2019/06/ext2fsd_ext4/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -92,7 +101,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/08/12/12-iis_1001/</loc>
+    <loc>https://llccd.eu.org/2019/08/iis_1001/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -101,7 +110,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2021/06/18/18-Intel_wireless_error10/</loc>
+    <loc>https://llccd.eu.org/2021/06/Intel_wireless_error10/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -110,7 +119,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/11/28/28-cf_cname_esni/</loc>
+    <loc>https://llccd.eu.org/2019/11/cf_cname_esni/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -119,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/11/12/12-IsAMTEnforced/</loc>
+    <loc>https://llccd.eu.org/2021/05/deli_3958/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -128,16 +137,7 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2021/05/04/04-deli_3958/</loc>
-    
-    <lastmod>2022-01-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://llccd.eu.org/2021/12/21/21-ConsoleSecurity/</loc>
+    <loc>https://llccd.eu.org/2021/12/console_security/</loc>
     
     <lastmod>2022-01-28</lastmod>
     
@@ -148,7 +148,7 @@
 
   <url>
     <loc>https://llccd.eu.org/</loc>
-    <lastmod>2022-02-08</lastmod>
+    <lastmod>2022-02-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
