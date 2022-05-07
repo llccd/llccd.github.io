@@ -26,7 +26,7 @@
 <meta property="og:description" content="安卓版 Chrome 和 Firefox 都需要使用 USB 线连接电脑并且开启 ADB 调试才能使用 F12 开发者工具。利用端口转发工具 socat，可以实现不使用 ADB 完成浏览器的调试。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-01T07:25:00.000Z">
-<meta property="article:modified_time" content="2022-05-07T05:12:17.645Z">
+<meta property="article:modified_time" content="2022-05-07T06:09:53.453Z">
 <meta property="article:author" content="llccd">
 <meta name="twitter:card" content="summary">
 
@@ -209,7 +209,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-05-07 13:12" itemprop="dateModified" datetime="2022-05-07T13:12:17+08:00">2022-05-07</time>
+      <time title="Modified: 2022-05-07 14:09" itemprop="dateModified" datetime="2022-05-07T14:09:53+08:00">2022-05-07</time>
     </span>
 
   
@@ -230,7 +230,7 @@
 <p>因此只需要使用其他工具转发这个 socket 到 TCP 就可以实现通过网络的浏览器远程调试，在这里我们使用 socat 工具。在一般的 Linux 中，抽象 Socket 没有 ACL 保护，是极不安全的；但在 Android 中抽象 Socket 受 SELinux 保护，普通 APP 无法连接，因此需要 root 或 shell 权限才能连接到 APP 创建的抽象 Socket。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socat abstract-connect:chrome_devtools_remote tcp-listen:9222</span><br></pre></td></tr></table></figure>
 
-<p>运行指令后，可以直接在 (chrome://inspect/#devices) 里面添加 <code>[IP]:9222</code> 并开始调试。</p>
+<p>运行指令后，可以直接在 chrome://inspect/#devices 里面添加 <code>[IP]:9222</code> 并开始调试。</p>
 
     </div>
 
