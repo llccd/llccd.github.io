@@ -190,6 +190,7 @@ body {
   min-height: 100%;
   position: relative;
   transition: padding 0.2s ease-in-out;
+  word-break: break-word;
 }
 h1,
 h2,
@@ -2614,7 +2615,7 @@ ul.breadcrumb li:last-child {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #ffa28b;
+  background: #662b93;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);

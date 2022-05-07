@@ -44,7 +44,7 @@
 <span id="more"></span>
 <p>CBS.log 内容如下：</p>
 <blockquote>
-<p>2019-06-25 20:35:18, Error                 CSI    00000008 (F) Error: ResolvePendingTransactions called after poqexec failure (call 1)<br>   Status = STATUS_NOT_SUPPORTED, Operation = SetFileInformation, DiagString = [l:34]’??\C:\​WINDOWS\​Installer, N/A, N/A’[gle=0x80004005]</p>
+<p>2019-06-25 20:35:18, Error                 CSI    00000008 (F) Error: ResolvePendingTransactions called after poqexec failure (call 1)<br>   Status = STATUS_NOT_SUPPORTED, Operation = SetFileInformation, DiagString = [l:34]’??\C:\WINDOWS\Installer, N/A, N/A’[gle=0x80004005]</p>
 </blockquote>
 <p>由上可知，软连接和符号链接由于不支持某个特殊文件属性的设置造成出错。目前只能先删除链接，建立一个空的 Installer 文件夹，等更新完成后再重新建立链接。</p>
 ]]></content>
@@ -87,20 +87,20 @@
   <entry>
     <title>移动 ProgramData\Package Cache 文件夹</title>
     <url>/2019/08/mv_pagcache/</url>
-    <content><![CDATA[<p>安装完某些软件后，Package Cache 文件夹可能会变得异常巨大，占据宝贵的 SSD 空间。</p>
+    <content><![CDATA[<p>安装完某些软件后，系统盘里面 Package Cache 文件夹会变得异常巨大，占据宝贵的 SSD 空间。</p>
 <span id="more"></span>
-<p>文件夹原样拷贝到其他位置，进行如下操作：（以转移到 “E:\ProgramData\​Package Cache” 为例）</p>
+<p>把文件夹拷贝到其他位置之后，进行如下操作：（以转移到 “E:\ProgramData\Package Cache” 为例）</p>
 <ol>
-<li>打开 regedit，定位到 “HKLM\SOFTWARE\​Policies\WiX\Burn” （没有则新建项）</li>
-<li>添加一 REG_SZ 类型名为 PackageCache 的条目，值为 “E:\ProgramData\​Package Cache”</li>
-<li>用<code>mklink /J &quot;C:\ProgramData\​Package Cache&quot; &quot;E:\ProgramData\​Package Cache&quot;</code>或其他方法建立链接</li>
+<li>打开 regedit，定位到 “HKLM\SOFTWARE\Policies\WiX\Burn” （没有则新建项）</li>
+<li>添加一 REG_SZ 类型名为 PackageCache 的条目，值为 “E:\ProgramData\Package Cache”</li>
+<li>用<code>mklink /J &quot;C:\ProgramData\Package Cache&quot; &quot;E:\ProgramData\Package Cache&quot;</code>或其他方法建立链接</li>
 <li>打开 “C:\ProgramData” 的高级权限设置，添加主体为 “Everyone” 的拒绝项，只应用到当前文件夹，权限只勾选 “删除子文件夹和文件”</li>
-<li>打开 “C:\ProgramData\​Package Cache” 的高级权限设置，添加主体为 “Everyone” 的拒绝项，只应用到当前文件夹，权限只勾选“删除”</li>
+<li>打开 “C:\ProgramData\Package Cache” 的高级权限设置，添加主体为 “Everyone” 的拒绝项，只应用到当前文件夹，权限只勾选“删除”</li>
 </ol>
 <p>注</p>
 <ul>
-<li>新版 WiX 安装程序支持通过注册表指定 PackageCache 位置，旧版位置固定为 “%ALLUSERSPROFILE%\​Package Cache”</li>
-<li>安装程序在进行修改/卸载操作最后会尝试删除 “%ALLUSERSPROFILE%\​​Package Cache” 目录，若其为非空文件夹，删除会失败，但在建立链接后，这项操作会导致建立的链接被删除，因此需要设置权限防止其被删除</li>
+<li>新版 WiX 安装程序支持通过注册表指定 PackageCache 位置，旧版位置固定为 “%ALLUSERSPROFILE%\Package Cache”</li>
+<li>安装程序在进行修改/卸载操作最后会尝试删除 “%ALLUSERSPROFILE%\Package Cache” 目录，若其为非空文件夹，删除会失败，但在建立链接后，这项操作会导致建立的链接被删除，因此需要设置权限防止其被删除</li>
 <li>在 Windows 下要阻止文件被删除但不阻止其他操作，需要对该文件和<strong>所属文件夹</strong>同时添加关于删除的拒绝项</li>
 <li>Windows 10 大版本更新时 “C:\ProgramData” 的权限设置会恢复默认</li>
 </ul>
@@ -110,8 +110,8 @@
     <title>Cloudflare CNAME 接入启用 ESNI</title>
     <url>/2019/11/cf_cname_esni/</url>
     <content><![CDATA[<p>由于 ESNI 需要配置 DNS 记录，因此默认情况下 Cloudflare 如果使用 CNAME 接入则没有 ESNI 保护。</p>
-<p>目前 Cloudflare 所有网站使用的 ESNI Public Key 是同一个，可以通过任意<code>dig</code>一个 Cloudflare 域名的<code>_esni</code>TXT 记录得到 (如<code>dig -t TXT _esni.cloudflare.com</code>)。</p>
-<p>假设要配置 ESNI 的域名为<code>www.example.com</code>，直接添加 CNAME 记录，域名<code>_esni.www.example.com</code>，目标指向<code>_esni.cloudflare.com</code>，即可启用 ESNI。</p>
+<p>目前 Cloudflare 对所有网站使用相同的 ESNI Public Key，可以通过<code>dig</code>任意一个使用 Cloudflare 加速的域名的<code>_esni</code>TXT 记录得到 (如<code>dig -t TXT _esni.cloudflare.com</code>)。</p>
+<p>假设要配置 ESNI 的域名为<code>www.example.com</code>，直接添加 CNAME 记录<code>_esni.www.example.com</code>，目标指向<code>_esni.cloudflare.com</code>，即可启用 ESNI。</p>
 ]]></content>
   </entry>
   <entry>
@@ -121,13 +121,12 @@
 <span id="more"></span>
 <p>目前可以通过修改注册表来强制 Acrobat DC 使用旧版激活机制</p>
 <blockquote>
-<p>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Adobe\Adobe Acrobat\DC\Activation]<br> “IsAMTEnforced”=dword:00000001</p>
+<p>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Adobe\Adobe Acrobat\DC\Activation]<br> “IsAMTEnforced”=dword:00000001<br> “IsNGLEnforced”=dword:00000000</p>
 </blockquote>
 <p>注</p>
 <ul>
-<li>32位系统为<code>HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe Acrobat\DC\Activation</code></li>
-<li>如果 “Activation” 下还存在 “IsNGLEnforced”，需要将其值设置为 0</li>
-<li>改<code>AMTlib.dll</code>不会有这个问题，但这种激活方式不完美，Adobe Acrobat Distiller 无法使用</li>
+<li>32 位系统为<code>HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe Acrobat\DC\Activation</code></li>
+<li>改<code>AMTlib.dll</code>（针对旧版 DC）或使用 GenP （针对新版 DC）不会有这个问题，但这种激活方式不完美，Acrobat Distiller 以及虚拟 PDF 打印机无法使用</li>
 <li><a target="_blank" rel="noopener" href="https://www.adobe.com/devnet-docs/acrobatetk/tools/PrefRef/Windows/Activation.html">官方文档</a></li>
 </ul>
 ]]></content>
@@ -150,13 +149,17 @@
     <url>/2021/06/Intel_wireless_error10/</url>
     <content><![CDATA[<p>设置下面的注册表项关闭 “非 Windows 子系统不要求区分大小写” 后 Intel 无线网卡会罢工，显示<code>错误 10</code>。</p>
 <blockquote>
-<p>HKLM\​SYSTEM\​CurrentControlSet\​Control\​Session Manager\​obcaseinsensitive = dword:0</p>
+<p>HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\obcaseinsensitive = dword:0</p>
 </blockquote>
 <span id="more"></span>
 <img data-src="/images/AX201.png" width="50%" height="50%" title="Code 10" alt="Code 10"/>
 
+<p>同时事件管理器中会有如下的报错：</p>
+<blockquote>
+<p>Could not allocate the resources necessary for operation.<br>The network adapter has returned an invalid value to the driver.<br>The version number is incorrect for this driver.</p>
+</blockquote>
 <p>旧版 Intel 无线驱动没有该问题，目前版本 &ge;20.100 的驱动均存在这一问题。</p>
-<p>解决：用<code>bcdedit</code>把<code>systemroot</code>设置成正确的大小写。默认情况下变量里面第一个 w 是小写的，但系统盘里面的目录一般是 <strong>W</strong>indows，这样会导致 Intel 无线驱动找不到相应的文件，因此无线网卡无法工作</p>
+<p>解决：用<code>bcdedit</code>把<code>systemroot</code>设置成正确的大小写。默认情况下这个变量里面第一个 w 是小写的，但系统盘里面的 <strong>W</strong>indows 目录是首字母大写的。设置区分大小写会导致 Intel 无线驱动找不到相应的文件，因此无线网卡无法工作</p>
 <figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">bcdedit /<span class="built_in">set</span> &#123;current&#125; systemroot \Windows</span><br></pre></td></tr></table></figure>
 ]]></content>
   </entry>
@@ -174,7 +177,7 @@
   <entry>
     <title>Win10 控制台登录无法找到音频设备</title>
     <url>/2021/12/console_security/</url>
-    <content><![CDATA[<p>现象：启动时登录界面出现 “your device is rebooting to perform some configuration tasks” ，重启后所有音频输入输出设备消失。设备管理器显示声卡驱动正常，甚至可以在里面看到消失的音频输入输出设备。如果使用远程桌面连接到这台计算机并且设置“在远程机器上播放音频”，声音可以正常使用。</p>
+    <content><![CDATA[<p>现象：启动时登录界面出现 “your device is rebooting to perform some configuration tasks” ，重启后所有音频输入输出设备消失。设备管理器显示声卡驱动正常，甚至可以在“Audio inputs and outputs”里面看到相应的设备。如果使用远程桌面连接到这台计算机并且设置“在远程机器上播放音频”，声音可以正常使用。</p>
 <span id="more"></span>
 <p>原因是注册表中的 “ConsoleSecurity” 被系统设置成了空值，恢复默认值后问题消失。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Terminal Server\WinStations]</span><br><span class="line">&quot;ConsoleSecurity&quot;=hex:01,00,14,80,9c,00,00,00,a8,00,00,00,00,00,00,00,14,00,00,\</span><br><span class="line">  00,02,00,88,00,06,00,00,00,00,00,14,00,01,00,00,00,01,01,00,00,00,00,00,05,\</span><br><span class="line">  04,00,00,00,00,00,14,00,bf,03,0f,00,01,01,00,00,00,00,00,05,12,00,00,00,00,\</span><br><span class="line">  00,14,00,89,00,0f,00,01,01,00,00,00,00,00,05,13,00,00,00,00,00,14,00,81,00,\</span><br><span class="line">  00,00,01,01,00,00,00,00,00,05,14,00,00,00,00,00,18,00,bf,03,0f,00,01,02,00,\</span><br><span class="line">  00,00,00,00,05,20,00,00,00,20,02,00,00,00,00,18,00,21,01,00,00,01,02,00,00,\</span><br><span class="line">  00,00,00,05,20,00,00,00,2b,02,00,00,01,01,00,00,00,00,00,05,12,00,00,00,01,\</span><br><span class="line">  01,00,00,00,00,00,05,12,00,00,00</span><br></pre></td></tr></table></figure>
@@ -216,23 +219,147 @@
 <h2 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h2><p>由 Adobe 和 Mozilla 提出，通过直接在文件中嵌入 svg 来显示彩色字形。相比其他方案，SVG 的功能最为齐全，甚至可以实现动画等特殊效果。</p>
 <h1 id="修改要点"><a href="#修改要点" class="headerlink" title="修改要点"></a>修改要点</h1><p>为了可以在 Windows 中使用，我们需要一个使用 CPAL/COLR，并且包含国旗 emoji 的字体。<a target="_blank" rel="noopener" href="https://github.com/mozilla/twemoji-colr">TwemojiMozilla</a> 是一个使用 CPAL/COLR 的 Twitter emoji 字体，我们将其中的国旗 emoji 提取出来，添加到 “Segoe UI Emoji” 字体中。</p>
 <p>使用 DirectDraw 的程序可以显示彩色 emoji，如果程序不支持 DirectDraw，只能显示黑白的 emoji。因此为了支持这些应用，我们还需要一份黑白的 emoji 字形，可以从 <a target="_blank" rel="noopener" href="https://github.com/eosrei/twemoji-color-font">TwitterColorEmoji-SVGinOT</a> 中提取。TwitterColorEmoji-SVGinOT 是一个使用 svg 的 Twitter emoji 字体，除了彩色字形之外，还包含了使用程序转换生成的黑白字形。黑白字形的辨识度相对较低，但总比完全无法显示要好得多。</p>
-<p>TwemojiMozilla 的 units per em 是 512，而另外两个字体是 2048，因此在合并之前需要对 Twemoji​Mozilla 中的所有 XY 座标值乘 4。下面是一个简单的 Python 脚本，来实现 hmtx 和 glyf 中的座标值乘 4：</p>
+<p>TwemojiMozilla 的 units per em 是 512，而另外两个字体是 2048，因此在合并之前需要对 TwemojiMozilla 中的所有 XY 座标值乘 4。下面是一个简单的 Python 脚本，来实现 hmtx 和 glyf 中的座标值乘 4：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;hmtx_and_glyf.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">	<span class="built_in">print</span>(re.sub(<span class="string">&#x27; (x|y|width|lsb)=&quot;(|-)(\d+)&quot;&#x27;</span>,<span class="keyword">lambda</span> x: <span class="string">&#x27; &#x27;</span>+x.group(<span class="number">1</span>)+<span class="string">&#x27;=&quot;&#x27;</span>+x.group(<span class="number">2</span>)+<span class="built_in">str</span>(<span class="built_in">int</span>(x.group(<span class="number">3</span>))*<span class="number">4</span>)+<span class="string">&#x27;&quot;&#x27;</span> ,line), end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
 <p>每在 glyf 表里添加一个字形，都需要在 hmtx 、GlyphOrder 和 GDEF 里面添加对应的项，即这四个表的元素数目需要保持一致。</p>
 <p>在合并 COLR 之前，需要先合并 CPAL ，然后对 colorID 作相应的映射。原始微软字体中有一些 CPAL 项没有被使用，在合并时可以回收利用这些 colorID。下面是一个简单的 Python 脚本，来实现 CPAL 的合并和 COLR 的 colorID 映射：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;colr_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">colors = <span class="built_in">set</span>()</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">	m = re.search(<span class="string">&#x27;&lt;layer colorID=&quot;(\d+?)&quot; name=&#x27;</span>, line)</span><br><span class="line">	<span class="keyword">if</span> m:</span><br><span class="line">		colorID = <span class="built_in">int</span>(m.group(<span class="number">1</span>))</span><br><span class="line">		colors.add(colorID)</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;cpal_original.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">cpal = []</span><br><span class="line">available = []</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">	m = re.search(<span class="string">&#x27;&lt;color index=&quot;\d+?&quot; value=&quot;#([0-9A-F]&#123;6&#125;)[0-9A-F]&#123;2&#125;&quot;/&gt;&#x27;</span>, line)</span><br><span class="line">	<span class="keyword">if</span> m:</span><br><span class="line">		color = m.group(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">if</span> color == <span class="string">&#x27;000001&#x27;</span>:</span><br><span class="line">			available.append(<span class="built_in">len</span>(cpal))</span><br><span class="line">		cpal.append(color)</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;cpal_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line">cpal2 = []</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">	m = re.search(<span class="string">&#x27;&lt;color index=&quot;\d+?&quot; value=&quot;#([0-9A-F]&#123;6&#125;)[0-9A-F]&#123;2&#125;&quot;/&gt;&#x27;</span>, line)</span><br><span class="line">	<span class="keyword">if</span> m:</span><br><span class="line">		color = m.group(<span class="number">1</span>)</span><br><span class="line">		cpal2.append(color)</span><br><span class="line"></span><br><span class="line">mapping = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> colors:</span><br><span class="line">	<span class="keyword">if</span> cpal2[i] <span class="keyword">in</span> cpal:</span><br><span class="line">		mapping[i] = cpal.index(cpal2[i])</span><br><span class="line">	<span class="keyword">elif</span> available:</span><br><span class="line">		idx = available.pop()</span><br><span class="line">		cpal[idx] = cpal2[i]</span><br><span class="line">		mapping[i] = idx</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		mapping[i] = <span class="built_in">len</span>(cpal)</span><br><span class="line">		cpal.append(cpal2[i])</span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&quot;colr_to_add.txt&quot;</span>, <span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">	<span class="built_in">print</span>(re.sub(<span class="string">&#x27;&lt;layer colorID=&quot;(\d+?)&quot; name=&#x27;</span>,<span class="keyword">lambda</span> x: <span class="string">&#x27;&lt;layer colorID=&quot;&#x27;</span>+<span class="built_in">str</span>(mapping[<span class="built_in">int</span>(x.group(<span class="number">1</span>))])+<span class="string">&#x27;&quot; name=&#x27;</span> ,line), end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i,color <span class="keyword">in</span> <span class="built_in">enumerate</span>(cpal):</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&#x27;      &lt;color index=&quot;&#x27;</span>+<span class="built_in">str</span>(i)+<span class="string">&#x27;&quot; value=&quot;#&#x27;</span>+color+<span class="string">&#x27;FF&quot;/&gt;&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
-<p>原字体 CPAL 中有两张调色板，都需要作相应修改。fontTools 可以自动计算大多数的统计值，但是不支持自动计算 CPAL 里面的 num​Palette​Entries，因此需要手动更新这一项。</p>
+<p>原字体 CPAL 中有两张调色板，都需要作相应修改。fontTools 可以自动计算大多数的统计值，但是不支持自动计算 CPAL 里面的 numPaletteEntries，因此需要手动更新这一项。</p>
 <p>原字体有数字签名，修改后重新编译的字体数字签名会失效，因此可以删掉最后的 DSIG 表。</p>
 <h1 id="安装修改后的字体"><a href="#安装修改后的字体" class="headerlink" title="安装修改后的字体"></a>安装修改后的字体</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="/files/seguiemj_1_31_mod.ttf">seguiemj mod ver 1.31</a></p>
 <p><a href="/files/seguiemj_1_33_mod.ttf">seguiemj mod ver 1.33</a></p>
-<p>1.31 版适用于 Win10 和 Server 2019/2022，1.33 版适用于 Win11。这两个版本的不同之处在 <a target="_blank" rel="noopener" href="https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">emoji​pedia</a> (<a target="_blank" rel="noopener" href="https://web.archive.org/web/20220206140558/https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">Archive</a>) 上有比较详细的说明。</p>
+<p>1.31 版适用于 Win10 和 Server 2019/2022，1.33 版适用于 Win11。这两个版本的不同之处在 <a target="_blank" rel="noopener" href="https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">emojipedia</a> (<a target="_blank" rel="noopener" href="https://web.archive.org/web/20220206140558/https://blog.emojipedia.org/windows-11-november-2021-emoji-changelog/">Archive</a>) 上有比较详细的说明。</p>
 <h2 id="替换系统字体"><a href="#替换系统字体" class="headerlink" title="替换系统字体"></a>替换系统字体</h2><p>使用 copy 命令将字体复制到 %windir%\Fonts 中。为了更好的兼容性，新字体文件名的 ASCII 排序应当在原字体 “seguiemj.ttf” 之前，同时使用 8.3 格式。</p>
 <figure class="highlight bat"><table><tr><td class="code"><pre><span class="line"><span class="built_in">copy</span> seguiemj_mod.ttf <span class="variable">%windir%</span>\Fonts\segoeemj.ttf</span><br></pre></td></tr></table></figure>
 
 <p>修改下列注册表项，重启系统即可生效。</p>
 <figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">reg add &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts&quot; /v &quot;Segoe UI Emoji (TrueType)&quot; /d segoeemj.ttf /f</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
+    <title>德生 PL660 收音机航空波段扩频</title>
+    <url>/2022/02/pl660/</url>
+    <content><![CDATA[<p>德生 PL660 收音机标称的航空波段频率范围是 118-137Mhz，但可以通过一个隐藏的设置把范围扩大到 110-137Mhz。</p>
+<span id="more"></span>
+<p>在关机状态下依次按下“回车”、“AIR”，会出现一个频率输入界面。输入 110 (或 11) 再按“回车”就能把航空波段范围设置成 110-137Mhz，输入 118 可以恢复成默认的 118-137Mhz。（在固件版本 6215 上测试通过，可能不适用于新固件）</p>
+<p>6215 固件机器的其他隐藏功能：<br>关机状态下长按“AIR”，会进入测试程序，屏幕全亮若干秒，然后右上角显示固件版本号。<br>关机状态下长按“SSB”，会显示距离上一次充电之后累计的开机时间。<br>拔掉“Tuning”旋钮，可以看到里面有一个 4 针接口，但作用不明。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>不使用 ADB 远程调试安卓版 Chrome/Firefox (需 ROOT)</title>
+    <url>/2022/03/f12_noadb/</url>
+    <content><![CDATA[<p>安卓版 Chrome 和 Firefox 都需要使用 USB 线连接电脑并且开启 ADB 调试才能使用 F12 开发者工具。利用端口转发工具 socat，可以实现不使用 ADB 完成浏览器的调试。</p>
+<span id="more"></span>
+<p>在设置里面勾选“远程调试”之后，Chrome 会创建一个抽象(abstract) UNIX Socket，名为 <code>chrome_devtools_remote</code>，同样 Firefox 也会创建一个名为 <code>org.mozilla.fenix/firefox-debugger-socket</code> 的抽象 Socket。使用 Chrome 进行远程调试实际上执行的是下面的 ADB 指令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb forward tcp:9222 localabstract:chrome_devtools_remote</span><br></pre></td></tr></table></figure>
+
+<p>因此只需要使用其他工具转发这个 socket 到 TCP 就可以实现通过网络的浏览器远程调试，在这里我们使用 socat 工具。在一般的 Linux 中，抽象 Socket 没有 ACL 保护，是极不安全的；但在 Android 中抽象 Socket 受 SELinux 保护，普通 APP 无法连接，因此需要 root 或 shell 权限才能连接到 APP 创建的抽象 Socket。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">socat abstract-connect:chrome_devtools_remote tcp-listen:9222</span><br></pre></td></tr></table></figure>
+
+<p>运行指令后，可以直接在 (chrome://inspect/#devices) 里面添加 <code>[IP]:9222</code> 并开始调试。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>SID 卡的后门指令 (APDU)</title>
+    <url>/2022/05/sid_card/</url>
+    <content><![CDATA[<p>SID 卡具有和 FMCOS 2.0 CPU 卡相似的指令集，同时可以使用后门指令改变 UID 和 ATS。</p>
+<span id="more"></span>
+<p>帮助内容提取自 <a target="_blank" rel="noopener" href="https://blog.csdn.net/robur/article/details/122294829">https://blog.csdn.net/robur/article/details/122294829</a></p>
+<h1 id="设置-UID"><a href="#设置-UID" class="headerlink" title="设置 UID"></a>设置 UID</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">00 DD 00 00 08 1989060492200800</span><br></pre></td></tr></table></figure>
+<p>Data 前 4 字节为 UID，第 5 字节为 UID 的 8 位 XOR 校验；最后 3 字节固定为 20 08 00。<br>注意：设置 UID 后必须立即设置 ATS。</p>
+<h1 id="设置-ATS"><a href="#设置-ATS" class="headerlink" title="设置 ATS"></a>设置 ATS</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">00 DD 00 01 10 107880A0022090000000000019890604</span><br></pre></td></tr></table></figure>
+<p>Data 最后 4 字节为 UID；UID 必须与设置 UID 命令中的相同。<br>注意：必须先设置 UID，然后再设置 ATS。</p>
+<h1 id="准备-擦除-卡片"><a href="#准备-擦除-卡片" class="headerlink" title="准备(擦除)卡片"></a>准备(擦除)卡片</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">00 00 00 00 00</span><br></pre></td></tr></table></figure>
+<p>注意：执行该命令后，请立即执行擦除文件系统命令。</p>
+<h1 id="擦除文件系统"><a href="#擦除文件系统" class="headerlink" title="擦除文件系统"></a>擦除文件系统</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">84 0E 00 00 00</span><br></pre></td></tr></table></figure>
+<p>擦除包括 MF 在内的整个文件系统，但不包括 UID 和 ATS。<br>注意：请先执行准备（擦除）卡片命令。</p>
+<h1 id="设置-SAK-ATQA"><a href="#设置-SAK-ATQA" class="headerlink" title="设置 SAK ATQA"></a>设置 SAK ATQA</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">00 DE 00 00 03 280400	开启模拟 M1</span><br><span class="line">00 DE 00 00 03 200800	关闭模拟 M1</span><br></pre></td></tr></table></figure>
+
+<h1 id="建立-MF"><a href="#建立-MF" class="headerlink" title="建立 MF"></a>建立 MF</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">80 E0 3F 00 16 38FFFF0000957AFF315041592E5359532E4444463031</span><br></pre></td></tr></table></figure>
+<p>命令结构与普通 CPU 卡相似。Data 前 8 字节勿修改；第 9 字节开始为目录名（5-16字节）。</p>
+<h1 id="建立-DF"><a href="#建立-DF" class="headerlink" title="建立 DF"></a>建立 DF</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">80 E0 20 00 0D 3805200000955BFFA000000001</span><br></pre></td></tr></table></figure>
+<p>命令结构与普通 CPU 卡相似。P1P2 为文件标识符。Data 第 2、3 字节为目录空间；第 9 字节开始为目录名（5-16字节）。其余字节勿修改。<br>【特别注意】：SID 卡会自动选择刚建立好的文件（DF/EF）！建立 DF 后，务必重新执行 SELECT 命令，以免误操作！</p>
+<h1 id="建立-KEY-文件"><a href="#建立-KEY-文件" class="headerlink" title="建立 KEY 文件"></a>建立 KEY 文件</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">80 E0 00 00 07 3F00D00100FFFF</span><br></pre></td></tr></table></figure>
+<p>命令结构与普通 CPU 卡相似。Data 第 2、3 字节为文件空间。如无必要不要修改此命令。<br>注意：建立完 KEY 文件，请立即写入对应的（MF/DF）密钥 1 和密钥 2。</p>
+<h1 id="写入密钥"><a href="#写入密钥" class="headerlink" title="写入密钥"></a>写入密钥</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">80 D4 01 00 15 39000FFFFFEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE	写入MF密钥1</span><br><span class="line">80 D4 01 00 15 36000FFFFFDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD	写入MF密钥2</span><br><span class="line">80 D4 01 00 15 3900AAFF33BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB	写入DF密钥1</span><br><span class="line">80 D4 01 00 15 36000FFFFF8223F83BAF48E07B16ECFC2FD7332E35	写入DF密钥2</span><br></pre></td></tr></table></figure>
+
+<h1 id="建立文件"><a href="#建立文件" class="headerlink" title="建立文件"></a>建立文件</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">80 E0 00 10 07 2800080000FFFA	建立二进制文件</span><br></pre></td></tr></table></figure>
+<p>命令结构与普通 CPU 卡相似。P1P2 为文件标识符。Data 第 2、3 字节为文件空间。其余字节勿修改。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">80 E0 00 20 07 2A02020000FFFA	建立记录文件</span><br></pre></td></tr></table></figure>
+<p>命令结构与普通 CPU 卡相似。P1P2 为文件标识符。Data 第 2 字节为记录条目总数，第3字节为每条记录的长度。其余字节勿修改。</p>
+<h1 id="Undocumented-指令"><a href="#Undocumented-指令" class="headerlink" title="Undocumented 指令"></a>Undocumented 指令</h1><p>下列 Undocumented 指令作用未知，请谨慎使用。已知其中的某个指令可以实现锁卡，锁卡之后所有的后门指令失效，返回 6D00</p>
+<table>
+<thead>
+<tr>
+<th>Cla</th>
+<th>Ins</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>84</td>
+<td>3C</td>
+</tr>
+<tr>
+<td>00</td>
+<td>3D</td>
+</tr>
+<tr>
+<td>00</td>
+<td>7D</td>
+</tr>
+<tr>
+<td>84</td>
+<td>CD</td>
+</tr>
+<tr>
+<td>00</td>
+<td>DF</td>
+</tr>
+<tr>
+<td>84</td>
+<td>F0</td>
+</tr>
+</tbody></table>
+]]></content>
+  </entry>
+  <entry>
+    <title>诺基亚贝尔 G-1425-MA 移动 GPON 光猫 get shell</title>
+    <url>/2022/05/pon_getshell/</url>
+    <content><![CDATA[<p>以前的光猫直接拆机接 TTL 串口里面直接就是 /bin/sh ，新版光猫改成了一个受限的 shell，不知道密码几乎无法进行任何操作。</p>
+<span id="more"></span>
+<h1 id="通过-TTL-串口获得-shell"><a href="#通过-TTL-串口获得-shell" class="headerlink" title="通过 TTL 串口获得 shell"></a>通过 TTL 串口获得 shell</h1><p>拆开机器，找到并连接 UART 接口。</p>
+<img data-src="/images/GPON1.jpg" width="50%" height="50%" title="G-1425-MA_UART" alt="G-1425-MA_UART"/>
+
+<p>设备在开机后，串口有 CFE 和 Linux 内核的输出。CFE 有密码，启动完成后得到一个受限的 shell (vtysh)，只能运行 <code>ifconfig, ip, route, ping, nslookup, ps, top</code> 这几个命令。</p>
+<img data-src="/images/GPON2.png" width="50%" height="50%" title="Limited_shell" alt="Limited_shell"/>
+
+<p>输入 <code>enable</code> 不需要密码，里面的 <code>user</code> 指令不允许添加用户，<code>shell</code> 指令需要密码，并且连续输错 3 次会锁定登录 300s。这样就只能从允许使用的这几个命令里面下手。</p>
+<img data-src="/images/GPON3.png" width="50%" height="50%" title="hint" alt="hint"/>
+
+<p>输入 <code>ip</code> 回车之后，发现 ip 命令支持 netns，输入以下指令，就可以得到 shell 了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ip netns add 8964</span><br><span class="line">ip netns exec 8964 /bin/sh</span><br></pre></td></tr></table></figure>
+
+<p>由于 shell 使用了一个空的网络命名空间，因此无法用这个 shell 进行网络配置。但我们可以使用这个 shell 来进行其他所有操作并从中获取密码。</p>
+<h1 id="密码获取"><a href="#密码获取" class="headerlink" title="密码获取"></a>密码获取</h1><p>输入 <code>cfgcli -a</code> 提取设置，寻找形如“<Password ml="64" rw="RW" t="string" v="LZ8gkScDdQUp2k+it/ADtw==" ealgo="ab"></Password>”的项，“v=”里面就是加密后的密码。使用 <a target="_blank" rel="noopener" href="https://broadbandforum.co/threads/nokia-g-2425g-a-unlock-root-step-by-step-detailed-guide.213439/">https://broadbandforum.co/threads/nokia-g-2425g-a-unlock-root-step-by-step-detailed-guide.213439/</a> 里面的 nokia-router-cfg-tool.py 进行解密得到明文密码。</p>
+<p>由此可以得到密码如下：</p>
+<blockquote>
+<p>ttyS0 shell 密码 LA(ImvZx%8<br>Web CMCCAdmin 默认密码 aDm8H%MdA<br>设置里面无法获取 CFE 的用户名和密码，但 CFE 可以无限次尝试登录。经过多次尝试可以得到用户名为 telecomadmin 密码 nE7jA%5m</p>
+</blockquote>
+<p>得到密码后，就可以在 ttyS0 依次输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">enable</span><br><span class="line">shell</span><br><span class="line">LA(ImvZx%8</span><br></pre></td></tr></table></figure>
+
+<p>得到一个可以正常进行网络配置的 shell。</p>
+<h1 id="附：得到密码之后可以进行的操作"><a href="#附：得到密码之后可以进行的操作" class="headerlink" title="附：得到密码之后可以进行的操作"></a>附：得到密码之后可以进行的操作</h1><h2 id="设置优化"><a href="#设置优化" class="headerlink" title="设置优化"></a>设置优化</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#设置 RMS 注册成功</span><br><span class="line">cfgcli -s InternetGatewayDevice.X_CT-COM_UserInfo.Status 0</span><br><span class="line">cfgcli -s InternetGatewayDevice.X_CT-COM_UserInfo.Result 1</span><br><span class="line">#关闭 JVM</span><br><span class="line">cfgcli -s InternetGatewayDevice.SoftwareModules.ExecEnv.1.Enable false</span><br><span class="line">cfgcli -s InternetGatewayDevice.SoftwareModules.ExecEnv.2.Enable false</span><br><span class="line">#最大客户端连接数 200</span><br><span class="line">cfgcli -s InternetGatewayDevice.Services.X_CT-COM_MWBAND.TotalTerminalNumber 200</span><br><span class="line">#关闭环路检测</span><br><span class="line">cfgcli -s InternetGatewayDevice.LANDevice.1.X_CT-COM_LoopbackDetection.LoopbackEnable false</span><br></pre></td></tr></table></figure>
+
+<h2 id="开机启动脚本"><a href="#开机启动脚本" class="headerlink" title="开机启动脚本"></a>开机启动脚本</h2><p>光猫的 init 会在最后调用 /config/postapp.sh 脚本，可以创建这个文件并写入自定义的开机启动项。</p>
+<h2 id="开启-SSH"><a href="#开启-SSH" class="headerlink" title="开启 SSH"></a>开启 SSH</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cfgcli -s InternetGatewayDevice.DeviceInfo.X_CT-COM_ServiceManage.SSHEnable true</span><br></pre></td></tr></table></figure>
+<p>在 /etc/passwd 里面添加名为 user，UID 为 0 的账户，并用 passwd user 设置密码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">user:x:0:0:Linux User,,,:/home/root:/bin/sh</span><br></pre></td></tr></table></figure>
+<p>删除 iptables 里面 22 端口的 REJECT 项（放入开机启动脚本），然后就可以使用 user 账户进行 ssh 连接。</p>
+<h2 id="一些调试用-Web-页面"><a href="#一些调试用-Web-页面" class="headerlink" title="一些调试用 Web 页面"></a>一些调试用 Web 页面</h2><p>下列页面需要使用超级用户登录才能使用，user用户访问会跳回登录页面</p>
+<p>开启 Telnet<br><a target="_blank" rel="noopener" href="http://192.168.1.1/system.cgi?telnet">http://192.168.1.1/system.cgi?telnet</a><br>Dump 设置<br><a target="_blank" rel="noopener" href="http://192.168.1.1/dumpdatamodel.cgi">http://192.168.1.1/dumpdatamodel.cgi</a><br>修改省份<br><a target="_blank" rel="noopener" href="http://192.168.1.1/opid_setting.cgi?set">http://192.168.1.1/opid_setting.cgi?set</a></p>
 ]]></content>
   </entry>
 </search>

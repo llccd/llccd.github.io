@@ -1,11 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" id="NexT" xmlns:svg="http://www.w3.org/2000/svg"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
-	 style="enable-background:new 0 0 512 512;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#222222;}
-</style>
-<path id="path3384" class="st0" d="M25.8,255.6l115.5,200l230.2,0.4l114.7-199.6l-115.5-200L140.5,56L25.8,255.6z M354.6,163
-	l10.7,18.4l-11,18.6l0,0L212,312h142.6l10.7,18.4l-11,18.6h-197l-10.6-18.5l10.8-18.5l0,0L302,200H157.4l-10.6-18.5l10.8-18.5H354.6
-	z"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98.88 91.69"><defs><style>.a,.b,.c{fill:none;stroke:#000;stroke-miterlimit:10;}.a{stroke-width:1.47px;}.b{stroke-width:1.5px;}.c{stroke-width:2.21px;}</style></defs><path class="a" d="M24.21,48A11.74,11.74,0,1,1,12.47,36.29,11.73,11.73,0,0,1,24.21,48Zm12.47,0H.74M12.48,59.75,24.2,48,12.48,36.3"/><path class="b" d="M34.46,48a15,15,0,1,1,15,15A15,15,0,0,1,34.46,48ZM60,37.43,38.84,58.62m0-21.19L60,58.62M49.44,33V63m-15-15h30"/><path class="a" d="M49.44,24.22A11.74,11.74,0,1,1,61.18,12.48,11.74,11.74,0,0,1,49.44,24.22Zm0,12.47V.74M37.72,12.48,49.44,24.21,61.17,12.48"/><path class="c" d="M59.35,81.72H39.53m17,4.41H42.36m9.91,4.46H46.61"/><rect x="48.7" y="62.71" width="1.47" height="18.1"/><path class="a" d="M74.67,48A11.74,11.74,0,1,1,86.4,59.76,11.73,11.73,0,0,1,74.67,48ZM62.2,48H98.14M86.4,36.3,74.68,48,86.4,59.75"/></svg>

@@ -26,7 +26,7 @@
 <meta property="og:description" content="新版 Acrobat DC 默认使用新版激活机制验证账号订阅，如果仅通过旧版激活机制（算号脱机激活）会造成软件打开正常但无法对 PDF 进行编辑，同时弹出“试用期已过”或“无法找到订阅”等提示。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-11-12T15:13:00.000Z">
-<meta property="article:modified_time" content="2022-02-09T07:31:15.428Z">
+<meta property="article:modified_time" content="2022-05-02T14:58:15.582Z">
 <meta property="article:author" content="llccd">
 <meta name="twitter:card" content="summary">
 
@@ -127,7 +127,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="../../../archives/">
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -209,7 +209,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-02-09 15:31" itemprop="dateModified" datetime="2022-02-09T15:31:15+08:00">2022-02-09</time>
+      <time title="Modified: 2022-05-02 22:58" itemprop="dateModified" datetime="2022-05-02T22:58:15+08:00">2022-05-02</time>
     </span>
 
   
@@ -226,13 +226,12 @@
 <span id="more"></span>
 <p>目前可以通过修改注册表来强制 Acrobat DC 使用旧版激活机制</p>
 <blockquote>
-<p>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Adobe\Adobe Acrobat\DC\Activation]<br> “IsAMTEnforced”=dword:00000001</p>
+<p>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Adobe\Adobe Acrobat\DC\Activation]<br> “IsAMTEnforced”=dword:00000001<br> “IsNGLEnforced”=dword:00000000</p>
 </blockquote>
 <p>注</p>
 <ul>
-<li>32位系统为<code>HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe Acrobat\DC\Activation</code></li>
-<li>如果 “Activation” 下还存在 “IsNGLEnforced”，需要将其值设置为 0</li>
-<li>改<code>AMTlib.dll</code>不会有这个问题，但这种激活方式不完美，Adobe Acrobat Distiller 无法使用</li>
+<li>32 位系统为<code>HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe Acrobat\DC\Activation</code></li>
+<li>改<code>AMTlib.dll</code>（针对旧版 DC）或使用 GenP （针对新版 DC）不会有这个问题，但这种激活方式不完美，Acrobat Distiller 以及虚拟 PDF 打印机无法使用</li>
 <li><a target="_blank" rel="noopener" href="https://www.adobe.com/devnet-docs/acrobatetk/tools/PrefRef/Windows/Activation.html">官方文档</a></li>
 </ul>
 

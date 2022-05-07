@@ -18,15 +18,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"../../../images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="../../../js/config.js"></script>
-<meta name="description" content="安装完某些软件后，Package Cache 文件夹可能会变得异常巨大，占据宝贵的 SSD 空间。">
+<meta name="description" content="安装完某些软件后，系统盘里面 Package Cache 文件夹会变得异常巨大，占据宝贵的 SSD 空间。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="移动 ProgramData\Package Cache 文件夹">
 <meta property="og:url" content="https://llccd.eu.org/2019/08/mv_pagcache/index.html">
 <meta property="og:site_name" content="llccd&#39;s blog">
-<meta property="og:description" content="安装完某些软件后，Package Cache 文件夹可能会变得异常巨大，占据宝贵的 SSD 空间。">
+<meta property="og:description" content="安装完某些软件后，系统盘里面 Package Cache 文件夹会变得异常巨大，占据宝贵的 SSD 空间。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-08-12T08:40:00.000Z">
-<meta property="article:modified_time" content="2022-01-28T03:05:16.590Z">
+<meta property="article:modified_time" content="2022-05-02T15:07:51.379Z">
 <meta property="article:author" content="llccd">
 <meta name="twitter:card" content="summary">
 
@@ -127,7 +127,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="../../../archives/">
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -209,7 +209,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-28 11:05" itemprop="dateModified" datetime="2022-01-28T11:05:16+08:00">2022-01-28</time>
+      <time title="Modified: 2022-05-02 23:07" itemprop="dateModified" datetime="2022-05-02T23:07:51+08:00">2022-05-02</time>
     </span>
 
   
@@ -222,20 +222,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>安装完某些软件后，Package Cache 文件夹可能会变得异常巨大，占据宝贵的 SSD 空间。</p>
+        <p>安装完某些软件后，系统盘里面 Package Cache 文件夹会变得异常巨大，占据宝贵的 SSD 空间。</p>
 <span id="more"></span>
-<p>文件夹原样拷贝到其他位置，进行如下操作：（以转移到 “E:\ProgramData\​Package Cache” 为例）</p>
+<p>把文件夹拷贝到其他位置之后，进行如下操作：（以转移到 “E:\ProgramData\Package Cache” 为例）</p>
 <ol>
-<li>打开 regedit，定位到 “HKLM\SOFTWARE\​Policies\WiX\Burn” （没有则新建项）</li>
-<li>添加一 REG_SZ 类型名为 PackageCache 的条目，值为 “E:\ProgramData\​Package Cache”</li>
-<li>用<code>mklink /J &quot;C:\ProgramData\​Package Cache&quot; &quot;E:\ProgramData\​Package Cache&quot;</code>或其他方法建立链接</li>
+<li>打开 regedit，定位到 “HKLM\SOFTWARE\Policies\WiX\Burn” （没有则新建项）</li>
+<li>添加一 REG_SZ 类型名为 PackageCache 的条目，值为 “E:\ProgramData\Package Cache”</li>
+<li>用<code>mklink /J &quot;C:\ProgramData\Package Cache&quot; &quot;E:\ProgramData\Package Cache&quot;</code>或其他方法建立链接</li>
 <li>打开 “C:\ProgramData” 的高级权限设置，添加主体为 “Everyone” 的拒绝项，只应用到当前文件夹，权限只勾选 “删除子文件夹和文件”</li>
-<li>打开 “C:\ProgramData\​Package Cache” 的高级权限设置，添加主体为 “Everyone” 的拒绝项，只应用到当前文件夹，权限只勾选“删除”</li>
+<li>打开 “C:\ProgramData\Package Cache” 的高级权限设置，添加主体为 “Everyone” 的拒绝项，只应用到当前文件夹，权限只勾选“删除”</li>
 </ol>
 <p>注</p>
 <ul>
-<li>新版 WiX 安装程序支持通过注册表指定 PackageCache 位置，旧版位置固定为 “%ALLUSERSPROFILE%\​Package Cache”</li>
-<li>安装程序在进行修改/卸载操作最后会尝试删除 “%ALLUSERSPROFILE%\​​Package Cache” 目录，若其为非空文件夹，删除会失败，但在建立链接后，这项操作会导致建立的链接被删除，因此需要设置权限防止其被删除</li>
+<li>新版 WiX 安装程序支持通过注册表指定 PackageCache 位置，旧版位置固定为 “%ALLUSERSPROFILE%\Package Cache”</li>
+<li>安装程序在进行修改/卸载操作最后会尝试删除 “%ALLUSERSPROFILE%\Package Cache” 目录，若其为非空文件夹，删除会失败，但在建立链接后，这项操作会导致建立的链接被删除，因此需要设置权限防止其被删除</li>
 <li>在 Windows 下要阻止文件被删除但不阻止其他操作，需要对该文件和<strong>所属文件夹</strong>同时添加关于删除的拒绝项</li>
 <li>Windows 10 大版本更新时 “C:\ProgramData” 的权限设置会恢复默认</li>
 </ul>
