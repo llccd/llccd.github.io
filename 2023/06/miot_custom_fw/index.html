@@ -18,27 +18,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"../../../images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="../../../js/config.js"></script>
-<meta name="description" content="更改计算机名后，SQL Server 仍能通过 Windows 身份验证登录，但在执行部分操作时会报用户不存在&#x2F;计算机名不正确等问题，需要手动进行设置。">
+<meta name="description" content="使用小米模组的第三方智能设备需要接入米家才能使用，通过编译和刷入自定义固件，可以实现不依赖小米云服务器的纯本地控制。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL Server更改计算机名后设置">
-<meta property="og:url" content="https://llccd.eu.org/2019/03/sqlserv_chg_name/index.html">
+<meta property="og:title" content="为小米 IoT 模块编译自定义固件 (ESP32)">
+<meta property="og:url" content="https://llccd.eu.org/2023/06/miot_custom_fw/index.html">
 <meta property="og:site_name" content="llccd&#39;s blog">
-<meta property="og:description" content="更改计算机名后，SQL Server 仍能通过 Windows 身份验证登录，但在执行部分操作时会报用户不存在&#x2F;计算机名不正确等问题，需要手动进行设置。">
+<meta property="og:description" content="使用小米模组的第三方智能设备需要接入米家才能使用，通过编译和刷入自定义固件，可以实现不依赖小米云服务器的纯本地控制。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2019-03-27T15:28:00.000Z">
-<meta property="article:modified_time" content="2022-01-28T03:08:56.216Z">
+<meta property="article:published_time" content="2023-06-04T04:06:00.000Z">
+<meta property="article:modified_time" content="2023-06-04T08:04:53.256Z">
 <meta property="article:author" content="llccd">
+<meta property="article:tag" content="Hardware">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://llccd.eu.org/2019/03/sqlserv_chg_name/">
+<link rel="canonical" href="https://llccd.eu.org/2023/06/miot_custom_fw/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://llccd.eu.org/2019/03/sqlserv_chg_name/","path":"2019/03/sqlserv_chg_name/","title":"SQL Server更改计算机名后设置"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://llccd.eu.org/2023/06/miot_custom_fw/","path":"2023/06/miot_custom_fw/","title":"为小米 IoT 模块编译自定义固件 (ESP32)"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>SQL Server更改计算机名后设置 | llccd's blog</title>
+<title>为小米 IoT 模块编译自定义固件 (ESP32) | llccd's blog</title>
   
 
 
@@ -102,7 +103,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -115,6 +116,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BA%E4%BB%B6%E7%BC%96%E5%86%99"><span class="nav-number">1.</span> <span class="nav-text">固件编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%92%8C%E5%88%B7%E5%85%A5"><span class="nav-number">2.</span> <span class="nav-text">编译和刷入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-IoT-%E6%A8%A1%E5%9D%97%E6%8E%A7%E5%88%B6%E8%AE%BE%E5%A4%87"><span class="nav-number">3.</span> <span class="nav-text">通过 IoT 模块控制设备</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -182,7 +184,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://llccd.eu.org/2019/03/sqlserv_chg_name/">
+    <link itemprop="mainEntityOfPage" href="https://llccd.eu.org/2023/06/miot_custom_fw/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="../../../images/avatar.gif">
@@ -195,7 +197,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SQL Server更改计算机名后设置
+          为小米 IoT 模块编译自定义固件 (ESP32)
         </h1>
 
         <div class="post-meta-container">
@@ -205,15 +207,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2019-03-27 23:28" itemprop="dateCreated datePublished" datetime="2019-03-27T23:28:00+08:00">2019-03-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-28 11:08" itemprop="dateModified" datetime="2022-01-28T11:08:56+08:00">2022-01-28</time>
+      <time title="Created: 2023-06-04 12:06 / Modified: 16:04" itemprop="dateCreated datePublished" datetime="2023-06-04T12:06:00+08:00">2023-06-04</time>
     </span>
 
   
@@ -226,16 +222,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>更改计算机名后，SQL Server 仍能通过 Windows 身份验证登录，但在执行部分操作时会报用户不存在/计算机名不正确等问题，需要手动进行设置。</p>
+        <p>使用小米模组的第三方智能设备需要接入米家才能使用，通过编译和刷入自定义固件，可以实现不依赖小米云服务器的纯本地控制。</p>
 <span id="more"></span>
-<ol>
-<li>若 SQL Server 设置为“仅 Windows 身份验证”登录，则先启用“SQL Server 身份验证”登录，再启用 sa 账户并设置密码，重启 SQL Server</li>
-<li>在 SMSS 中使用 sa 登录，将“安全性/登录名”中的各个账户中的旧计算机名重命名为新的计算机名</li>
-<li>在 master 数据库下执行以下 SQL 语句，重启 SQL Server：</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sp_dropserver <span class="string">&#x27;旧计算机名&#x27;</span></span><br><span class="line">go</span><br><span class="line">sp_addserver <span class="string">&#x27;当前计算机名&#x27;</span>,<span class="string">&#x27;LOCAL&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>旧计算机名可通过<code>select @@SERVERNAME</code>获得，当前计算机名可通过<code>select SERVERPROPERTY(&#39;servername&#39;)</code>获得。</p>
+<h2 id="固件编写"><a href="#固件编写" class="headerlink" title="固件编写"></a>固件编写</h2><p>这类设备的硬件架构通常是小米 IoT 模块和主控 MCU 通过一组 UART 进行通信，在 <a target="_blank" rel="noopener" href="https://iot.mi.com/new/doc/accesses/direct-access/embedded-development/wifi/module-dev/serial-communication">小米 IoT 开发者平台</a> 里面可以查到具体协议。因此自定义固件只需要不断读取并解析串口内容，并根据通信协议为 MCU 的指令生成响应。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;HardwareSerial.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">HardwareSerial <span class="title">SerialPort</span><span class="params">(<span class="number">2</span>)</span></span>; <span class="comment">// use UART2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    SerialPort.begin(<span class="number">115200</span>, SERIAL_8N1, <span class="number">16</span>, <span class="number">17</span>); <span class="comment">// GPIO 16,17</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    delay(<span class="number">200</span>);</span><br><span class="line">    <span class="keyword">char</span> lineBuffer[<span class="number">64</span>];</span><br><span class="line">    <span class="keyword">while</span>(SerialPort.available()) &#123;</span><br><span class="line">        <span class="keyword">int</span> length = SerialPort.readBytesUntil(<span class="string">&#x27;\r&#x27;</span>, lineBuffer, <span class="keyword">sizeof</span>(lineBuffer) - <span class="number">1</span>);</span><br><span class="line">        lineBuffer[length] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">strncmp</span>(lineBuffer, <span class="string">&quot;model&quot;</span>, <span class="number">5</span>))</span><br><span class="line">            HandleModel(...);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!<span class="built_in">strncmp</span>(lineBuffer, <span class="string">&quot;mcu_version&quot;</span>, <span class="number">11</span>))</span><br><span class="line">            SerialPort.print(<span class="string">&quot;ok\r&quot;</span>); <span class="comment">// do nothing</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (...)</span><br><span class="line">            HandleXX(...);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            SerialPort.print(<span class="string">&quot;error\r&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译和刷入"><a href="#编译和刷入" class="headerlink" title="编译和刷入"></a>编译和刷入</h2><p>小米 ESP32 模块和一般的 ESP32-WROOM-32D 模块不一样，其中的 Core1 被屏蔽了，只能单核运行；另外 efuse blk0 的校验和也是不正确的，运行原版 esp-idf 会报错。因此需要使用 patch 过的 sdk 来编译 (<a target="_blank" rel="noopener" href="https://github.com/mmakaay/arduino-esp32-unicore-no-mac-crc/tree/main">https://github.com/mmakaay/arduino-esp32-unicore-no-mac-crc/tree/main</a>)</p>
+<p>刷入固件的过程和普通的 ESP32 相同，拉低 GPIO0 进入串口刷机模式，用 esptool 即可实现烧录。在刷之前可以先备份原厂固件：<code>esptool --port /dev/ttyUSBx --baud 512000 read_flash 0 0x400000 backup.bin</code>，同时保存一下原厂固件的串口输出。</p>
+<h2 id="通过-IoT-模块控制设备"><a href="#通过-IoT-模块控制设备" class="headerlink" title="通过 IoT 模块控制设备"></a>通过 IoT 模块控制设备</h2><p>在 miot 中，对设备的控制是通过 set_properties 和 get_properties 命令实现的。根据设备型号去 <a target="_blank" rel="noopener" href="https://home.miot-spec.com/spec/%7Bmodel%7D">https://home.miot-spec.com/spec/{model}</a> 查询支持的属性及其对应的 SIID 和 PIID，利用这些信息就可以实现对设备的控制。</p>
 
     </div>
 
@@ -244,19 +239,19 @@
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="../../../tags/Hardware/" rel="tag"># Hardware</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="../16bit_on_win64/" rel="prev" title="在 64 位 Windows 下“无缝”运行 16 位程序">
-                  <i class="fa fa-chevron-left"></i> 在 64 位 Windows 下“无缝”运行 16 位程序
+                <a href="../../../2022/11/arduino_mega32u4/" rel="prev" title="手动控制 Arduino Leonardo 的 Tx/Rx LED">
+                  <i class="fa fa-chevron-left"></i> 手动控制 Arduino Leonardo 的 Tx/Rx LED
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="../../04/quartus_stuck/" rel="next" title="Quartus Timing Analysis 卡在 99&percnt;">
-                  Quartus Timing Analysis 卡在 99&percnt; <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

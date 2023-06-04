@@ -123,9 +123,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="../../archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">posts</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -173,7 +177,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://llccd.eu.org/2019/11/acrobat/">
+    <link itemprop="mainEntityOfPage" href="https://llccd.eu.org/2021/06/Intel_wireless_error10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="../../images/avatar.gif">
@@ -186,7 +190,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="../../2019/11/acrobat/" class="post-title-link" itemprop="url">强制 Acrobat DC 使用旧版激活机制 (Windows)</a>
+          <a href="../../2021/06/Intel_wireless_error10/" class="post-title-link" itemprop="url">Intel 无线网卡 obcaseinsensitive=0 时罢工</a>
         </h2>
 
         <div class="post-meta-container">
@@ -197,14 +201,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2019-11-12 23:13" itemprop="dateCreated datePublished" datetime="2019-11-12T23:13:00+08:00">2019-11-12</time>
+      <time title="Created: 2021-06-18 16:00" itemprop="dateCreated datePublished" datetime="2021-06-18T16:00:00+08:00">2021-06-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-05-02 22:58" itemprop="dateModified" datetime="2022-05-02T22:58:15+08:00">2022-05-02</time>
+      <time title="Modified: 2023-06-03 15:21" itemprop="dateModified" datetime="2023-06-03T15:21:21+08:00">2023-06-03</time>
     </span>
 
   
@@ -217,7 +221,83 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>新版 Acrobat DC 默认使用新版激活机制验证账号订阅，如果仅通过旧版激活机制（算号脱机激活）会造成软件打开正常但无法对 PDF 进行编辑，同时弹出“试用期已过”或“无法找到订阅”等提示。</p>
+          <p>设置下面的注册表项关闭 “非 Windows 子系统不要求区分大小写” 后 Intel 无线网卡会罢工，显示<code>错误 10</code>。</p>
+<blockquote>
+<p>HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\obcaseinsensitive = dword:0</p>
+</blockquote>
+          <!--noindex-->
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://llccd.eu.org/2021/05/deli_3958/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="../../images/avatar.gif">
+      <meta itemprop="name" content="llccd">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="llccd's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="../../2021/05/deli_3958/" class="post-title-link" itemprop="url">得力3958考勤机破解管理员</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-05-04 15:00" itemprop="dateCreated datePublished" datetime="2021-05-04T15:00:00+08:00">2021-05-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-01-28 10:45" itemprop="dateModified" datetime="2022-01-28T10:45:49+08:00">2022-01-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>该型号机器不像其他得力考勤机一样有 8181 后门密码，因此破解相对困难。通过拆机发现，机器的固件和数据都存放在一块 T25S32 4MB SPI flash 中，只要对 flash 中的用户权限部分进行修改，就能实现管理员破解。</p>
           <!--noindex-->
           <!--/noindex-->
         
@@ -572,7 +652,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-02-23 19:51" itemprop="dateModified" datetime="2022-02-23T19:51:52+08:00">2022-02-23</time>
+      <time title="Modified: 2023-06-03 14:05" itemprop="dateModified" datetime="2023-06-03T14:05:16+08:00">2023-06-03</time>
     </span>
 
   
@@ -645,7 +725,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-28 11:21" itemprop="dateModified" datetime="2022-01-28T11:21:55+08:00">2022-01-28</time>
+      <time title="Modified: 2023-06-03 14:03" itemprop="dateModified" datetime="2023-06-03T14:03:47+08:00">2023-06-03</time>
     </span>
 
   
@@ -717,7 +797,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-28 11:58" itemprop="dateModified" datetime="2022-01-28T11:58:32+08:00">2022-01-28</time>
+      <time title="Modified: 2023-06-03 14:04" itemprop="dateModified" datetime="2023-06-03T14:04:33+08:00">2023-06-03</time>
     </span>
 
   
@@ -823,81 +903,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://llccd.eu.org/2019/03/16bit_on_win64/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="../../images/avatar.gif">
-      <meta itemprop="name" content="llccd">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="llccd's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="../../2019/03/16bit_on_win64/" class="post-title-link" itemprop="url">在 64 位 Windows 下“无缝”运行 16 位程序</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2019-03-11 21:51" itemprop="dateCreated datePublished" datetime="2019-03-11T21:51:00+08:00">2019-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-28 12:09" itemprop="dateModified" datetime="2022-01-28T12:09:53+08:00">2022-01-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>使用 <a target="_blank" rel="noopener" href="https://github.com/otya128/winevdm">otvdm</a> 可以实现在资源管理器和命令行中直接启动 Windows 3.x 程序</p>
-<p>使用 <a target="_blank" rel="noopener" href="https://github.com/leecher1337/ntvdmx64">ntvdmx64</a> 可以实现在资源管理器和命令行中直接启动 DOS 程序<br>在 <a target="_blank" rel="noopener" href="http://www.columbia.edu/~em36/ntvdmx64.html">http://www.columbia.edu/~em36/ntvdmx64.html</a> 可以下载到编译好的二进制文件</p>
-<p>Windows Vista 及以后的操作系统不会使用 PC Speaker，如果需要使其发声，可以到<a target="_blank" rel="noopener" href="http://www.waldbauer.com/tmp/reference.php">这里</a>下载 BEEPx64</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="../../"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="../../">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="../../"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="../../">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="extend next" rel="next" href="../3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 </div>

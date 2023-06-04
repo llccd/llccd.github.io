@@ -18,16 +18,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"../../../images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="../../../js/config.js"></script>
-<meta name="description" content="使用默认管理员账户登录微软帐号时，一个不小心就会变成 Microsoft 账户。这种情况下部分内置功能会工作不正常，出现闪退等问题，同时设置菜单中没有修改回本地用户的选项。">
+<meta name="description" content="使用默认 Administrator 账户登录应用商店等微软服务时，一个不小心本地账户就会变成 Microsoft 账户。这种情况下部分内置功能会工作不正常，出现闪退等问题，同时设置菜单中没有修改回本地账户的选项。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="将 Windows 默认管理员账户恢复为本地用户">
 <meta property="og:url" content="https://llccd.eu.org/2021/10/administrator_revert/index.html">
 <meta property="og:site_name" content="llccd&#39;s blog">
-<meta property="og:description" content="使用默认管理员账户登录微软帐号时，一个不小心就会变成 Microsoft 账户。这种情况下部分内置功能会工作不正常，出现闪退等问题，同时设置菜单中没有修改回本地用户的选项。">
+<meta property="og:description" content="使用默认 Administrator 账户登录应用商店等微软服务时，一个不小心本地账户就会变成 Microsoft 账户。这种情况下部分内置功能会工作不正常，出现闪退等问题，同时设置菜单中没有修改回本地账户的选项。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-10-24T05:00:00.000Z">
-<meta property="article:modified_time" content="2022-02-07T02:51:48.690Z">
+<meta property="article:modified_time" content="2023-06-04T08:09:18.282Z">
 <meta property="article:author" content="llccd">
+<meta property="article:tag" content="Windows">
 <meta name="twitter:card" content="summary">
 
 
@@ -127,9 +128,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="../../../archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">posts</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -209,7 +214,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-02-07 10:51" itemprop="dateModified" datetime="2022-02-07T10:51:48+08:00">2022-02-07</time>
+      <time title="Modified: 2023-06-04 16:09" itemprop="dateModified" datetime="2023-06-04T16:09:18+08:00">2023-06-04</time>
     </span>
 
   
@@ -222,12 +227,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>使用默认管理员账户登录微软帐号时，一个不小心就会变成 Microsoft 账户。这种情况下部分内置功能会工作不正常，出现闪退等问题，同时设置菜单中没有修改回本地用户的选项。</p>
+        <p>使用默认 Administrator 账户登录应用商店等微软服务时，一个不小心本地账户就会变成 Microsoft 账户。这种情况下部分内置功能会工作不正常，出现闪退等问题，同时设置菜单中没有修改回本地账户的选项。</p>
 <span id="more"></span>
-<p>方法：删除以下三个注册表键，重启即可</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reg delete HKU\S-<span class="number">1</span>-<span class="number">5</span>-<span class="number">21</span>-??-??-??-<span class="number">500</span>\Software\Microsoft\IdentityCRL\TokenBroker /f</span><br><span class="line">reg delete HKU\S-<span class="number">1</span>-<span class="number">5</span>-<span class="number">21</span>-??-??-??-<span class="number">500</span>\Software\Microsoft\IdentityCRL\InterruptState /f</span><br><span class="line">reg delete HKU\S-<span class="number">1</span>-<span class="number">5</span>-<span class="number">18</span>\Software\Microsoft\IdentityCRL\StoredIdentities\??@outlook.com /f</span><br></pre></td></tr></table></figure>
+<p>方法：使用 cmd 命令删除下列三个注册表键，重启即可</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reg delete HKU\S-<span class="number">1</span>-<span class="number">5</span>-<span class="number">21</span>-XXXXXXXXXX-XXXXXXXXXX-XXXXXXXXXX-<span class="number">500</span>\Software\Microsoft\IdentityCRL\TokenBroker /f</span><br><span class="line">reg delete HKU\S-<span class="number">1</span>-<span class="number">5</span>-<span class="number">21</span>-XXXXXXXXXX-XXXXXXXXXX-XXXXXXXXXX-<span class="number">500</span>\Software\Microsoft\IdentityCRL\InterruptState /f</span><br><span class="line">reg delete HKU\S-<span class="number">1</span>-<span class="number">5</span>-<span class="number">18</span>\Software\Microsoft\IdentityCRL\StoredIdentities\xx@outlook.com /f</span><br></pre></td></tr></table></figure>
 
-<p>其中 S-1-5-21-??-??-??-500 是默认管理员账户的 SID，可以通过<code>whoami /USER</code>得到，??@outlook.com 是登录的微软帐号名</p>
+<p>其中 S-1-5-21-XXXXXXXXXX-XXXXXXXXXX-XXXXXXXXXX-500 是默认管理员账户的 SID，可以通过<code>whoami /USER</code>得到，<a href="mailto:&#x78;&#x78;&#x40;&#x6f;&#x75;&#x74;&#108;&#111;&#x6f;&#107;&#x2e;&#x63;&#x6f;&#109;">&#x78;&#x78;&#x40;&#x6f;&#x75;&#x74;&#108;&#111;&#x6f;&#107;&#x2e;&#x63;&#x6f;&#109;</a> 是登录的微软帐号名</p>
 
     </div>
 
@@ -236,6 +241,9 @@
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="../../../tags/Windows/" rel="tag"># Windows</a>
+          </div>
 
         
 

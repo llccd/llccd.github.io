@@ -4,25 +4,61 @@
   <url>
     <loc>https://llccd.eu.org/2022/05/pon_getshell/</loc>
     
-    <lastmod>2022-05-07</lastmod>
+    <lastmod>2023-06-04</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2022/03/f12_noadb/</loc>
+    <loc>https://llccd.eu.org/2021/10/administrator_revert/</loc>
     
-    <lastmod>2022-05-07</lastmod>
+    <lastmod>2023-06-04</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2022/05/sid_card/</loc>
+    <loc>https://llccd.eu.org/2022/09/DisableCAD/</loc>
     
-    <lastmod>2022-05-07</lastmod>
+    <lastmod>2023-06-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/2023/06/miot_custom_fw/</loc>
+    
+    <lastmod>2023-06-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/2022/11/arduino_mega32u4/</loc>
+    
+    <lastmod>2023-06-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/2021/06/Intel_wireless_error10/</loc>
+    
+    <lastmod>2023-06-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/2021/12/console_security/</loc>
+    
+    <lastmod>2023-06-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -31,7 +67,61 @@
   <url>
     <loc>https://llccd.eu.org/2022/02/pl660/</loc>
     
-    <lastmod>2022-05-07</lastmod>
+    <lastmod>2023-06-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/2022/03/f12_noadb/</loc>
+    
+    <lastmod>2023-06-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/2022/05/sid_card/</loc>
+    
+    <lastmod>2023-06-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/2019/06/installer_80070032/</loc>
+    
+    <lastmod>2023-06-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/2019/04/quartus_stuck/</loc>
+    
+    <lastmod>2023-06-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/2019/04/dell_smartbyte/</loc>
+    
+    <lastmod>2023-06-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/2019/03/16bit_on_win64/</loc>
+    
+    <lastmod>2023-06-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -47,90 +137,9 @@
   </url>
   
   <url>
-    <loc>https://llccd.eu.org/2019/11/cf_cname_esni/</loc>
-    
-    <lastmod>2022-05-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://llccd.eu.org/2021/06/Intel_wireless_error10/</loc>
-    
-    <lastmod>2022-05-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://llccd.eu.org/2019/11/acrobat/</loc>
-    
-    <lastmod>2022-05-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://llccd.eu.org/2021/12/console_security/</loc>
-    
-    <lastmod>2022-05-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://llccd.eu.org/2022/02/win_flags/</loc>
     
     <lastmod>2022-02-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://llccd.eu.org/2019/06/installer_80070032/</loc>
-    
-    <lastmod>2022-02-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://llccd.eu.org/2021/10/administrator_revert/</loc>
-    
-    <lastmod>2022-02-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://llccd.eu.org/2019/03/16bit_on_win64/</loc>
-    
-    <lastmod>2022-01-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://llccd.eu.org/2019/04/quartus_stuck/</loc>
-    
-    <lastmod>2022-01-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://llccd.eu.org/2019/04/dell_smartbyte/</loc>
-    
-    <lastmod>2022-01-28</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -184,11 +193,81 @@
 
   <url>
     <loc>https://llccd.eu.org/</loc>
-    <lastmod>2022-05-07</lastmod>
+    <lastmod>2023-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
+  
+  <url>
+    <loc>https://llccd.eu.org/tags/Windows/</loc>
+    <lastmod>2023-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/tags/Software/</loc>
+    <lastmod>2023-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/tags/RDP/</loc>
+    <lastmod>2023-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/tags/Preinstall/</loc>
+    <lastmod>2023-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/tags/Electronic/</loc>
+    <lastmod>2023-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/tags/Windows-Update/</loc>
+    <lastmod>2023-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/tags/Hardware/</loc>
+    <lastmod>2023-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/tags/Radio/</loc>
+    <lastmod>2023-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/tags/RFID/</loc>
+    <lastmod>2023-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://llccd.eu.org/tags/Android/</loc>
+    <lastmod>2023-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 
   
