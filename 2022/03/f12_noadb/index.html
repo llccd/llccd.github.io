@@ -26,7 +26,7 @@
 <meta property="og:description" content="安卓版 Chrome 和 Firefox 都需要使用 USB 线连接电脑并且开启 ADB 调试才能使用 F12 开发者工具进行远程调试操作。利用端口转发工具 socat，可以不使用 ADB，直接通过局域网来完成网页的调试。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-01T07:25:00.000Z">
-<meta property="article:modified_time" content="2023-06-03T07:03:12.521Z">
+<meta property="article:modified_time" content="2023-06-04T09:15:02.476Z">
 <meta property="article:author" content="llccd">
 <meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
@@ -128,12 +128,12 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="../../../archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -214,7 +214,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-06-03 15:03" itemprop="dateModified" datetime="2023-06-03T15:03:12+08:00">2023-06-03</time>
+      <time title="Modified: 2023-06-04 17:15" itemprop="dateModified" datetime="2023-06-04T17:15:02+08:00">2023-06-04</time>
     </span>
 
   
@@ -230,10 +230,10 @@
         <p>安卓版 Chrome 和 Firefox 都需要使用 USB 线连接电脑并且开启 ADB 调试才能使用 F12 开发者工具进行远程调试操作。利用端口转发工具 socat，可以不使用 ADB，直接通过局域网来完成网页的调试。</p>
 <span id="more"></span>
 <p>在设置里面勾选“远程调试”之后，Chrome 会创建一个抽象(abstract) UNIX Socket，名为 <code>chrome_devtools_remote</code>，同样 Firefox 也会创建一个名为 <code>org.mozilla.fenix/firefox-debugger-socket</code> 的 abstract UNIX Socket。使用 Chrome 进行远程调试实际上执行的是下面的 ADB 指令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb forward tcp:9222 localabstract:chrome_devtools_remote</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb forward tcp:9222 localabstract:chrome_devtools_remote</span><br></pre></td></tr></table></figure>
 
 <p>因此只需要使用其他工具将这个 socket 转换为一般的 TCP socket 就可以实现通过网络的浏览器远程调试，在这里我们使用 socat 工具。在一般的 Linux 中，abstract UNIX Socket 没有 ACL 保护，是极不安全的；但在 Android 中开启了 SELinux 并限制了普通 APP 对这类 Socket 的连接操作，因此需要使用 root 或 shell 用户来连接 APP 创建的抽象 Socket。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socat abstract-connect:chrome_devtools_remote tcp-listen:9222</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socat abstract-connect:chrome_devtools_remote tcp-listen:9222</span><br></pre></td></tr></table></figure>
 
 <p>运行指令后，在 chrome://inspect/#devices 里面添加 <code>[IP]:9222</code> ，随后就可以直接开始调试。</p>
 

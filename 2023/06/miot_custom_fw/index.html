@@ -26,7 +26,7 @@
 <meta property="og:description" content="使用小米模组的第三方智能设备需要接入米家才能使用，通过编译和刷入自定义固件，可以实现不依赖小米云服务器的纯本地控制。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-06-04T04:06:00.000Z">
-<meta property="article:modified_time" content="2023-06-04T08:04:53.256Z">
+<meta property="article:modified_time" content="2023-06-04T09:09:26.784Z">
 <meta property="article:author" content="llccd">
 <meta property="article:tag" content="Hardware">
 <meta name="twitter:card" content="summary">
@@ -129,12 +129,12 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="../../../archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -209,7 +209,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2023-06-04 12:06 / Modified: 16:04" itemprop="dateCreated datePublished" datetime="2023-06-04T12:06:00+08:00">2023-06-04</time>
+      <time title="Created: 2023-06-04 12:06 / Modified: 17:09" itemprop="dateCreated datePublished" datetime="2023-06-04T12:06:00+08:00">2023-06-04</time>
     </span>
 
   
@@ -228,7 +228,7 @@
 <h2 id="固件编写"><a href="#固件编写" class="headerlink" title="固件编写"></a>固件编写</h2><p>这类设备的硬件架构通常是小米 IoT 模块和主控 MCU 通过一组 UART 进行通信，在 <a target="_blank" rel="noopener" href="https://iot.mi.com/new/doc/accesses/direct-access/embedded-development/wifi/module-dev/serial-communication">小米 IoT 开发者平台</a> 里面可以查到具体协议。因此自定义固件只需要不断读取并解析串口内容，并根据通信协议为 MCU 的指令生成响应。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;HardwareSerial.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">HardwareSerial <span class="title">SerialPort</span><span class="params">(<span class="number">2</span>)</span></span>; <span class="comment">// use UART2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    SerialPort.begin(<span class="number">115200</span>, SERIAL_8N1, <span class="number">16</span>, <span class="number">17</span>); <span class="comment">// GPIO 16,17</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    delay(<span class="number">200</span>);</span><br><span class="line">    <span class="keyword">char</span> lineBuffer[<span class="number">64</span>];</span><br><span class="line">    <span class="keyword">while</span>(SerialPort.available()) &#123;</span><br><span class="line">        <span class="keyword">int</span> length = SerialPort.readBytesUntil(<span class="string">&#x27;\r&#x27;</span>, lineBuffer, <span class="keyword">sizeof</span>(lineBuffer) - <span class="number">1</span>);</span><br><span class="line">        lineBuffer[length] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">strncmp</span>(lineBuffer, <span class="string">&quot;model&quot;</span>, <span class="number">5</span>))</span><br><span class="line">            HandleModel(...);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!<span class="built_in">strncmp</span>(lineBuffer, <span class="string">&quot;mcu_version&quot;</span>, <span class="number">11</span>))</span><br><span class="line">            SerialPort.print(<span class="string">&quot;ok\r&quot;</span>); <span class="comment">// do nothing</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (...)</span><br><span class="line">            HandleXX(...);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            SerialPort.print(<span class="string">&quot;error\r&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="编译和刷入"><a href="#编译和刷入" class="headerlink" title="编译和刷入"></a>编译和刷入</h2><p>小米 ESP32 模块和一般的 ESP32-WROOM-32D 模块不一样，其中的 Core1 被屏蔽了，只能单核运行；另外 efuse blk0 的校验和也是不正确的，运行原版 esp-idf 会报错。因此需要使用 patch 过的 sdk 来编译 (<a target="_blank" rel="noopener" href="https://github.com/mmakaay/arduino-esp32-unicore-no-mac-crc/tree/main">https://github.com/mmakaay/arduino-esp32-unicore-no-mac-crc/tree/main</a>)</p>
+<h2 id="编译和刷入"><a href="#编译和刷入" class="headerlink" title="编译和刷入"></a>编译和刷入</h2><p>小米 ESP32 模块和一般的 ESP32-WROOM-32D 模块不一样，其中的 Core1 被屏蔽了，只能单核运行；另外 efuse blk0 的校验和也是不正确的，运行原版 esp-idf 会报错。因此需要使用 patch 过的 SDK 来编译 (<a target="_blank" rel="noopener" href="https://github.com/mmakaay/arduino-esp32-unicore-no-mac-crc/tree/main">https://github.com/mmakaay/arduino-esp32-unicore-no-mac-crc/tree/main</a>)</p>
 <p>刷入固件的过程和普通的 ESP32 相同，拉低 GPIO0 进入串口刷机模式，用 esptool 即可实现烧录。在刷之前可以先备份原厂固件：<code>esptool --port /dev/ttyUSBx --baud 512000 read_flash 0 0x400000 backup.bin</code>，同时保存一下原厂固件的串口输出。</p>
 <h2 id="通过-IoT-模块控制设备"><a href="#通过-IoT-模块控制设备" class="headerlink" title="通过 IoT 模块控制设备"></a>通过 IoT 模块控制设备</h2><p>在 miot 中，对设备的控制是通过 set_properties 和 get_properties 命令实现的。根据设备型号去 <a target="_blank" rel="noopener" href="https://home.miot-spec.com/spec/%7Bmodel%7D">https://home.miot-spec.com/spec/{model}</a> 查询支持的属性及其对应的 SIID 和 PIID，利用这些信息就可以实现对设备的控制。</p>
 
@@ -247,8 +247,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="../../../2022/11/arduino_mega32u4/" rel="prev" title="手动控制 Arduino Leonardo 的 Tx/Rx LED">
-                  <i class="fa fa-chevron-left"></i> 手动控制 Arduino Leonardo 的 Tx/Rx LED
+                <a href="../../01/conntrack_helper/" rel="prev" title="在 Linux 中根据协议的默认端口分配 conntrack helper">
+                  <i class="fa fa-chevron-left"></i> 在 Linux 中根据协议的默认端口分配 conntrack helper
                 </a>
             </div>
             <div class="post-nav-item">

@@ -18,28 +18,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"llccd.eu.org","root":"/","images":"../../../images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="../../../js/config.js"></script>
-<meta name="description" content="现象：启动时登录界面出现 “your device is rebooting to perform some configuration tasks” ，重启后所有音频输入输出设备消失。设备管理器显示声卡驱动工作正常，甚至可以在“Audio inputs and outputs”里面看到相应的设备。如果使用远程桌面连接到这台计算机并且设置“在远程机器上播放音频”，声音可以正常使用。">
+<meta name="description" content="自从 Linux 移除了自动分配 helper 的功能 net.netfilter.nf_conntrack_helper 之后，所有的 conntrack helper 需要手动分配才能生效。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Win10 控制台登录无法找到音频设备">
-<meta property="og:url" content="https://llccd.eu.org/2021/12/console_security/index.html">
+<meta property="og:title" content="在 Linux 中根据协议的默认端口分配 conntrack helper">
+<meta property="og:url" content="https://llccd.eu.org/2023/01/conntrack_helper/index.html">
 <meta property="og:site_name" content="llccd&#39;s blog">
-<meta property="og:description" content="现象：启动时登录界面出现 “your device is rebooting to perform some configuration tasks” ，重启后所有音频输入输出设备消失。设备管理器显示声卡驱动工作正常，甚至可以在“Audio inputs and outputs”里面看到相应的设备。如果使用远程桌面连接到这台计算机并且设置“在远程机器上播放音频”，声音可以正常使用。">
+<meta property="og:description" content="自从 Linux 移除了自动分配 helper 的功能 net.netfilter.nf_conntrack_helper 之后，所有的 conntrack helper 需要手动分配才能生效。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-12-21T06:02:20.000Z">
-<meta property="article:modified_time" content="2023-06-03T07:07:27.757Z">
+<meta property="article:published_time" content="2023-01-18T01:40:00.000Z">
+<meta property="article:modified_time" content="2023-06-04T09:11:58.549Z">
 <meta property="article:author" content="llccd">
-<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://llccd.eu.org/2021/12/console_security/">
+<link rel="canonical" href="https://llccd.eu.org/2023/01/conntrack_helper/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://llccd.eu.org/2021/12/console_security/","path":"2021/12/console_security/","title":"Win10 控制台登录无法找到音频设备"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://llccd.eu.org/2023/01/conntrack_helper/","path":"2023/01/conntrack_helper/","title":"在 Linux 中根据协议的默认端口分配 conntrack helper"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Win10 控制台登录无法找到音频设备 | llccd's blog</title>
+<title>在 Linux 中根据协议的默认端口分配 conntrack helper | llccd's blog</title>
   
 
 
@@ -183,7 +183,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://llccd.eu.org/2021/12/console_security/">
+    <link itemprop="mainEntityOfPage" href="https://llccd.eu.org/2023/01/conntrack_helper/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="../../../images/avatar.gif">
@@ -196,7 +196,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Win10 控制台登录无法找到音频设备
+          在 Linux 中根据协议的默认端口分配 conntrack helper
         </h1>
 
         <div class="post-meta-container">
@@ -207,14 +207,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-12-21 14:02" itemprop="dateCreated datePublished" datetime="2021-12-21T14:02:20+08:00">2021-12-21</time>
+      <time title="Created: 2023-01-18 09:40" itemprop="dateCreated datePublished" datetime="2023-01-18T09:40:00+08:00">2023-01-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-06-03 15:07" itemprop="dateModified" datetime="2023-06-03T15:07:27+08:00">2023-06-03</time>
+      <time title="Modified: 2023-06-04 17:11" itemprop="dateModified" datetime="2023-06-04T17:11:58+08:00">2023-06-04</time>
     </span>
 
   
@@ -227,11 +227,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>现象：启动时登录界面出现 “your device is rebooting to perform some configuration tasks” ，重启后所有音频输入输出设备消失。设备管理器显示声卡驱动工作正常，甚至可以在“Audio inputs and outputs”里面看到相应的设备。如果使用远程桌面连接到这台计算机并且设置“在远程机器上播放音频”，声音可以正常使用。</p>
+        <p>自从 Linux 移除了自动分配 helper 的功能 net.netfilter.nf_conntrack_helper 之后，所有的 conntrack helper 需要手动分配才能生效。</p>
 <span id="more"></span>
-<p>原因是注册表中的 “ConsoleSecurity” 被系统设置成了空值，恢复默认值后问题消失。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Terminal Server\WinStations]</span><br><span class="line">&quot;ConsoleSecurity&quot;=hex:01,00,14,80,9c,00,00,00,a8,00,00,00,00,00,00,00,14,00,00,\</span><br><span class="line">  00,02,00,88,00,06,00,00,00,00,00,14,00,01,00,00,00,01,01,00,00,00,00,00,05,\</span><br><span class="line">  04,00,00,00,00,00,14,00,bf,03,0f,00,01,01,00,00,00,00,00,05,12,00,00,00,00,\</span><br><span class="line">  00,14,00,89,00,0f,00,01,01,00,00,00,00,00,05,13,00,00,00,00,00,14,00,81,00,\</span><br><span class="line">  00,00,01,01,00,00,00,00,00,05,14,00,00,00,00,00,18,00,bf,03,0f,00,01,02,00,\</span><br><span class="line">  00,00,00,00,05,20,00,00,00,20,02,00,00,00,00,18,00,21,01,00,00,01,02,00,00,\</span><br><span class="line">  00,00,00,05,20,00,00,00,2b,02,00,00,01,01,00,00,00,00,00,05,12,00,00,00,01,\</span><br><span class="line">  01,00,00,00,00,00,05,12,00,00,00</span><br></pre></td></tr></table></figure>
 
+<p>利用下面的 iptables 指令，可以模拟被移除的自动分配 helper 行为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nf_conntrack_ftp</span></span><br><span class="line">iptables -t raw -A PREROUTING -p tcp --dport 21 -j CT --helper ftp</span><br><span class="line"><span class="comment"># nf_conntrack_irc</span></span><br><span class="line">iptables -t raw -A PREROUTING -p tcp --dport 6667 -j CT --helper irc</span><br><span class="line"><span class="comment"># nf_conntrack_sip</span></span><br><span class="line">iptables -t raw -A PREROUTING -p tcp --dport 5060 -j CT --helper sip</span><br><span class="line">iptables -t raw -A PREROUTING -p udp --dport 5060 -j CT --helper sip</span><br><span class="line"><span class="comment"># nf_conntrack_tftp</span></span><br><span class="line">iptables -t raw -A PREROUTING -p udp --dport 69 -j CT --helper tftp</span><br><span class="line"><span class="comment"># nf_conntrack_h323</span></span><br><span class="line">iptables -t raw -A PREROUTING -p udp --dport 1719 -j CT --helper RAS</span><br><span class="line">iptables -t raw -A PREROUTING -p tcp --dport 1720 -j CT --helper Q.931</span><br><span class="line"><span class="comment"># nf_conntrack_amanda</span></span><br><span class="line">iptables -t raw -A PREROUTING -p udp --dport 10080 -j CT --helper amanda</span><br><span class="line"><span class="comment"># nf_conntrack_snmp</span></span><br><span class="line">iptables -t raw -A PREROUTING -p udp --dport 161 -j CT --helper snmp</span><br><span class="line"><span class="comment"># nf_conntrack_pptp</span></span><br><span class="line">iptables -t raw -A PREROUTING -p tcp --dport 1723 -j CT --helper pptp</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -240,20 +240,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="../../../tags/Windows/" rel="tag"># Windows</a>
+              <a href="../../../tags/Linux/" rel="tag"># Linux</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="../../10/administrator_revert/" rel="prev" title="将 Windows 默认管理员账户恢复为本地用户">
-                  <i class="fa fa-chevron-left"></i> 将 Windows 默认管理员账户恢复为本地用户
+                <a href="../../../2022/11/arduino_mega32u4/" rel="prev" title="手动控制 Arduino Leonardo 的 Tx/Rx LED">
+                  <i class="fa fa-chevron-left"></i> 手动控制 Arduino Leonardo 的 Tx/Rx LED
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="../../../2022/02/win_flags/" rel="next" title="Windows 添加 flag emoji 支持">
-                  Windows 添加 flag emoji 支持 <i class="fa fa-chevron-right"></i>
+                <a href="../../06/miot_custom_fw/" rel="next" title="为小米 IoT 模块编译自定义固件 (ESP32)">
+                  为小米 IoT 模块编译自定义固件 (ESP32) <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
